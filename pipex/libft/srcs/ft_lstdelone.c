@@ -6,13 +6,11 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 00:20:57 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/01/12 21:02:51 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/01/13 23:35:32 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
-
-
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {

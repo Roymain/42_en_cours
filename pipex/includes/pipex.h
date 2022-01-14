@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 22:20:56 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/01/12 22:34:01 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/01/13 23:33:14 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,11 @@ typedef struct s_val
 	char	*bin;
 	char	*path;
 }			t_val;
+
+void	ft_free(t_val *val);
+char	*ft_path(char *cmd, char **env, t_val *val);
+void	ft_freealone(char **good, char **wrong, t_val *val);
+
+char	*ft_catpath(char	*cmd, char *dir);
 
 #endif

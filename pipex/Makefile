@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 22:21:47 by rcuminal          #+#    #+#              #
-#    Updated: 2022/01/12 21:12:15 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/01/14 02:55:30 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ PATH_OBJ		=	./objs/
 PATH_SRC_BONUS	=	./srcs_bonus/
 PATH_OBJ_BONUS	=	./objs_bonus/
                 	
-SRC 			=   	pipex.c		
+SRC 			=   	pipex.c		\
+						utils.c
 			
                 	
 OBJ_SRC			=	$(SRC:.c=.o)
@@ -112,6 +113,7 @@ clean:
 
 fclean: clean
 	@make fclean -C libft
+	@make fclean -C gnl
 	@printf "$(CCYAN)[✅]\t$(CCRED)Removal of $(NAME)...$(CCEND)\n"
 	@-/bin/rm -f $(PATH_OBJ)*.a
 	@-/bin/rm -rf $(PATH_OBJ)
