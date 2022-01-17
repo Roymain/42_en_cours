@@ -74,6 +74,7 @@ $(NAME): $(OBJ_S)
 	@printf "\r\t\033[K$(CCYAN)[✅]\t$(EXEC) $(CCPURPLE)--> $(CCYAN) Gen Objs$(CCEND)"
 	@printf "\n$(CCYAN)[✅]\t$(CCPURPLE)Creation of Objs $(EXEC)...$(CCEND)\n"
 	@make -C libft
+	@make -C gnl
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ)$(NAME) $(OBJ_S)
 	@$(CC)  $(PATH_OBJ)$(NAME) $(DEPEND) -o $(EXEC)
