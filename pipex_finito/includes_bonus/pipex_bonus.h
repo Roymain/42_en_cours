@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 21:19:38 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/01/12 05:58:44 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/01/18 02:31:37 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_val
 	int		pfd[2];
 	int		fd1;
 	int		fd2;
+	int		i;
+	char	*fn;
 	char	*bin;
 	char	*path;
 	t_list	*list;

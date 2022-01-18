@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 21:22:50 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/01/12 21:55:46 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/01/18 03:00:03 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,51 +154,65 @@ void	ft_waitallpid(t_list *lst)
 	}
 }
 
+void	ft_redir(t_val *val)
+{
+	dup2(val->fd1, 0);
+	dup2(val->fd2, 1);
+}
+
+int	ft_prepare(t_val **val, char **argv, int argc)
+{
+	if (ft_checkarg(argv, argc) == 1)
+		exit(write(2, "pipex: parse error near `|'\n", 29));
+	(*val) = ft_memalloc(sizeof(t_val));
+	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
+	{
+		(*val)->fn = ft_here_doc((*val), argv, argc);
+		(*val)->fd1 = open(".here_doc", O_RDONLY);
+		return (3);
+	}
+	else
+	{
+		(*val)->fd1 = open(argv[1], O_RDONLY);
+		(*val)->fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
+	if (((*val)->fd1 < 0)
+		|| (*val)->fd2 < 0)
+	{
+		perror("file doesnt exist ");
+		free(*val);
+		exit (EXIT_FAILURE);
+	}
+	return (2);
+}
+
+int	ft_preheredoc(t_val *val, char **argv, char **env, int i)
+{
+	ft_freefn(val->fn);
+	if (!val->list->next)
+	{
+		ft_pipexalone(val, env, val->list->cmd, val->list->pid);
+		waitpid(val->list->pid, NULL, 0);
+		ft_lstclear(&(val->list), &free);
+		free(val);
+		return (0);
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_val		*val;
 	t_list		*tmp;
 	int			i;
-	char		*fn;
-	
 
-	i = 2;
-	if (ft_checkarg(argv, argc) == 1)
-		return (write(2, "pipex: parse error near `|'\n", 29));
-	val = ft_memalloc(sizeof(t_val));
-	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
-	{
-		fn = ft_here_doc(val, argv, argc);
-		i = 3;
-		val->fd1 = open(".here_doc", O_RDONLY);
-	}
-	else
-	{
-		val->fd1 = open(argv[1], O_RDONLY);
-		val->fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	}
-	if ((val->fd1 < 0)
-		|| val->fd2 < 0)
-	{
-		perror("file doesnt exist ");
-		return (-1);
-	}
+	i = ft_prepare(&val, argv, argc);
 	ft_parsargv(argv, &val->list, argc, i);
 	tmp = val->list;
-	dup2(val->fd1, 0);
-	dup2(val->fd2, 1);
+	ft_redir(val);
 	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
-	{	
-		ft_freefn(fn);
-		if (!val->list->next)
-		{
-			ft_pipexalone(val, env, val->list->cmd, val->list->pid);
-			waitpid(val->list->pid, NULL, 0);
-			ft_lstclear(&tmp, &free);
-			free(val);
+		if (ft_preheredoc(val, argv, env, i) == 0)
 			return (0);
-		}
-	}
 	while (val->list->next && argv[i + 1][0] != '\0')
 	{
 		ft_pipex(val, env, val->fd1, val->list->pid);
@@ -212,13 +226,7 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-
-
-
-
-
 					///// MURAILLE /////
-
 
 // 	ft_pipex(val, env, val->fd1);
 // 	val->list = val->list->next;
