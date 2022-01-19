@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 22:21:47 by rcuminal          #+#    #+#              #
-#    Updated: 2022/01/14 02:55:30 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/01/19 03:10:08 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC_O			=	$(addprefix $(PATH_SRC), $(SRC))
 OBJ_S			=	$(addprefix $(PATH_OBJ), $(OBJ_SRC))
                 	
 SRC_BONUS 		=   pipex_bonus.c	\
-					utils_bonus.c	
+					utils_bonus.c	\
+					path.c
 						
                 	
 OBJ_SRC_BONUS	=	$(SRC_BONUS:.c=.o)
