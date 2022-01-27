@@ -3,10 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD:ft_printf/libftprintf.h
 /*   Created: 2021/11/19 19:30:58 by rcuminal          #+#    #+#             */
 /*   Updated: 2021/11/20 02:26:32 by rcuminal         ###   ########.fr       */
+=======
+/*   Created: 2022/01/03 22:20:56 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/19 03:13:18 by Romain           ###   ########.fr       */
+>>>>>>> 99685bb2725f3bdad439ff611718074a0630efa9:pipex_finito/includes/pipex.h
 /*                                                                            */
 /* ************************************************************************** */
 
