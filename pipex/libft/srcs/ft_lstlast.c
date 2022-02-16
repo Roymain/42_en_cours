@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.c                                           :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2021/11/11 23:50:21 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/03 20:00:45 by rcuminal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/libft.h"
 
-int	time_diff(struct timeval *start, struct timeval *end)
+t_list	*ft_lstlast(t_list *lst)
 {
-	return ((end->tv_sec - start->tv_sec)
-		+ (end->tv_usec - start->tv_usec));
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+	{
+		lst = lst->next;
+	}
+	return (lst);
 }

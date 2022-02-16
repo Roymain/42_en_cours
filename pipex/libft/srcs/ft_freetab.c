@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.c                                           :+:      :+:    :+:   */
+/*   ft_freetab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2022/01/04 20:22:41 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/13 22:14:39 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/libft.h"
 
-int	time_diff(struct timeval *start, struct timeval *end)
+void	ft_freetab(char **tab)
 {
-	return ((end->tv_sec - start->tv_sec)
-		+ (end->tv_usec - start->tv_usec));
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

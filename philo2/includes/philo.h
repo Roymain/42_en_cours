@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:22:58 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:55 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/02/16 21:48:21 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,51 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+struct	s_val;
+
 typedef struct s_philosopher
 {
 	pthread_t		philosopher;
 	struct timeval	start;
 	struct timeval	end;
 	int				state;
-	int				eating;
-	int				i;
+	int				id;
 	int				dead;
-
+	int				endd;
+	int				meal;
+	struct s_val	*val;
 	pthread_mutex_t	forkette;
 }			t_philosopher;
 
 typedef struct s_val
 {
+	int				*tab;
+	int				time;
 	int				numerus;
 
-	int				alive;
+	int				allalive;
 
 	struct timeval	startprog;
-
 	t_philosopher	*philo;
 	pthread_mutex_t	write;
-	int				*tab;
+
 }			t_val;
-int   time_diff(struct timeval *start, struct timeval *end);
+
 void	*ft_calloc( size_t elementCount, size_t elementSize);
 void	*ft_memalloc(size_t size);
-int	    ft_atoi(char *str);
+int		ft_atoi(char *str);
+void	ft_printstate(t_philosopher *philosopher, t_val *val);
+void	ft_initmutex(t_val *val);
+void	ft_destroyallmutex(t_val *val);
+int		time_diff(struct timeval *start, struct timeval *end);
 
+void	ft_parsarg(int argc, char **argv, t_val *val);
+void	setval(t_philosopher *philo, t_val *val);
+void	ft_printstate(t_philosopher *philosopher, t_val *val);
+
+void	ft_sleep(t_val *val);
+void	philoeat(t_val *val, t_philosopher *philo);
+int		ft_eat(t_val *val, t_philosopher *philo);
+void	ft_dead(t_val *val, t_philosopher *philo);
 
 #endif
-
-//// peut etre rajoyter start et end dans philo pr pouvoir reset une fois qu ils ont mange

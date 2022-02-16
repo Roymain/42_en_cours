@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.c                                           :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2021/11/09 08:52:57 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/03 20:01:19 by rcuminal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/libft.h"
 
-int	time_diff(struct timeval *start, struct timeval *end)
+void	ft_putchar_fd(char c, int fd)
 {
-	return ((end->tv_sec - start->tv_sec)
-		+ (end->tv_usec - start->tv_usec));
+	write(fd, &c, 1);
 }

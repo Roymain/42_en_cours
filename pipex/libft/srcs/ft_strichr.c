@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.c                                           :+:      :+:    :+:   */
+/*   ft_strichr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2022/01/04 02:15:03 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/11 21:20:37 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/libft.h"
 
-int	time_diff(struct timeval *start, struct timeval *end)
+int	ft_strichr(const char *str, int to_find)
 {
-	return ((end->tv_sec - start->tv_sec)
-		+ (end->tv_usec - start->tv_usec));
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == (char)to_find)
+			return (i);
+		i++;
+	}
+	if (str[i] == (char)to_find)
+		return (i);
+	return (-1);
 }

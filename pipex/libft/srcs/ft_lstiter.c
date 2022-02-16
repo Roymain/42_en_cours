@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.c                                           :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2021/11/12 01:23:35 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/04 21:49:32 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/libft.h"
 
-int	time_diff(struct timeval *start, struct timeval *end)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	return ((end->tv_sec - start->tv_sec)
-		+ (end->tv_usec - start->tv_usec));
+	while (lst)
+	{
+		if (f)
+			f(lst->cmd);
+		lst = lst->next;
+	}
 }

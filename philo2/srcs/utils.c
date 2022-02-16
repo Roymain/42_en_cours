@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:32:25 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/07 21:23:40 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:01:11 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,10 @@ void	*ft_memalloc(size_t size)
 	}
 	else
 		return (NULL);
+}
+
+void	ft_free(t_val *val, t_philosopher *philo)
+{
+	free(val);
+	free(philo);
 }

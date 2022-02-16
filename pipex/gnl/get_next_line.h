@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.c                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2021/11/15 13:08:03 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/10 20:18:12 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	time_diff(struct timeval *start, struct timeval *end)
-{
-	return ((end->tv_sec - start->tv_sec)
-		+ (end->tv_usec - start->tv_usec));
-}
+# include "../libft/includes/libft.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 500
+# endif
+
+char	*get_next_line(int fd);
+char	*ft_replace(char *buffer, int i);
+int		ft_checkn(char *buffer, char c);
+char	*ft_realloc(char *strr, int i, char *buffer);
+#endif

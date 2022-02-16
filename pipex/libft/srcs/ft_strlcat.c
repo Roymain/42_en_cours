@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.c                                           :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/09 01:25:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2021/11/09 08:53:39 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/01/03 20:01:37 by rcuminal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/libft.h"
 
-int	time_diff(struct timeval *start, struct timeval *end)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	return ((end->tv_sec - start->tv_sec)
-		+ (end->tv_usec - start->tv_usec));
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = ft_strlen(dst);
+	if (dstsize < count || dstsize == 0)
+		return (ft_strlen(src) + dstsize);
+	while (src[i] != '\0' && i + count < dstsize - 1)
+	{
+		dst[i + count] = src[i];
+		i++;
+	}
+	dst[i + count] = '\0';
+	return (count + ft_strlen(src));
 }
