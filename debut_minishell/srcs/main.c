@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/02/19 01:03:58 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:22:49 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,6 @@ int	main(int argc, char **argv, char **ev)
 
 	env = ft_memalloc(sizeof(t_env));
 	ft_parsenv(&env->list, ev);
-	ft_showexport(env);
+	ft_showenv(env);
 	return (0);
 }

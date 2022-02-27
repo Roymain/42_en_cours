@@ -6,7 +6,7 @@
 /*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:32:57 by Romain            #+#    #+#             */
-/*   Updated: 2022/01/26 21:48:45 by Romain           ###   ########.fr       */
+/*   Updated: 2022/02/25 17:12:55 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,9 @@ void	*ft_recherche(void *arg)
 int main(int argc, char **argv)
 {
     t_val           *val;
-    
+    char    *str;
+
+    str = 
     val->numerus = 1;
     if (argc > 4 || argc < 7)
     {

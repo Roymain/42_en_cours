@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 19:44:56 by rcuminal          #+#    #+#              #
-#    Updated: 2022/02/19 00:17:07 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/02/23 22:15:10 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,12 @@ SRC		= ft_atoi.c \
 		ft_memalloc.c \
 		ft_strichr.c \
 		ft_strndup.c \
-		ft_freetab.c
+		ft_freetab.c \
+		ft_track_free_tab.c \
+		ft_track_free_all.c \
+		ft_error_mal.c \
+		ft_add_mal.c
+		
 
 OBJ_SRC		=	$(SRC:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:13:48 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/02/19 00:16:49 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:17:30 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_track
+{
+    void    **mem;
+    int        len;
+}            t_track;
 
 typedef struct s_list
 {
@@ -76,4 +82,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
+void	*ft_error_mal(void *mem, t_track **track);
+void	**ft_error_malt(void **mem, t_track **track);
+void	**ft_add_malloc(t_track **track, int len);
+void	*ft_track(void *src, t_track **track);
+void	**ft_track_tab(void **src, t_track **track);
+void	**ft_track_free(t_track **track, void *mem);
+void	**ft_track_free_all(t_track **track);
+void	**ft_track_free_tab(t_track **track, void **mem);
 #endif
