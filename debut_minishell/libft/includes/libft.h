@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:13:48 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/02/23 22:17:30 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/01 21:18:54 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 typedef struct s_track
 {
-    void    **mem;
-    int        len;
-}            t_track;
+	void	**mem;
+	int		len;
+}			t_track;
 
 typedef struct s_list
 {

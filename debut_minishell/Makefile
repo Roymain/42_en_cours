@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 22:58:14 by rcuminal          #+#    #+#              #
-#    Updated: 2022/02/16 23:03:45 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/03/01 22:43:01 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ PATH_OBJ		=	./objs/
 PATH_SRC_BONUS	=	./srcs_bonus/
 PATH_OBJ_BONUS	=	./objs_bonus/
                 	
-SRC 			=   	main.c \
+SRC 			=   	main.c			\
+						built-in.c		\
 			
                 	
 OBJ_SRC			=	$(SRC:.c=.o)
@@ -50,7 +51,7 @@ MK				= 	Makefile
 SAN 			= 	-g3 -fsanitize=address
 FLAGS 			= 	-Wall -Werror -Wextra 
 #-ggdb 
-LIB				= 	-llibft
+LIB				= 	-lreadline
 DEPEND			= 	libft/objs/libft.a \
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c $(HEADER)
@@ -73,7 +74,7 @@ $(NAME): $(OBJ_S)
 	@make -C libft
 	# @printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ)$(NAME) $(OBJ_S)
-	@$(CC) $(FLAGS) $(PATH_OBJ)$(NAME) $(DEPEND) -o $(EXEC)
+	@$(CC) $(LIB) $(FLAGS) $(PATH_OBJ)$(NAME) $(DEPEND) -o $(EXEC)
 	# @printf "$(CCYAN)[✅]\t$(CCPURPLE)Compilation ./$(EXEC)...$(CCEND)\n"
 
 bonus: $(OBJ_BONUS)

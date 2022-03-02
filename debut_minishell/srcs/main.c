@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/02/21 16:22:49 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/02 01:53:39 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_printoneenv(t_env *env, char *var)
+{
+	while (ft_strncmp(env->list->key, var, 7) != 0)
+	{
+		env->list = env->list->next;
+	}
+	printf("%s", env->list->content);
+}
 
 int	ft_compare(char *prev, char *next)
 {
@@ -30,7 +39,6 @@ int	ft_compare(char *prev, char *next)
 	return (-1);
 }
 
-
 int	ft_sorted(t_list *list)
 {
 	while (list->next)
@@ -41,7 +49,6 @@ int	ft_sorted(t_list *list)
 	}
 	return (1);
 }
-
 
 void	ft_showexport(t_env *env)
 {
@@ -65,11 +72,9 @@ void	ft_showexport(t_env *env)
 	}
 	while (tmp2)
 	{
-		
 			dprintf(2, "%s   ", tmp2->key);
 			dprintf(2, "%s", tmp2->content);
 			dprintf(2, "\n");
-		
 		tmp2 = tmp2->next;
 	}
 	return ;
@@ -78,7 +83,6 @@ void	ft_showexport(t_env *env)
 void	ft_export(t_env *env, char *export)
 {
 	t_list	*tmp;
-
 
 	tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '=')),
 			ft_strnndup(export, ft_strichr(export, '\0'),
@@ -121,9 +125,22 @@ void	ft_parsenv(t_list **list, char **ev)
 int	main(int argc, char **argv, char **ev)
 {
 	t_env	*env;
+	t_track	*tracker;
+	char	*line;
+	char	path[4096];
 
-	env = ft_memalloc(sizeof(t_env));
+
+	tracker = ft_memalloc(sizeof(t_track));
+	env = ft_track(ft_memalloc(sizeof(t_env)), &tracker);
 	ft_parsenv(&env->list, ev);
-	ft_showenv(env);
+	while (1)
+	{
+		line = readline("minishell ~ ");
+		builtin_unset(env, "OLDPWD");
+
+//		ft_printoneenv(env, "OLDPWD");			//renvoie pointeur vers le repertoire (NULL (0x0) si ca echoue)
+		free(line);
+	}
+	ft_track_free_all(&tracker);
 	return (0);
 }
