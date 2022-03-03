@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:16:18 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/02/19 00:16:32 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/03 00:57:46 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@ char	*ft_strnndup(const char *src, int size, int start)
 	char	*str;
 
 	i = start;
-	str = (char *)malloc((sizeof(char) * size) + 1);
+	str = (char *)malloc((sizeof(char) * size) + 2);
 	if (str == NULL)
 		return (0);
+	if (!src[i])
+	{
+		i = 0;
+		str[i] = ' ';
+		i++;
+	}
 	while (src[i])
 	{
 		str[i - start] = src[i];

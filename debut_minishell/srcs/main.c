@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/02 01:53:39 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/03 01:05:41 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,27 +72,53 @@ void	ft_showexport(t_env *env)
 	}
 	while (tmp2)
 	{
-			dprintf(2, "%s   ", tmp2->key);
-			dprintf(2, "%s", tmp2->content);
-			dprintf(2, "\n");
+		dprintf(2, "%s   ", tmp2->key);
+		dprintf(2, "%s", tmp2->content);
+		dprintf(2, "\n");
 		tmp2 = tmp2->next;
 	}
 	return ;
+}
+
+int	contentequal(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 void	ft_export(t_env *env, char *export)
 {
 	t_list	*tmp;
 
-	tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '=')),
-			ft_strnndup(export, ft_strichr(export, '\0'),
-				ft_strichr(export, '=') + 1));
-	ft_lstadd_back(&env->list, tmp);
+	if (contentequal(export, '=') == 1)
+	{
+		tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '=')),
+				ft_strnndup(export, ft_strichr(export, '\0'),
+					ft_strichr(export, '=') + 1));
+		ft_lstadd_back(&env->list, tmp);
+	}
+	else
+	{
+		tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '\0')),
+				"\0");
+		ft_lstadd_back(&env->list, tmp);
+	}
 	return ;
 }
 
 void	ft_showenv(t_env *env)
 {
+	t_list	*tmp;
+
+	tmp = env->list;
 	while (env->list)
 	{
 		if (env->list->content)
@@ -103,6 +129,7 @@ void	ft_showenv(t_env *env)
 		}
 		env->list = env->list->next;
 	}
+	env->list = tmp;
 }
 
 void	ft_parsenv(t_list **list, char **ev)
@@ -129,18 +156,20 @@ int	main(int argc, char **argv, char **ev)
 	char	*line;
 	char	path[4096];
 
-
 	tracker = ft_memalloc(sizeof(t_track));
 	env = ft_track(ft_memalloc(sizeof(t_env)), &tracker);
 	ft_parsenv(&env->list, ev);
-	while (1)
+	line = readline("minishell ~ ");
+	while (line)
 	{
-		line = readline("minishell ~ ");
-		builtin_unset(env, "OLDPWD");
-
+	//	builtin_unset(env, "OLDPWD");
+		ft_export(env, "DAD");
+		ft_showenv(env);
 //		ft_printoneenv(env, "OLDPWD");			//renvoie pointeur vers le repertoire (NULL (0x0) si ca echoue)
 		free(line);
+		line = readline("minishell ~ ");
 	}
 	ft_track_free_all(&tracker);
+	printf("exit\n");
 	return (0);
 }
