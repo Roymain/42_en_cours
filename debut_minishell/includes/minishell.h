@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:41 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/02 01:14:42 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:50:55 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_cmd
 	t_list	*listredit;						//les fichiers de redir
 }			t_cmd;
 
+char	ft_lowerchar(t_list	*list);
 void	builtin_cd(t_env *env, char *dir, char *path);
 void	builtin_pwd(char *path);
 void	builtin_unset(t_env *env, char *key);

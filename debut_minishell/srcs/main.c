@@ -6,11 +6,13 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/03 01:05:41 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:59:00 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+
 
 void	ft_printoneenv(t_env *env, char *var)
 {
@@ -50,35 +52,7 @@ int	ft_sorted(t_list *list)
 	return (1);
 }
 
-void	ft_showexport(t_env *env)
-{
-	t_list	*tmp;
-	t_list	*tmp2;
-	int	i;
 
-	i = 0;
-	tmp = env->list;
-	tmp2 = tmp;
-	while (i++ < 10)
-	{
-		while (tmp)
-		{
-			if (ft_compare(tmp->key, tmp->next->key) == -1)
-			{
-				tmp->next = tmp2;
-				tmp = tmp->next;
-			}
-		}
-	}
-	while (tmp2)
-	{
-		dprintf(2, "%s   ", tmp2->key);
-		dprintf(2, "%s", tmp2->content);
-		dprintf(2, "\n");
-		tmp2 = tmp2->next;
-	}
-	return ;
-}
 
 int	contentequal(char *str, char c)
 {
@@ -94,7 +68,7 @@ int	contentequal(char *str, char c)
 	return (0);
 }
 
-void	ft_export(t_env *env, char *export)
+void	ft_export(t_env *env, char *export)   //checker avant si le nom de la var est bien un char (ft_alphanum)
 {
 	t_list	*tmp;
 
@@ -160,11 +134,10 @@ int	main(int argc, char **argv, char **ev)
 	env = ft_track(ft_memalloc(sizeof(t_env)), &tracker);
 	ft_parsenv(&env->list, ev);
 	line = readline("minishell ~ ");
+	ft_export(env, "LOOL=888");
 	while (line)
 	{
-	//	builtin_unset(env, "OLDPWD");
-		ft_export(env, "DAD");
-		ft_showenv(env);
+		builtin_pwd(path);
 //		ft_printoneenv(env, "OLDPWD");			//renvoie pointeur vers le repertoire (NULL (0x0) si ca echoue)
 		free(line);
 		line = readline("minishell ~ ");

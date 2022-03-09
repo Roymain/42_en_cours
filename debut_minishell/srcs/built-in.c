@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:41:06 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/02 01:18:33 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:43:50 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	builtin_pwd(char *path)							//ajouter fd?
 
 void	builtin_unset(t_env *env, char *key)
 {
-	while (ft_strncmp(env->list->key, key, ft_strlen(key)) != 0)
+	while (ft_strncmp(env->list->key, key, ft_strlen(env->list->key)) != 0)
 		env->list = env->list->next;
 	ft_lstdelone(env->list, &free);
 }
