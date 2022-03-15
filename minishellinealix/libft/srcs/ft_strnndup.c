@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnndup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:16:18 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/03 00:57:46 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:39:37 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strnndup(const char *src, int size, int start)
 		str[i] = ' ';
 		i++;
 	}
-	while (src[i])
+	while (i < size + start)
 	{
 		str[i - start] = src[i];
 		i++;
