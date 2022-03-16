@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:41:06 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/14 20:15:26 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/16 05:26:09 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	builtin_unset(t_env *env, char *key)
 	t_list *tmp;
 	
 	tmp = env->list;
-	while (ft_strncmp(tmp->key, key, ft_strlen(key)))
+	while (ft_strncmp(tmp->next->key, key, ft_strlen(key)))
 		tmp = tmp->next;
 	dprintf(1, "KEY = %s\n", tmp->key); 
-	ft_lstdelone(tmp, &free);
+	tmp = tmp->next->next;
 }
 
 //void	builtin_echo

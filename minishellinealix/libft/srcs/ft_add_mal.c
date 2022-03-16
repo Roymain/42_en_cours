@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_add_mal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:12:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/02/23 22:12:12 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/16 05:39:46 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+#include <stdio.h>
 
 void	**ft_add_malloc(t_track **track, int len)
 {
@@ -45,6 +46,8 @@ void	*ft_track(void *src, t_track **track)
 	i = 0;
 	if (!src)
 		return (NULL);
+	
+	
 	(*track)->mem = ft_add_malloc(track, 0);
 	while ((*track)->mem[i] != NULL)
 		i++;

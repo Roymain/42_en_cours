@@ -3,40 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/15 17:44:36 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/16 05:53:44 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	ft_strposnonalpha(const char *str)
+{
+	int	i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (ft_isalpha(str[i]) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 void	ft_parse_redir(t_list	*list, t_track *tracker)
 {
 	int	i;
+	int	j;
 	char **cmd;
 	t_list	*tmp;
 
+	j = 0;
 	i = 0;
-	list->redir = ft_track(ft_memalloc(sizeof(t_list)), &tracker);
 	while (list)
 	{
+		list->redir = ft_track(ft_memalloc(sizeof(t_list)), &tracker);
 		cmd = ft_split(list->key, ' ', 0);
-		
+		ft_track_tab((void **)cmd, &tracker);
 		while (cmd[i])
 		{
 			if (ft_strichr(cmd[i], '<') > -1)
 			{
 				if (cmd[i][ft_strichr(cmd[i], '<') + 1] == '<')
 				{
-					tmp = ft_lstnew("<<", ft_strdup(cmd[i + 1]));
-					ft_lstadd_back(&(list->redir), tmp);
-					i++;
+					if (!cmd[i][ft_strichr(cmd[i], '<') + 2])
+					{
+						tmp = ft_lstnew("<<", ft_strdup(cmd[i + 1]), tracker);
+						ft_lstadd_back(&(list->redir), tmp);
+						i++;
+					}
+					else
+					{
+						tmp = ft_lstnew("<<", ft_strnndup(cmd[i], ft_strlen(cmd[i]) - (ft_strichr(cmd[i], '<') - 2), ft_strichr(cmd[i], '<') + 2), tracker);
+						ft_lstadd_back(&(list->redir), tmp);
+					}
 				}
 				else
 				{
-					tmp = ft_lstnew("<", ft_strndup(cmd[i], ft_strichr(cmd[i], '<')));
+					tmp = ft_lstnew("<", ft_strndup(cmd[i], ft_strichr(cmd[i], '<')), tracker);
 					ft_lstadd_back(&(list->redir), tmp);
 				}
 			}
@@ -46,15 +70,13 @@ void	ft_parse_redir(t_list	*list, t_track *tracker)
 				{
 					if (!cmd[i][ft_strichr(cmd[i], '>') + 2])
 					{
-						tmp = ft_lstnew(ft_strndup(cmd[0], (ft_strichr(cmd[i], '>') + 2)), ft_strdup(cmd[i + 1]));
+						tmp = ft_lstnew(ft_strndup(cmd[0], (ft_strichr(cmd[i], '>') + 2)), ft_strdup(cmd[i + 1]), tracker);
 						ft_lstadd_back(&(list->redir), tmp);
 						i++;
-						
 					}
 					else
 					{
-
-						tmp = ft_lstnew(ft_strndup(cmd[i], (ft_strichr(cmd[i], '>') + 2)), ft_strnndup(cmd[i], ft_strlen(cmd[i]) - (ft_strichr(cmd[i], '>') - 2) , ft_strichr(cmd[i], '>') + 2));
+						tmp = ft_lstnew(ft_strndup(cmd[i], (ft_strichr(cmd[i], '>') + 2)), ft_strnndup(cmd[i], ft_strlen(cmd[i]) - (ft_strichr(cmd[i], '>') - 2), ft_strichr(cmd[i], '>') + 2), tracker);
 						ft_lstadd_back(&(list->redir), tmp);
 					}
 				}
@@ -62,24 +84,33 @@ void	ft_parse_redir(t_list	*list, t_track *tracker)
 				{
 					if (!cmd[i][ft_strichr(cmd[i], '>') + 1])
 					{
-						tmp = ft_lstnew(ft_strndup(cmd[i], ft_strichr(cmd[i], '>') + 1), ft_strdup(cmd[i + 1]));
+						tmp = ft_lstnew(ft_strndup(cmd[i], ft_strichr(cmd[i], '>') + 1), ft_strdup(cmd[i + 1]), tracker);
 						ft_lstadd_back(&(list->redir), tmp);
 						i++;
-						
 					}
-					else	
+					else
 					{
-							tmp = ft_lstnew(ft_strndup(cmd[i], (ft_strichr(cmd[i], '>') + 1)), ft_strnndup(cmd[i], ft_strlen(cmd[i]) - (ft_strichr(cmd[i], '>') - 1) , ft_strichr(cmd[i], '>') + 1));
+						tmp = ft_lstnew(ft_strndup(cmd[i], (ft_strichr(cmd[i], '>') + 1)), ft_strnndup(cmd[i], ft_strlen(cmd[i]) - (ft_strichr(cmd[i], '>') - 1), ft_strichr(cmd[i], '>') + 1), tracker);
 						ft_lstadd_back(&(list->redir), tmp);
 					}
 				}
 			}
 			i++;
+			while (cmd[j])
+			{
+				if (ft_strichr(cmd[j], '>') > -1 && j == 0)
+					list->key = ft_strndup(cmd[j], ft_strichr(cmd[j], '>'));
+				if (ft_strichr(cmd[j], '-') > -1)
+					list->key = ft_strjoin(list->key, ft_strnndup(cmd[j], ft_strlen(cmd[j]) - ft_strposnonalpha(cmd[j]), ft_strichr(cmd[j], '-')));
+				j++;
+			}
 		}
-	//	printf("%s", list->redir->key);
 		list = list->next;
+		i = 0;
 	}
-	return;
+	while (list)
+		list = list->prev;
+	return ;
 }
 
 void	ft_printoneenv(t_env *env, char *var)
@@ -124,7 +155,7 @@ void	ft_showexport(t_env *env)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
-	int	i;
+	int		i;
 
 	i = 0;
 	tmp = env->list;
@@ -164,7 +195,7 @@ int	contentequal(char *str, char c)
 	return (0);
 }
 
-void	ft_export(t_env *env, char *export)
+void	ft_export(t_env *env, char *export, t_track *tracker)
 {
 	t_list	*tmp;
 
@@ -172,13 +203,13 @@ void	ft_export(t_env *env, char *export)
 	{
 		tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '=')),
 				ft_strnndup(export, ft_strichr(export, '\0'),
-					ft_strichr(export, '=') + 1));
+					ft_strichr(export, '=') + 1), tracker);
 		ft_lstadd_back(&env->list, tmp);
 	}
 	else
 	{
 		tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '\0')),
-				"\0");
+				"\0", tracker);
 		ft_lstadd_back(&env->list, tmp);
 	}
 	return ;
@@ -202,7 +233,7 @@ void	ft_showenv(t_env *env)
 	env->list = tmp;
 }
 
-void	ft_parsenv(t_list **list, char **ev)
+void	ft_parsenv(t_list **list, char **ev, t_track *tracker)
 {
 	int		i;
 	t_list	*tmp;
@@ -212,14 +243,14 @@ void	ft_parsenv(t_list **list, char **ev)
 	{
 		tmp = ft_lstnew(ft_strndup(ev[i], ft_strichr(ev[i], '=')),
 				ft_strnndup(ev[i], ft_strichr(ev[i], '\0'),
-					ft_strichr(ev[i], '=') + 1));
+					ft_strichr(ev[i], '=') + 1), tracker);
 		ft_lstadd_back(list, tmp);
 		i++;
 	}
 	return ;
 }
 
-void	ft_builtin(char *line, t_env	*env)
+void	ft_builtin(char *line, t_env	*env, t_track *tracker)
 {
 	char	*export;
 	int		i;
@@ -238,7 +269,7 @@ void	ft_builtin(char *line, t_env	*env)
 		while (i <= len && line[i] != ' ' && line[i])
 			i++;
 		export = ft_strndup(line + 7, i - 7);
-		ft_export(env, export);
+		ft_export(env, export, tracker);
 	}
 	if (!ft_strncmp(line, "unset ", 6))
 	{
@@ -282,13 +313,13 @@ int	parsingline(char *line, t_cmd	*cmd, t_track *tracker)
 		{
 			if (line[i + 1] == '\0')
 				i++;
-			tmp = ft_lstnew(ft_strndup(line + start, (i - start)), "0");
+			tmp = ft_lstnew(ft_strndup(line + start, (i - start)), "0", tracker);
 			ft_lstadd_back(&(cmd->listcmd), tmp);
-			ft_parse_redir(cmd->listcmd, tracker);
 			start = i + 1;
 		}
 		i++;
 	}
+	ft_parse_redir(cmd->listcmd, tracker);
 	return (0);
 }
 
@@ -302,31 +333,44 @@ int	main(int argc, char **argv, char **ev)
 	tracker = ft_memalloc(sizeof(t_track));
 	cmd = ft_track(ft_memalloc(sizeof(t_cmd)), &tracker);
 	env = ft_track(ft_memalloc(sizeof(t_env)), &tracker);
-	ft_parsenv(&env->list, ev);
+	ft_parsenv(&env->list, ev, tracker);
 	line = readline("minishell ~ ");
+	printf("prout\n");
 	while (line && ft_strncmp(line, "exit", ft_strlen(line)))
 	{
-		ft_builtin(line, env);			//renvoie pointeur vers le repertoire (NULL (0x0) si ca echoue)
-		parsingline(line, cmd, tracker);
+	//	ft_builtin(line, env);			//renvoie pointeur vers le repertoire (NULL (0x0) si ca echoue)
 		add_history(line);
-		while (cmd->listcmd)
-		{
-			
-			while(cmd->listcmd->redir)
-			{
-				if (cmd->listcmd->redir->key)
-					printf("%s \n", cmd->listcmd->redir->key);
-				if (cmd->listcmd->redir->content)
-					printf("%s \n", cmd->listcmd->redir->content);
-				cmd->listcmd->redir = cmd->listcmd->redir->next;
-			}
-			//printf("%s \n", cmd->listcmd->key);
-			cmd->listcmd = cmd->listcmd->next;
-		}
+		parsingline(line, cmd, tracker);
+		// while (cmd->listcmd)
+		// {
+		// 	while (cmd->listcmd->redir)
+		// 	{
+		// 		if (cmd->listcmd->redir->key)
+		// 			printf("%s \n", cmd->listcmd->redir->key);
+		// 		if (cmd->listcmd->redir->content)
+		// 			printf("%s \n", cmd->listcmd->redir->content);
+		// 		cmd->listcmd->redir = cmd->listcmd->redir->next;
+		// 	}
+		// 	printf("->>%s .\n", cmd->listcmd->key);
+		// 	cmd->listcmd = cmd->listcmd->next;
+		// }
 		free(line);
 		line = readline("minishell ~ ");
 	}
+	// ft_lstclear(&env->list, (&free));
+	// while (cmd->listcmd)
+	// 	cmd->listcmd = cmd->listcmd->prev;
+	// while (cmd->listcmd)
+	// {
+	// 	ft_lstclear(&cmd->listcmd->redir, (&free));
+	// 	cmd->listcmd = cmd->listcmd->next;
+	// }
+	// while (cmd->listcmd)
+	// 	cmd->listcmd = cmd->listcmd->prev;
+	// ft_lstclear(&cmd->listcmd, (&free));
 	ft_track_free_all(&tracker);
+//	free(line);
+	rl_clear_history();
 	printf("exit\n");
 	return (0);
 }

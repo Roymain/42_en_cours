@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnndup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:16:18 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/15 17:39:37 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/16 01:53:29 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strnndup(const char *src, int size, int start)
 	char	*str;
 
 	i = start;
-	str = (char *)malloc((sizeof(char) * size) + 2);
+	str = (char *)malloc(sizeof(char) * (size + start + 2));
 	if (str == NULL)
 		return (0);
 	if (!src[i])

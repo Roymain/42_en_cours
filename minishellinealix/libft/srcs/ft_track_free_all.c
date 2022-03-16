@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_track_free_all.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:12:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/02/23 22:12:05 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/16 06:01:25 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+#include <stdio.h>
 
 static int	ft_check_track(t_track **track, void *mem, int *check)
 {
@@ -67,8 +68,9 @@ void	**ft_track_free_all(t_track **track)
 		free(*track);
 		return (NULL);
 	}
-	while ((*track)->mem[i])
+	while ((*track)->mem[i + 1])
 	{
+		
 		free((*track)->mem[i]);
 		(*track)->len--;
 		i++;

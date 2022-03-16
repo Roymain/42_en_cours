@@ -6,17 +6,19 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 22:45:15 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/02/19 00:29:07 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/16 05:56:58 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-t_list	*ft_lstnew(char *key, char *content)
+t_list	*ft_lstnew(char *key, char *content, t_track *tracker)
 {
 	t_list	*new;
 
-	new = malloc(sizeof(t_list));
+	new = ft_track(malloc(sizeof(t_list)), &tracker);
+	ft_track((void *)content, &tracker);
+	ft_track((void *)key, &tracker);
 	if (!new)
 		return (NULL);
 	if (content[0] != '\0')
@@ -26,5 +28,6 @@ t_list	*ft_lstnew(char *key, char *content)
 	new->key = key;
 	new->next = NULL;
 	new->prev = NULL;
+	new->redir = NULL;
 	return (new);
 }

@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 22:58:14 by rcuminal          #+#    #+#              #
-#    Updated: 2022/03/14 20:20:45 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/03/16 05:58:31 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,12 @@ MK				= 	Makefile
 SAN 			= 	-g3 -fsanitize=address
 FLAGS 			= 	-Wall -Werror -Wextra 
 #-ggdb 
-LIB				= 	-lreadline
+INC_INC = -I ~/.brew/opt/readline/include
+INC_LIB = -L ~/.brew/opt/readline/lib  
+ 
+
+
+LIB				=  -lreadline	$(INC_LIB) $(INC_INC) 
 DEPEND			= 	libft/objs/libft.a \
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c $(HEADER)

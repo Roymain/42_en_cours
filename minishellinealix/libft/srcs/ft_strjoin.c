@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 08:53:37 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/01/03 20:01:36 by rcuminal         ###   ########lyon.fr   */
+/*   Updated: 2022/03/16 05:52:31 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	j = 0;
 	str = malloc(sizeof(char) * (ft_strlen(s1)
-				+ ft_strlen(s2) + 1));
+				+ ft_strlen(s2) + 2));
 	if (!str)
 		return (NULL);
 	while (s1[i])
@@ -31,6 +31,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[i] = s1[i];
 		i++;
 	}
+	str[i] = ' ';
+	i++;
 	while (s2[j])
 	{
 		str[i] = s2[j];
