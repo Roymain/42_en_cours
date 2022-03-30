@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 22:45:15 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/16 05:56:58 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/16 10:05:16 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ t_list	*ft_lstnew(char *key, char *content, t_track *tracker)
 	t_list	*new;
 
 	new = ft_track(malloc(sizeof(t_list)), &tracker);
-	ft_track((void *)content, &tracker);
-	ft_track((void *)key, &tracker);
+	// new = ft_track(malloc(sizeof(t_list)), &tracker);
+	// ft_track((void *)content, &tracker);
+	// ft_track((void *)key, &tracker);
 	if (!new)
 		return (NULL);
 	if (content[0] != '\0')

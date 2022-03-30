@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_track_free_all.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:12:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/03/16 06:01:25 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/16 09:13:22 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	**ft_track_free_all(t_track **track)
 		free(*track);
 		return (NULL);
 	}
-	while ((*track)->mem[i + 1])
+	while ((*track)->mem[i - 1])
 	{
-		
-		free((*track)->mem[i]);
+		if ((*track)->mem[i])
+			free((*track)->mem[i]);
 		(*track)->len--;
 		i++;
 	}

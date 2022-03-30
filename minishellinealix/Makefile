@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 22:58:14 by rcuminal          #+#    #+#              #
-#    Updated: 2022/03/16 05:58:31 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/03/16 09:38:37 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ $(NAME): $(OBJ_S)
 	@make -C libft
 	# @printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ)$(NAME) $(OBJ_S)
-	@$(CC) $(SAN) $(LIB) $(FLAGS) $(PATH_OBJ)$(NAME) $(DEPEND) -o $(EXEC)
+	@$(CC) $(LIB) $(FLAGS) $(PATH_OBJ)$(NAME) $(DEPEND) -o $(EXEC)
 	# @printf "$(CCYAN)[✅]\t$(CCPURPLE)Compilation ./$(EXEC)...$(CCEND)\n"
 
 bonus: $(OBJ_BONUS)

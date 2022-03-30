@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:41 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/16 03:22:43 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/16 07:44:44 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <dirent.h>
+
+
+typedef struct s_shell
+{
+	t_track *tracker;
+}			t_shell;
 
 typedef struct s_env
 {

@@ -24,7 +24,7 @@ typedef struct s_cmd
 	t_list	*listcmd;						//$ truc
 }			t_cmd;
 
-typdef struct s_shell
+typedef struct s_shell
 {
 	t_track *tracker;
 }			t_shell;
