@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 00:20:57 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/18 07:43:25 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/31 05:57:30 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 		lst->prev->next = NULL;
 	if (del)
 	{
-		if (tmp->content)
-			del(tmp->content);
-		if (tmp->key)
-			del(tmp->key);
+		while (tmp->redir)
+		{
+			del(tmp->redir);
+			tmp->redir =tmp->redir->next;
+		}
+		del(tmp->content);
+		
+		del(tmp->key);
 	}
 	free(tmp);
 }
