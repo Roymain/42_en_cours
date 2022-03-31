@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/29 14:50:28 by Romain           ###   ########.fr       */
+/*   Updated: 2022/03/31 02:30:04 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// int	ft_redirentry(char *str)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (ft_strichr(str, "<") < -1)
+// 	{
+// 		if (ft_strichr(str, "<") == 0 && (!str[1] || str[1] == "<" && !str[2]))
+// 			return (-2);
+// 		if (ft_strichr(str, "<") > 0 && !str[1])
+// 	}
+// }
 
 int	ft_strposnonalpha(const char *str)
 {
@@ -26,6 +39,25 @@ int	ft_strposnonalpha(const char *str)
 	return (-1);
 }
 
+char	*ft_strrnndup(const char *src, int size)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = (char *)malloc((sizeof(char) * size) + 1);
+	if (str == NULL)
+		return (0);
+	while (i < size)
+	{
+		str[i] = src[i];
+		i++;
+	}
+	str[i] = '\0';
+	free((void *)src);
+	return (str);
+}
+
 void	ft_parse_redir(t_list	*list)
 {
 	int	i;
@@ -37,14 +69,13 @@ void	ft_parse_redir(t_list	*list)
 	i = 0;
 	while (list)
 	{
-		
-			// list->redir = ft_memalloc(sizeof(t_list));
+		list->redir = ft_memalloc(sizeof(t_list));
 		cmd = ft_split(list->key, ' ', 0);
 		while (cmd[i])
 		{
 			if (ft_strichr(cmd[i], '<') > -1)
 			{
-				list->redir = ft_memalloc(sizeof(t_list));
+			//	list->redir = ft_memalloc(sizeof(t_list));
 				if (cmd[i][ft_strichr(cmd[i], '<') + 1] == '<')
 				{
 					if (!cmd[i][ft_strichr(cmd[i], '<') + 2])
@@ -67,7 +98,7 @@ void	ft_parse_redir(t_list	*list)
 			}
 			else if (ft_strichr(cmd[i], '>') > -1)
 			{
-				list->redir = ft_memalloc(sizeof(t_list));
+			//	list->redir = ft_memalloc(sizeof(t_list));
 				if (cmd[i][ft_strichr(cmd[i], '>') + 1] == '>')
 				{
 					if (!cmd[i][ft_strichr(cmd[i], '>') + 2])
@@ -102,10 +133,10 @@ void	ft_parse_redir(t_list	*list)
 			{
 				if (ft_strichr(cmd[j], '-') > -1 && j == 0)
 				{
-					free(list->key);
+					free(list->key);		
 					list->key = ft_strdup(cmd[j]);     //faire fonction aui marche proprement
 				}
-				if (ft_strichr(cmd[j], '>') != ft_strlen(cmd[j]) && j == 0)
+				else if (ft_strichr(cmd[j], '>') == -1 && j == 0)
 				{
 					free(list->key);
 					list->key = ft_strdup(cmd[j]);
@@ -115,23 +146,35 @@ void	ft_parse_redir(t_list	*list)
 				// //	free(list->key);
 				// 	list->key = ft_strndup(cmd[j], ft_strichr(cmd[j], '>'));
 				// }
-				if (ft_strichr(cmd[j], '-') > -1 && j != 0)
+				else if (ft_strichr(cmd[j], '-') > -1 && j != 0)
 				{
 				//	free(list->key);
 					list->key = ft_strjoin(list->key, ft_strnndup(cmd[j], ft_strlen(cmd[j]) - ft_strposnonalpha(cmd[j]), ft_strichr(cmd[j], '-')));     //faire fonction aui marche proprement
 				}
 				// if (ft_strichr(cmd[j], '>') != ft_strlen(cmd[j]) && j != 0)
 				// 	list->key = ft_strjoin(list->key,ft_strdup(cmd[j]));
+
+				else if (ft_strichr(cmd[j], '-') == -1 && ft_strichr(cmd[j], '>') == -1 && ft_strichr(cmd[j], '<') == -1 && j != 0)
+				{
+				//	free(list->key);
+					list->key = ft_strjoin(list->key, cmd[j]);     //faire fonction aui marche proprement
+				}
+				else if (ft_strichr(cmd[j], '>') > -1)
+					list->key = ft_strjoin(list->key, ft_strndup(cmd[j], ft_strichr(cmd[j], '>') - 1));
+				else if (ft_strichr(cmd[j], '<') > -1)
+				{
+					list->key = ft_strjoin(list->key, ft_strndup(cmd[j], ft_strichr(cmd[j], '<') - 1));
+				}
 				j++;
 			}
 		}
 		list = list->next;
 		j = 0;
 		i = 0;
-	}
-	// while (list)
-	// 	list = list->prev;
 	ft_freetab(cmd);
+	}
+	while (list)
+		list = list->prev;
 	return ;
 }
 
@@ -375,17 +418,20 @@ int	main(int argc, char **argv, char **ev)
 			cmd->listcmd = cmd->listcmd->next;
 		}
 		free(line);
-		while (cmd->listcmd)
-		{
-			ft_lstclear(&cmd->listcmd->redir, (&free));
-			cmd->listcmd = cmd->listcmd->next;
-		}
-		while (cmd->listcmd)
-			cmd->listcmd = cmd->listcmd->prev;
+		// while (cmd->listcmd)
+		// {
+		// 	while (cmd->listcmd->redir)
+		// 	{
+		// 		cmd->listcmd->redir = cmd->listcmd->redir->next;
+		// 	}
+		// 	printf("+1");
+		// 	cmd->listcmd = cmd->listcmd->next;
+		// }
+		// while (cmd->listcmd)
+		// 	cmd->listcmd = cmd->listcmd->prev;
 		
 		ft_lstclear(&cmd->listcmd, (&free));
 		line = readline("minishell ~ ");
-		
 	}
 	ft_lstclear(&env->list, (&free));
 	free(cmd->listcmd);
@@ -404,7 +450,7 @@ int	main(int argc, char **argv, char **ev)
 	// ft_lstclear(&cmd->listcmd, (&free));
 //	ft_track_free_all(&tracker);
 //	free(line);
-//	rl_clear_history();
+	rl_clear_history();
 	
 	printf("exit\n");
 	return (0);

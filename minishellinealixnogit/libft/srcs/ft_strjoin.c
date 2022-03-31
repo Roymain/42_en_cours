@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 08:53:37 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/16 05:52:31 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/03/31 02:33:22 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	str[i] = '\0';
+	// free((void *)s1);
+	// free((void *)s2);
 	return (str);
 }

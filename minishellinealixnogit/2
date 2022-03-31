@@ -1,0 +1,11 @@
+total 88
+drwxr-xr-x  10 rcuminal  4221    340 Mar 31 00:26 .
+drwxr-xr-x@ 14 rcuminal  4221    476 Mar 30 21:18 ..
+-rw-r--r--   1 rcuminal  4221   6148 Mar 30 21:18 .DS_Store
+-rw-r--r--   1 rcuminal  4221      0 Mar 31 00:27 2
+-rw-r--r--   1 rcuminal  4221   5109 Mar 30 21:18 Makefile
+drwxr-xr-x   4 rcuminal  4221    136 Mar 30 21:18 includes
+drwxr-xr-x   7 rcuminal  4221    238 Mar 30 21:18 libft
+-rwxr-xr-x   1 rcuminal  4221  27704 Mar 31 00:26 minishell
+drwxr-xr-x   5 rcuminal  4221    170 Mar 31 00:26 objs
+drwxr-xr-x   5 rcuminal  4221    170 Mar 30 21:18 srcs
