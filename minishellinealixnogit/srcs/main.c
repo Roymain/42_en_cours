@@ -6,11 +6,27 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/31 05:58:42 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/01 01:47:38 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// void	ft_cleanlistkey(char *str, t_list **list)
+// {
+// 	int		i;
+// 	char **cmd;
+// 	t_list	*tmp;
+	
+// 	i = 0;
+// 	cmd = ft_split(str, ' ', 0);
+// 	tmp = list;
+// 	while (cmd[i])
+// 	{
+// 		if ()
+// 		i++;
+// 	}
+// }
 
 // int	ft_redirentry(char *str)
 // {
@@ -118,13 +134,13 @@ void	ft_parse_redir(t_list	*list)
 				{
 					if (!cmd[i][ft_strichr(cmd[i], '>') + 1])
 					{
-						tmp = ft_lstnew(cmd[i] + (ft_strichr(cmd[i], '>') + 1), cmd[i + 1]);
+						tmp = ft_lstnew(">", cmd[i + 1]);
 						ft_lstadd_back(&(list->redir), tmp);
 						i++;
 					}
 					else
 					{
-						tmp = ft_lstnew(cmd[i] + (ft_strichr(cmd[i], '>') + 1), cmd[i] + (ft_strichr(cmd[i], '>') + 1));
+						tmp = ft_lstnew(">", cmd[i] + (ft_strichr(cmd[i], '>') + 1));
 						ft_lstadd_back(&(list->redir), tmp);
 					}
 				}
@@ -142,11 +158,6 @@ void	ft_parse_redir(t_list	*list)
 					free(list->key);
 					list->key = ft_strdup(cmd[j]);
 				}
-				// if (ft_strichr(cmd[j], '>') > -1 && j == 0)
-				// {
-				// //	free(list->key);
-				// 	list->key = ft_strndup(cmd[j], ft_strichr(cmd[j], '>'));
-				// }
 				else if (ft_strichr(cmd[j], '-') > -1 && j != 0)
 				{
 					help = ft_strdup(list->key);
@@ -154,9 +165,6 @@ void	ft_parse_redir(t_list	*list)
 					list->key = ft_strjoin(list->key, cmd[j] + (ft_strichr(cmd[j], '-')));     //faire fonction aui marche proprement
 					free(help);
 				}
-				// if (ft_strichr(cmd[j], '>') != ft_strlen(cmd[j]) && j != 0)
-				// 	list->key = ft_strjoin(list->key,ft_strdup(cmd[j]));
-
 				else if (ft_strichr(cmd[j], '-') == -1 && ft_strichr(cmd[j], '>') == -1 && ft_strichr(cmd[j], '<') == -1 && j != 0)
 				{
 					help = ft_strdup(list->key);
@@ -417,19 +425,19 @@ int	main(int argc, char **argv, char **ev)
 	//	ft_builtin(line, env);			//renvoie pointeur vers le repertoire (NULL (0x0) si ca echoue)
 		add_history(line);
 		parsingline(line, cmd);
-		// while (cmd->listcmd)
-		// {
-		// 	while (cmd->listcmd->redir)
-		// 	{
-		// 		if (cmd->listcmd->redir->key)
-		// 			printf("%s \n", cmd->listcmd->redir->key);
-		// 		if (cmd->listcmd->redir->content)
-		// 			printf("%s \n", cmd->listcmd->redir->content);
-		// 		cmd->listcmd->redir = cmd->listcmd->redir->next;
-		// 	}
-		// 	printf("->>%s .\n", cmd->listcmd->key);
-		// 	cmd->listcmd = cmd->listcmd->next;
-		// }
+		while (cmd->listcmd)
+		{
+			while (cmd->listcmd->redir)
+			{
+				if (cmd->listcmd->redir->key)
+					printf("%s \n", cmd->listcmd->redir->key);
+				if (cmd->listcmd->redir->content)
+					printf("%s \n", cmd->listcmd->redir->content);
+				cmd->listcmd->redir = cmd->listcmd->redir->next;
+			}
+			printf("->>%s .\n", cmd->listcmd->key);
+			cmd->listcmd = cmd->listcmd->next;
+		}
 		free(line);
 		// while (cmd->listcmd)
 		// {
