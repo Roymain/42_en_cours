@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:12:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/03/16 05:39:46 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/05 23:30:13 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	**ft_add_malloc(t_track **track, int len)
 		len = 1;
 	if ((*track)->len == 0)
 	{
-		dest = ft_error_mal((void **)malloc(sizeof(void *) * (len + 1)), track);
+		dest = ft_error_mal((void **)ft_memalloc(sizeof(void *) * (len + 1)), track);
 		ft_bzero(dest, sizeof(dest) * (len + 1));
 		(*track)->len += len + 1;
 		return (dest);

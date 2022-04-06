@@ -6,36 +6,48 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:41:06 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/16 05:26:09 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/06 02:24:27 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*ft_realloc(char *strr, int i, char *buffer)			//reutilise pas checké
+void	builtin_export(t_env *env, char *export)
 {
-	char	*temp;
-	int		j;
-	int		k;
+	t_list	*tmp;
 
-	temp = NULL;
-	k = 0;
-	j = ft_strlen(strr);
-	temp = ft_calloc (j + i + 2, 1);
-	while (strr[k] != '\0')
+	if (contentequal(export, '=') == 1)
 	{
-		temp[k] = strr[k];
-		k++;
+		tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '=')),
+				ft_strnndup(export, ft_strichr(export, '\0'),
+					ft_strichr(export, '=') + 1));
+		ft_lstadd_back(&env->list, tmp);
 	}
-	temp[k + i + 1] = '\0';
-	while (i >= 0)
+	else
 	{
-		temp[k + i] = buffer[i];
-		i--;
+		tmp = ft_lstnew(ft_strndup(export, ft_strichr(export, '\0')),
+				"\0");
+		ft_lstadd_back(&env->list, tmp);
 	}
-	free (strr);
-	strr = NULL;
-	return (temp);
+	return ;
+}
+
+void	builtin_env(t_env *env)
+{
+	t_list	*tmp;
+
+	tmp = env->list;
+	while (env->list)
+	{
+		if (env->list->content)
+		{
+			dprintf(2, "%s   ", env->list->key);
+			dprintf(2, "%s", env->list->content);
+			dprintf(2, "\n");
+		}
+		env->list = env->list->next;
+	}
+	env->list = tmp;
 }
 
 void	builtin_cd(t_env *env, char *dir, char *path)							//naze        utilse get env mais je vois pas encorem comment se deplacer

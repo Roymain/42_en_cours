@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 22:58:14 by rcuminal          #+#    #+#              #
-#    Updated: 2022/03/31 03:47:29 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/04/06 04:35:53 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ PATH_OBJ_BONUS	=	./objs_bonus/
                 	
 SRC 			=   	main.c			\
 						built-in.c		\
+						built-inutils.c \
+						parsing.c		\
 			
                 	
 OBJ_SRC			=	$(SRC:.c=.o)
@@ -88,7 +90,7 @@ bonus: $(OBJ_BONUS)
 	@make -C libft
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ_BONUS)$(NAMEBONUS) $(OBJ_BONUS)
-	@$(CC) $(FLAGS) $(PATH_OBJ_BONUS)$(NAMEBONUS) $(DEPEND) -o $(EXEC)_bonus
+	@$(CC) $(SAN) $(FLAGS) $(PATH_OBJ_BONUS)$(NAMEBONUS) $(DEPEND) -o $(EXEC)_bonus
 	# @printf "$(CCYAN)[✅]\t$(CCPURPLE)Compilation ./$(EXEC)_bonus...$(CCEND)\n"
 
 san: $(OBJ_S)

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 00:20:57 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/31 05:57:30 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/05 22:51:17 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 		lst->prev->next = NULL;
 	if (del)
 	{
-		while (tmp->redir)
-		{
-			del(tmp->redir);
-			tmp->redir =tmp->redir->next;
-		}
+		// while (tmp->redir)
+		// {
+		// 	del(tmp->redir);
+		// 	tmp->redir =tmp->redir->next;
+		// }
 		del(tmp->content);
 		
 		del(tmp->key);

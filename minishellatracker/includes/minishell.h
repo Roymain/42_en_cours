@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:41 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/03/16 03:22:43 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/06 04:04:26 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,16 @@ typedef struct s_cmd
 	t_list	*listcmd;						//$ truc
 }			t_cmd;
 
+void	ft_parsenv(t_list **list, char **ev, t_track **t);
+void	parsingline(char *line, t_cmd	*cmd, t_track *track, t_env *env);
+
+void	builtin_export(t_env *env, char *export);
+void	builtin_env(t_env *env);
 void	builtin_cd(t_env *env, char *dir, char *path);
 void	builtin_pwd(char *path);
 void	builtin_unset(t_env *env, char *key);
+
+int	contentequal(char *str, char c);
+int	ft_compare(char *prev, char *next);
 
 #endif

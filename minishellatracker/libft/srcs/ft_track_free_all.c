@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 18:12:31 by jmilhas           #+#    #+#             */
-/*   Updated: 2022/03/16 06:01:25 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:41:37 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	**ft_track_free_all(t_track **track)
 		free(*track);
 		return (NULL);
 	}
-	while ((*track)->mem[i + 1])
+	while ((*track)->mem[i])
 	{
 		
 		free((*track)->mem[i]);

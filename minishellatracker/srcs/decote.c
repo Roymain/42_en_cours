@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 00:47:03 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/01 00:49:53 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/06 02:20:08 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,32 @@
 // 		if (ft_strichr(str, "<") > 0 && !str[1])
 // 	}
 // }
+
+static char	*ft_realloc(char *strr, int i, char *buffer)			//reutilise pas checké
+{
+	char	*temp;
+	int		j;
+	int		k;
+
+	temp = NULL;
+	k = 0;
+	j = ft_strlen(strr);
+	temp = ft_calloc (j + i + 2, 1);
+	while (strr[k] != '\0')
+	{
+		temp[k] = strr[k];
+		k++;
+	}
+	temp[k + i + 1] = '\0';
+	while (i >= 0)
+	{
+		temp[k + i] = buffer[i];
+		i--;
+	}
+	free (strr);
+	strr = NULL;
+	return (temp);
+}
 
 int	ft_strposnonalpha(const char *str)
 {
