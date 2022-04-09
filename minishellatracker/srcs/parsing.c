@@ -6,11 +6,57 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:27:25 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/06 05:55:35 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/09 05:54:53 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_strrichr(const char *str, int to_find, int start)
+{
+	int	i;
+
+	i = start;
+	while (str[i])
+	{
+		if (str[i] == (char)to_find)
+			return (i);
+		i++;
+	}
+	if (str[i] == (char)to_find)
+		return (i);
+	return (-1);
+}
+
+
+char	*ft_strjoinnospace(char const *s1, char const *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	j = 0;
+	str = malloc(sizeof(char) * (ft_strlen(s1)
+				+ ft_strlen(s2) + 4));
+	if (!str)
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\0';
+	return (str);
+}
 
 char	*ft_simple(char *str, t_env *env, int *i, t_track *tracker)
 {
@@ -20,63 +66,203 @@ char	*ft_simple(char *str, t_env *env, int *i, t_track *tracker)
 
 	count = 0;
 	j = 0;
-	tmp = ft_track(malloc((ft_strlen(str) - 1) * sizeof(char *)), &tracker);
-	while (str[j] && count < 2)
+	tmp = ft_track(malloc((ft_strlen(str) - 1) * sizeof(char)), &tracker);
+	while (str[j] && j < *i)
 	{
-		if (str[j] == '\''  && count < 2)
-		{
-			count++;
-			//if (count == 2)
-				
-		}
-		else//{
-			tmp[j] = str[j];//printf("%c", str[j]);printf("%c", tmp[j]);}
+		tmp[j] = str[j];
 		j++;
 	}
-//	printf("str == %s\n", tmp);
+	j++;
+	while (str[j] && str[j] != '\'')
+	{
+		tmp[j - 1] = str[j];
+		j++;
+	}
 	*i = j - 2;
-	// while (str[j] != '\0')
-	// {
+	j++;
+	while (str[j] != '\0')
+	{
+		tmp[j - 2] = str[j];
+		j++;
+	}
+	tmp[j - 2] = '\0';
 
-	// 	tmp[j] = str[j + 1];
+	
+	// tmp = ft_track(malloc((ft_strlen(str) + 2) * sizeof(char *)), &tracker);
+	// while (str[j] && count == 0)
+	// {
+	// 	if (str[j] == '\''  && count < 2)	
+	// 		count++;
+	// 	else
+	// 		tmp[j] = str[j];
 	// 	j++;
 	// }
+	// while (str[j] != '\'')
+	// {
+
+	// 	tmp[j - 1] = str[j];
+	// 	j++;
+	// }
+	// j++;
+	// while (str[j])
+	// {
+	// 	tmp[j - 2] = str[j];
+	// 	j++;
+	// }
+	// tmp[j - 2] = 0;
+	// *i = j - 2;
 	return (tmp);
 }
 
-char	*ft_double(char *str, t_env *env, int *i)
+char	*ft_returncontent(char *arg, t_env *env)
 {
-	return (str);
+	t_list	*tmp;
+
+
+	tmp = env->list;
+	while (ft_strncmp(tmp->key, arg + 1, ft_strlen(arg)) != 0)
+		tmp = tmp->next;
+	return (tmp->content);
 }
 
-void	ft_quotes(char *str, t_env *env, t_track *tracker)
+char	*ft_joinarg(char *str, t_env *env, int *i, t_track *tracker, char *tmp)
+{
+	char *arg;
+	int	j;
+	
+	j = *i;
+	while (str[j] != '"')
+		j++;
+	arg = ft_track(malloc((j - *i + 3) * sizeof(char *)), &tracker);
+	j = 0;
+	while (str[*i + j] != '"')
+	{
+		
+		
+			arg[j] = str[*i + j];
+		j++;
+		
+	}
+	if (arg[j - 1] == '\'')
+		arg[j - 1] = 0;
+	arg[j] = 0;
+printf("%c", str[*i + j - 1]);
+	tmp = ft_strjoinnospace(tmp, ft_returncontent(arg, env));
+	if (str[*i + j - 1] == '\'')
+	{
+		while (tmp[j])
+			j++;
+		tmp[j] = '\'';
+		tmp[j + 1] = '\0';
+		*i = j + 2;
+	return (tmp);
+	}
+		
+	j = 0;
+	while (tmp[j])
+		j++;
+	*i = j + 1;
+	return (tmp);
+}
+
+char	*ft_double(char *str, t_env *env, int *i, t_track *tracker)
+{
+	char	*tmp;
+	int		j;
+	int		count;
+	int		k;
+
+	count = 0;
+	j = 0;
+	k = 0;
+	
+	tmp = ft_track(malloc((ft_strlen(str) + 2) * sizeof(char *)), &tracker);
+	while (str[j] && j < *i)
+	{
+	
+			tmp[j] = str[j];
+		j++;
+	}
+	j++;
+
+	k = j;
+	while (str[j] && str[j] != '"')
+	{
+		if (str[j] == '$')
+		{
+			tmp[j - 1] = 0;
+			tmp = ft_joinarg(str, env, &j, tracker, tmp);
+		}
+		else
+			tmp[j - 1] = str[j];
+		j++;
+		
+	}
+	tmp[j - 1] = 0;
+	if (str[ft_strrichr(str, '"', k) + 1])
+		tmp = ft_strjoinnospace(tmp, str + ft_strrichr(str, '"', k) + 1 );
+//	*i = j - 3;
+
+
+
+
+	
+	// tmp = ft_track(malloc((ft_strlen(str) + 2) * sizeof(char *)), &tracker);
+	// while (str[j] && count == 0 )
+	// {
+	// 	if (str[j] == '"')	
+	// 		count++;
+	// 	else
+	// 		tmp[j] = str[j];
+	// 	j++;
+	// }
+	// k = j;
+	// while (str[j] && str[j] != '"')
+	// {
+	// 	if (str[j] == '$')
+	// 	{
+	// 		tmp[j - 1] = 0;
+	// 		tmp = ft_joinarg(str, env, &j, tracker, tmp);
+	// 	}
+	// 	else
+	// 		tmp[j - 1] = str[j];
+	// 	j++;
+		
+	// }
+	// tmp[j - 1] = 0;
+	// if (str[ft_strrichr(str, '"', k) + 1])
+	// 	tmp = ft_strjoinnospace(tmp, str + ft_strrichr(str, '"', k) + 1 );
+	// *i = j - 2;
+	return (tmp);
+}
+
+char	*ft_quotes(char *str, t_env *env, t_track *tracker)
 {
 	char *tmp;
 	int		i;
 	char	q;
-//	int	count;
 
 	q = 'q';
 	i = 0;
-//	count = 0;
 	while(str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (str[i] == '\'' || str[i] == '"')
 		{
+			
+			//printf("   str = %s \n", str);
 			q = str[i];
 			if (q == '\'')
-			{
-				//printf("i = %d", i);
 				str = ft_simple(str, env, &i, tracker);
-			//	printf("i = %d", i);
-				printf("str == %s\n", str);
-			}
-			// else
-			// 	ft_double(str, env, &i);
+			else if (q == '"')
+				str = ft_double(str, env, &i, tracker);
 		}
+		q = 'q';
 		i++;
+		// printf("   i = %d \n", i);
+		// printf("   q = %c \n", str[i]);
 	}
-	return ;
+	str[i] = 0;
+	return (str);
 }
 
 void	ft_parse_redir(t_list	*list, t_track *tracker)
@@ -250,7 +436,7 @@ void	parsingline(char *line, t_cmd	*cmd, t_track *track, t_env *env)
 			if (line[i + 1] == '\0')
 				i++;
 			tmp = ft_lstnew(ft_track(ft_strndup(line + start, (i - start)), &(track)), "");
-			ft_quotes(tmp->key, env, track);
+			tmp->key = ft_quotes(tmp->key, env, track);
 			ft_track(tmp, &(track));
 			ft_lstadd_back(&(cmd->listcmd), tmp);
 			start = i + 1;

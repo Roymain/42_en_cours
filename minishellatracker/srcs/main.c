@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/06 04:28:48 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/09 00:21:05 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **ev)
 					printf("%s \n", cmd->listcmd->redir->content);
 				cmd->listcmd->redir = cmd->listcmd->redir->next;
 			}
-			printf("->>%s .\n", cmd->listcmd->key);
+			printf("==>>%s .\n", cmd->listcmd->key);
 			cmd->listcmd = cmd->listcmd->next;
 		}				
 		ft_track_free_all(&(trackcmd));		

@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 22:58:14 by rcuminal          #+#    #+#              #
-#    Updated: 2022/04/06 04:35:53 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/04/08 23:22:07 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ $(NAME): $(OBJ_S)
 	@make -C libft
 	# @printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ)$(NAME) $(OBJ_S)
-	@$(CC)  $(LIB) $(FLAGS) $(PATH_OBJ)$(NAME) $(DEPEND) -o $(EXEC)
+	@$(CC) $(SAN) $(LIB) $(FLAGS) $(PATH_OBJ)$(NAME) $(DEPEND) -o $(EXEC)
 	# @printf "$(CCYAN)[✅]\t$(CCPURPLE)Compilation ./$(EXEC)...$(CCEND)\n"
 
 bonus: $(OBJ_BONUS)
