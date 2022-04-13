@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 22:58:14 by rcuminal          #+#    #+#              #
-#    Updated: 2022/04/08 23:22:07 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/04/13 04:35:52 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRC 			=   	main.c			\
 						built-in.c		\
 						built-inutils.c \
 						parsing.c		\
+						exec.c 			\
+						exec_utils.c 	\
 			
                 	
 OBJ_SRC			=	$(SRC:.c=.o)

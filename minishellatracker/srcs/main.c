@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/09 00:21:05 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/13 04:43:26 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,20 @@ int	main(int argc, char **argv, char **ev)
 		ft_track(ft_strdup("ok"), &trackcmd);
 		add_history(line);
 		parsingline(line, cmd, trackcmd, env);
-		while (cmd->listcmd)
-		{
-			while (cmd->listcmd->redir)
-			{
-				if (cmd->listcmd->redir->key)
-					printf("%s \n", cmd->listcmd->redir->key);
-				if (cmd->listcmd->redir->content)
-					printf("%s \n", cmd->listcmd->redir->content);
-				cmd->listcmd->redir = cmd->listcmd->redir->next;
-			}
-			printf("==>>%s .\n", cmd->listcmd->key);
-			cmd->listcmd = cmd->listcmd->next;
-		}				
+		// while (cmd->listcmd)
+		// {
+		// 	while (cmd->listcmd->redir)
+		// 	{
+		// 		if (cmd->listcmd->redir->key)
+		// 			printf("%s \n", cmd->listcmd->redir->key);
+		// 		if (cmd->listcmd->redir->content)
+		// 			printf("%s \n", cmd->listcmd->redir->content);
+		// 		cmd->listcmd->redir = cmd->listcmd->redir->next;
+		// 	}
+		// 	printf("==>>%s .\n", cmd->listcmd->key);
+		// 	cmd->listcmd = cmd->listcmd->next;
+		// }		
+		ft_exec(env, cmd);		
 		ft_track_free_all(&(trackcmd));		
 		free(line);
 		line = readline("minishell ~ ");
