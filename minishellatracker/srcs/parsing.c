@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:27:25 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/13 04:44:45 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/14 03:44:34 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,12 @@ char	*ft_double(char *str, t_env *env, int *i, t_track *tracker)
 			return (tmp);
 		}
 		else
-			tmp[j - 1] = str[j];
+		{
+			if (str[j] == ' ')
+				tmp[j - 1] = '\\';
+			else
+				tmp[j - 1] = str[j];
+		}
 		j++;
 		
 	}
@@ -211,7 +216,6 @@ char	*ft_quotes(char *str, t_env *env, t_track *tracker)
 		q = 'q';
 		i++;
 	}
-//	printf("%s", str);
 	return (str);
 }
 
@@ -330,9 +334,7 @@ void	ft_parse_redir(t_list	*list, t_track *tracker)
 				else if (ft_strichr(cmd[j], '<') > -1)
 				{
 					if (!cmd[j][ft_strichr(cmd[j], '<') + 2])
-						j++;
-					// else			
-					// 	list->key = ft_track(ft_strjoin(list->key, cmd[j] + (ft_strichr(cmd[j], '<') )), &tracker);													
+						j++;												
 				}
 				j++;
 			}
@@ -395,7 +397,6 @@ void	parsingline(char *line, t_cmd	*cmd, t_track *track, t_env *env)
 		}
 		i++;
 	}
-//	printf("%zu", i);
 	ft_parse_redir(cmd->listcmd, track);
 	return ;
 }

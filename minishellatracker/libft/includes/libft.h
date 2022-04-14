@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:13:48 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/05 23:14:35 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/14 01:15:55 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_list
 	struct s_list	*redir;
 	struct s_list	*prev;
 	struct s_list	*next;
+	int				fdin;
+	int				fdout;
 }			t_list;
 
 void	ft_freetab(char **tab);

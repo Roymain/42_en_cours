@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/13 04:43:26 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/14 04:04:19 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	main(int argc, char **argv, char **ev)
 	{                                                                    //renvoie pointeur vers le repertoire (NULL (0x0) si ca echoue)
 		trackcmd = ft_memalloc(sizeof(t_track));
 		cmd = ft_track(ft_memalloc(sizeof(t_cmd)), &(trackcmd));
+		cmd->fdin = 0;
+		cmd->fdout = 1;
 		ft_track(ft_strdup("ok"), &trackcmd);
 		add_history(line);
 		parsingline(line, cmd, trackcmd, env);

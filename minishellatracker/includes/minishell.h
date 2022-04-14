@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:41 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/13 04:25:44 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/14 05:23:10 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,19 @@ typedef struct s_env
 
 typedef struct s_cmd
 {
+	int				fdin;
+	int				fdout;
 	t_list	*listcmd;						//$ truc
 }			t_cmd;
 
+
+
+char	*ft_nobackpossiblee(char *str);
+void	ft_nobackpossible(char **str);
+
+char	*ft_strjoinequal(char const *s1, char const *s2);
+char	**ft_trad(t_env *env);
+int		ft_lstsize_env(t_list *lst);
 
 char	*ft_catpath(char	*cmd, char *dir);
 char	*ft_path(char *cmd, char **env, int i);

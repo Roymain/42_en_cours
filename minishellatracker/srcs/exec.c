@@ -6,32 +6,61 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 03:08:31 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/13 05:54:15 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/14 05:23:55 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// ft_pid(int	*pfd, char *bin)
-void	ft_pid(int	*pfd)
+// deuxieme triche pr " vwerv v   ""vwe" voir nonackpossible executils2
+int	ft_redir(t_list *lst, t_list *cmd)
 {
-	// close(pfd[1]);
-	// dup2(pfd[0], 0);
-	// free(bin);
-	// bin = NULL;
-	return ;
+	int	fd;
+	t_list	*list;
+	int	i;
+	
+	i = 0;
+	list = lst;
+	cmd->fdout = dup(1);
+	while (list)
+	{
+		if (ft_strncmp(list->key, ">", ft_strlen(list->key)) == 0)
+		{
+			fd = open(ft_nobackpossiblee(list->content), O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			cmd->fdout = dup(1);
+			dup2(fd, 1);	
+		}
+		else if (ft_strncmp(list->key, ">>", ft_strlen(list->key)) == 0)
+		{
+			fd = open(ft_nobackpossiblee(list->content), O_WRONLY | O_CREAT | O_APPEND, 0644);
+			cmd->fdout = dup(1);
+			dup2(fd, 1);
+		}
+		else if (ft_strncmp(list->key, "<", ft_strlen(list->key)) == 0)
+		{
+			fd = open(ft_nobackpossiblee(list->content), O_WRONLY, 0644);
+			cmd->fdin = dup(0);
+			dup2(fd, 0);
+		}
+		else if (ft_strncmp(list->key, "<<", ft_strlen(list->key)) == 0)
+			i = 1;
+		
+		list = list->next;
+	}
+	return (i);
 }
 
-void	ft_pipexalone(char *cmd, char **env, pid_t pid, int	*pfd)
+void	ft_execcmdpipe(t_list *cmd, char **env, pid_t pid, int	*pfd)
 {
 	char	*path;
 	char **split;
 	
-	split = ft_split(cmd, ' ', 0);
-	if (cmd[0] != '\0')
+	split = ft_split(cmd->key, ' ', 0);
+	ft_nobackpossible(split);
+	if (cmd->key[0] != '\0')
 	{
 		path = ft_path(split[0], env, 0);
-		if (ft_strncmp(cmd, path, ft_strlen(path)) == 0)
+		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
 			return ((void)printf("command not found : %s", path));
 	}
 	else
@@ -41,112 +70,188 @@ void	ft_pipexalone(char *cmd, char **env, pid_t pid, int	*pfd)
 	if (pid == -1)
 		exit(printf("error fork"));
 	if (pid)
-		ft_pid(pfd);
+	{
+		close(pfd[1]);
+		dup2(pfd[0], 0);
+	}
 	else
 	{
-		if (cmd[0] != '\0')
+		close(pfd[0]);
+		dup2(pfd[1], 1);
+		if (cmd->key[0] != '\0')
 		{
-
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
 			execve(path, split , env);
 			perror("error execve ");
+			exit (EXIT_FAILURE);
 		}
 	}
 }
 
-char	*ft_strjoinequal(char const *s1, char const *s2)
+void	ft_execcmdd(t_list *cmd, char **env, pid_t pid, int	*pfd, int save, int savee)
 {
-	char	*str;
-	int		i;
-	int		j;
-
-	if (!s1 || !s2)
-		return (NULL);
-	i = 0;
-	j = 0;
-	str = malloc(sizeof(char) * (ft_strlen(s1)
-				+ ft_strlen(s2) + 2));
-	if (!str)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i++] = '=';  
-	while (s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-int	ft_lstsize_env(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	if (!lst)
-		return (0);
-	while (lst)
-	{
-		if (lst->content)
-			i++;
-		lst = lst->next;
-	}
-	return (i);
-}
-
-char	**ft_trad(t_env *env)
-{
-	char **ev;
-	t_list	*list;
-	int	i;
-
-	i = 0;
-	ev = ft_memalloc(sizeof(char *) * (ft_lstsize_env(env->list) + 1));
-	if (!ev)
-		return (NULL);
-	list = env->list;
-	while (list)
-	{
-		if (list->content)
-		{
-			ev[i] = ft_strjoinequal(list->key, list->content);
-			if (!ev[i])
-			{
-				while (i != 0)
-					free(ev[--i]);
-				free(ev);
-				return (NULL);
-			}
-			i++;
-		}
-		list = list->next;
-	}
+	char	*path;
+	char **split;
 	
-	return (ev);
+	split = ft_split(cmd->key, ' ', 0);
+	ft_nobackpossible(split);
+	if (cmd->key[0] != '\0')
+	{
+		path = ft_path(split[0], env, 0);
+		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
+			return ((void)printf("command not found : %s", path));
+	}
+	else
+		return ((void)printf("command not found"));
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+		dup2(savee, 0);
+	else
+	{
+		if (cmd->key[0] != '\0')
+		{
+			dup2(save, 1);
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			execve(path, split , env);
+			perror("error execve ");
+			exit (EXIT_FAILURE);
+		}
+	}
 }
+
+void	ft_execcmd(t_list *cmd, char **env, pid_t pid, int	*pfd)
+{
+	char	*path;
+	char **split;
+	
+	split = ft_split(cmd->key, ' ', 0);
+	ft_nobackpossible(split);
+	if (cmd->key[0] != '\0')
+	{
+		path = ft_path(split[0], env, 0);
+		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
+			return ((void)printf("command not found : %s", path));
+	}
+	else
+		return ((void)printf("command not found"));
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+		;	
+	else
+	{
+		if (cmd->key[0] != '\0')
+		{
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			execve(path, split , env);
+			perror("error execve ");
+			exit (EXIT_FAILURE);
+		}
+	}
+}
+
+
 
 void	ft_exec(t_env *env, t_cmd *cmd)
 {
 	char	**ev;
 	int		pfd[2];
 	pid_t	pid;
+	int		save;
+	int		savee;
 	
 	ev = ft_trad(env);
 	if (!env)
 		return;
-//	while (cmd->listcmd)
-//	{
-		
-	ft_pipexalone(cmd->listcmd->key, ev, pid, pfd);
-		
-//	}
+	save = dup(1);
+	savee = dup(0);
+	if (!cmd->listcmd->next)
+	{
+		ft_execcmd(cmd->listcmd, ev, pid, pfd);
+	}
+	else 
+	{
+		while (cmd->listcmd->next)
+		{
+			ft_execcmdpipe(cmd->listcmd, ev, pid, pfd);
+			cmd->listcmd = cmd->listcmd->next;
+		}
+		ft_execcmdd(cmd->listcmd, ev, pid, pfd, save, savee);
+		dup2(cmd->listcmd->fdout, 1);
+	}
 	while (waitpid(-1, NULL, 0) != -1)
 		;
 	ft_freetab(ev);
 	return;
 }
+
+// void	ft_execcmdpipe(char *cmd, char **env, pid_t pid, int	*pfd)
+// {
+// 	char	*path;
+// 	char **split;
+	
+// 	split = ft_split(cmd, ' ', 0);
+// 	if (cmd[0] != '\0')
+// 	{
+// 		path = ft_path(split[0], env, 0);
+// 		if (ft_strncmp(cmd, path, ft_strlen(path)) == 0)
+// 			return ((void)printf("command not found : %s", path));
+// 	}
+// 	else
+// 		return ((void)printf("command not found"));
+// 	pipe(pfd);
+// 	pid = fork();
+// 	if (pid == -1)
+// 		exit(printf("error fork"));
+// 	if (pid)
+// 		ft_pid(pfd);
+// 	else
+// 	{
+// 		if (cmd[0] != '\0')
+// 		{
+// 			dup2(pfd[1], 1);
+// 			execve(path, split , env);
+// 			perror("error execve ");
+// 		//	exit (EXIT_FAILURE);
+// 		}
+// 	}
+// }
+
+// void	ft_execcmd(char *cmd, char **env, pid_t pid, int	*pfd)
+// {
+// 	char	*path;
+// 	char **split;
+	
+// 	split = ft_split(cmd, ' ', 0);
+// 	if (cmd[0] != '\0')
+// 	{
+// 		path = ft_path(split[0], env, 0);
+// 		if (ft_strncmp(cmd, path, ft_strlen(path)) == 0)
+// 			return ((void)printf("command not found : %s", path));
+// 	}
+// 	else
+// 		return ((void)printf("command not found"));
+// 	pipe(pfd);
+// 	pid = fork();
+// 	if (pid == -1)
+// 		exit(printf("error fork"));
+// 	if (pid)
+// 		;
+// 	// 	ft_pid(pfd);
+// 	else
+// 	{
+// 		if (cmd[0] != '\0')
+// 		{
+
+// 			execve(path, split , env);
+// 			perror("error execve ");
+// 		//	exit (EXIT_FAILURE);
+// 		}
+// 	}
+// }
