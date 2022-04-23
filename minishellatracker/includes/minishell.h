@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:41 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/22 23:11:38 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/23 03:18:38 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/includes/libft.h"
 # include <stdio.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
@@ -22,6 +23,23 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <dirent.h>
+
+typedef struct	s_sig
+{
+    int     si_signo;       /* Numéro de signal         */
+    int     si_errno;       /* Numéro d'erreur          */
+    int     si_code;        /* Code du signal           */
+    pid_t   si_pid;         /* PID de l'émetteur        */
+    uid_t   si_uid;         /* UID réel de l'émetteur   */
+    int     si_status;      /* Valeur de sortie         */
+    clock_t si_utime;       /* Temps utilisateur écoulé */
+    clock_t si_stime;       /* Temps système écoulé     */
+    int     si_int;         /* Signal POSIX.1b          */
+    void   *si_ptr;         /* Signal POSIX.1b          */
+    void   *si_addr;        /* Emplacement d'erreur     */
+    int     si_band;        /* Band event               */
+    int     si_fd;          /* Descripteur de fichier   */
+}			t_siginfo;
 
 typedef struct s_env
 {

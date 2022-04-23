@@ -6,11 +6,28 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 03:08:31 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/23 00:22:35 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/23 04:56:56 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_list	*ft_lstmapp(t_list *lst)
+{
+	t_list	*var;
+	t_list	*add;
+
+	add = NULL;
+	while (lst)
+	{
+		var = ft_lstnew("", "");
+		var->content = ft_strdup(lst->content);
+		var->key = ft_strdup(lst->key);
+		lst = lst->next;
+		ft_lstadd_back(&add, var);
+	}
+	return (add);
+}
 
 int	ft_redir(t_list *lst, t_list *cmd)
 {
@@ -49,15 +66,67 @@ int	ft_redir(t_list *lst, t_list *cmd)
 	return (i);
 }
 
-int	ft_usebuiltin(char *str, t_env *env)
+t_list	*ft_lstsort(t_list *begin_list)
 {
-//	printf("%s", str);
+	t_list	*help;
+	t_list	*current;
+	void	*save;
+	void	*savee;
+	int		size;
+	int		i;
+	int		j;
+
+	i = 0;
+	size = ft_lstsize(begin_list);
+	help = ft_lstmapp(begin_list);
+	while (i < size)
+	{
+		j = 0;
+		current = help;
+		while (j < size - 1 - i)
+		{
+			if (current->key[0] > current->next->key[0])
+			{
+				save = current->content;
+				savee = current->key;
+				current->content = current->next->content;
+				current->key = current->next->key;
+				current->next->content = save;
+				current->next->key = savee;
+			}
+			current = current->next;
+			j++;
+		}
+		i++;
+	}
+	return (current);
+}
+
+int	print_list(t_list *list)
+{
+	while (list)
+	{
+		printf("declare -x ");
+		printf("%s=", list->key);
+		printf("%s\n", list->content);
+		list = list->next;
+	}
+	return (1);
+}
+
+void	ft_usebuiltin(char *str, t_env *env)
+{
+	t_list	*export;
+	
 	if (ft_strncmp(str, "unset ", 5) == 0)
 		builtin_unset(env, str + 6);
 	if (ft_strncmp(str, "export ", 7) == 0)
-		builtin_export(env, str + 7);
-	// if (ft_strncmp(str, "export", 7) == 0)
-	// 	builtin_export trie (env, str);
+		return(builtin_export(env, str + 7));
+	if (ft_strncmp(str, "export", 6) == 0)
+	{
+		export = ft_lstsort(env->list);
+		print_list(export);
+	}
 	if (ft_strncmp(str, "cd ", 3) == 0)
 		builtin_cd(env, str + 3);
 	if (ft_strncmp(str, "cd", ft_strlen(str)) == 0)
@@ -66,17 +135,19 @@ int	ft_usebuiltin(char *str, t_env *env)
 		builtin_pwd();
 	if (ft_strncmp(str, "env", ft_strlen(str)) == 0)
 		builtin_env(env);
-	return (1);
+	return;
 }
+
+
 
 int	ft_isitbuiltin(char *str)
 {
 	if (ft_strncmp(str, "unset ", 6) == 0)
 		return (1);
+	if (ft_strncmp(str, "export ", 7) == 0)
+		return (1);
 	if (ft_strncmp(str, "export", 6) == 0)
 		return (1);
-	// if (ft_strncmp(str, "export", 7) == 0)
-	// 	builtin_export trie (env, str);
 	if (ft_strncmp(str, "cd ", 4) == 0)
 		return (1);
 	if (ft_strncmp(str, "cd", 2) == 0)
@@ -126,7 +197,8 @@ void	ft_execbuiltinpipe(t_list *cmd, pid_t pid, int	*pfd, t_env *ennv)
 		{
 			if (cmd->redir)
 				ft_redir(cmd->redir, cmd);
-			exit (ft_usebuiltin(cmd->key, ennv));
+			ft_usebuiltin(cmd->key, ennv);
+			exit (1);
 		}
 	}
 }
@@ -146,7 +218,8 @@ void	ft_execbuiltinn(t_list *cmd, pid_t pid, int	*pfd, int save, int savee, t_en
 			dup2(save, 1);
 			if (cmd->redir)
 				ft_redir(cmd->redir, cmd);
-			exit (ft_usebuiltin(cmd->key, ennv));
+			ft_usebuiltin(cmd->key, ennv);
+			exit (1);
 		}
 	}
 }
@@ -188,7 +261,7 @@ void	ft_execcmdpipe(t_list *cmd, char **env, pid_t pid, int	*pfd, t_env *ennv)
 			if (cmd->redir)
 				ft_redir(cmd->redir, cmd);
 			execve(path, split , env);
-			perror("error execve ");
+			perror("minishell");
 			exit (EXIT_FAILURE);
 		}
 	}
@@ -224,7 +297,7 @@ void	ft_execcmdd(t_list *cmd, char **env, pid_t pid, int	*pfd, int save, int sav
 			if (cmd->redir)
 				ft_redir(cmd->redir, cmd);
 			execve(path, split , env);
-			perror("error execve ");
+			perror("minishell");
 			exit (EXIT_FAILURE);
 		}
 	}
@@ -244,7 +317,7 @@ void	ft_execcmd(t_list *cmd, char **env, pid_t pid, int	*pfd, t_env *ennv)
 	if (cmd->key[0] != '\0')
 	{
 		path = ft_path(split[0], env, 0);
-		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
+		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0 && cmd->key[0] != '/')
 			return ((void)printf("command not found : %s", path));
 	}
 	else
@@ -261,7 +334,7 @@ void	ft_execcmd(t_list *cmd, char **env, pid_t pid, int	*pfd, t_env *ennv)
 			if (cmd->redir)
 				ft_redir(cmd->redir, cmd);
 			execve(path, split , env);
-			perror("error execve ");
+			perror("minishell");
 			exit (EXIT_FAILURE);
 		}
 	}

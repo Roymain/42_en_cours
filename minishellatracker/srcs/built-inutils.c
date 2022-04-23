@@ -6,11 +6,16 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:25:13 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/06 02:25:52 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/23 02:47:21 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void builtin_exit(char *str)
+{
+	
+}
 
 int	contentequal(char *str, char c)
 {
