@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:41:06 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/20 22:49:06 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/23 02:12:24 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	builtin_env(t_env *env)
 	{
 		if (env->list->content)
 		{
-			dprintf(2, "%s   ", env->list->key);
-			dprintf(2, "%s", env->list->content);
-			dprintf(2, "\n");
+			printf("%s=", env->list->key);
+			printf("%s", env->list->content);
+			printf("\n");
 		}
 		env->list = env->list->next;
 	}
@@ -92,7 +92,7 @@ void	builtin_cd(t_env *env, char *dir)							//naze        utilse get env mais j
 		env->list = tmp;
 	}
 	else
-		write (2, "innaccessible \n", 16);
+		printf("cd: %s: No such file or directory\n", dir);
 	return ;
 }
 

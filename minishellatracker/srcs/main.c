@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/20 21:10:51 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/22 23:19:21 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(int argc, char **argv, char **ev)
 		// 	cmd->listcmd = cmd->listcmd->next;
 		// }		
 		ft_exec(env, cmd);
-		printf("\n");	
 		ft_track_free_all(&(trackcmd));		
 		free(line);
 		line = readline("minishell ~ ");

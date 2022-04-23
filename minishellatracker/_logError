@@ -1,0 +1,957 @@
+cmd----->echo "test
+minishell================================
+test¾¾
+bash=====================================
+=========================================
+cmd----->echo $TEST
+minishell================================
+$TEST
+bash=====================================
+
+=========================================
+cmd----->echo $?
+minishell================================
+$?
+bash=====================================
+0
+=========================================
+cmd----->echo "$TEST"
+minishell================================
+bash=====================================
+
+=========================================
+cmd----->echo "$TEST$TEST$TEST"
+minishell================================
+bash=====================================
+
+=========================================
+cmd----->echo "$TEST$TEST=lol$TEST"
+minishell================================
+bash=====================================
+=lol
+=========================================
+cmd----->echo "   $TEST lol $TEST"
+minishell================================
+bash=====================================
+    lol 
+=========================================
+cmd----->echo $TEST$TEST$TEST
+minishell================================
+$TEST$TEST$TEST
+bash=====================================
+
+=========================================
+cmd----->echo $TEST$TEST=lol$TEST""lol
+minishell================================
+$TEST$TEST=lol$TEST¾¾lol
+bash=====================================
+=lollol
+=========================================
+cmd----->echo    $TEST lol $TEST
+minishell================================
+$TEST lol $TEST
+bash=====================================
+lol
+=========================================
+cmd----->echo test "" test "" test
+minishell================================
+test ¾¾ test ¾¾ test
+bash=====================================
+test  test  test
+=========================================
+cmd----->echo "$TEST"
+minishell================================
+bash=====================================
+
+=========================================
+cmd----->echo "$=TEST"
+minishell================================
+bash=====================================
+$=TEST
+=========================================
+cmd----->echo "$"
+minishell================================
+bash=====================================
+$
+=========================================
+cmd----->echo "$?TEST"
+minishell================================
+bash=====================================
+0TEST
+=========================================
+cmd----->echo $TEST $TEST
+minishell================================
+$TEST $TEST
+bash=====================================
+
+=========================================
+cmd----->echo "$TEST"
+minishell================================
+bash=====================================
+
+=========================================
+cmd----->echo "$T1TEST"
+minishell================================
+bash=====================================
+
+=========================================
+cmd----->echo ""
+minishell================================
+¾¾
+bash=====================================
+
+=========================================
+cmd----->echo "\n \n \n"
+minishell================================
+ n  n  n¾¾
+bash=====================================
+\n \n \n
+=========================================
+cmd----->echo hi";" hihi
+minishell================================
+hi;¾¾ hihi
+bash=====================================
+hi; hihi
+=========================================
+cmd----->cd no_file
+minishell================================
+cd: no_file: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export | sort | grep -v SHLVL | grep -v _= | grep -v OLDPWD
+minishell================================
+bash=====================================
+declare -x Apple_PubSub_Socket_Render="/private/tmp/com.apple.launchd.OD9DmFAxRr/Render"
+declare -x COLORTERM="truecolor"
+declare -x COMMAND_MODE="unix2003"
+declare -x DISPLAY="/private/tmp/com.apple.launchd.jCyMXVOK9e/org.xquartz:0"
+declare -x GIT_ASKPASS="/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
+declare -x HOME="/Users/rcuminal"
+declare -x HOMEBREW_CACHE="/tmp/rcuminal/Homebrew/Caches"
+declare -x HOMEBREW_TEMP="/tmp/rcuminal/Homebrew/Temp"
+declare -x LANG="en_US.UTF-8"
+declare -x LESS="-R"
+declare -x LOGNAME="rcuminal"
+declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
+declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
+declare -x PAGER="less"
+declare -x PATH="/Users/rcuminal/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin"
+declare -x PWD="/Users/rcuminal/Desktop/Projets/Git/minishellatracker"
+declare -x SECURITYSESSIONID="186a7"
+declare -x SHELL="/bin/zsh"
+declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.RiK2Yv33Ge/Listeners"
+declare -x TERM="xterm-256color"
+declare -x TERM_PROGRAM="vscode"
+declare -x TERM_PROGRAM_VERSION="1.63.2"
+declare -x TMPDIR="/var/folders/zz/zyxvpxvq6csfxvn_n000bgq0002vxr/T/"
+declare -x USER="rcuminal"
+declare -x VSCODE_GIT_ASKPASS_EXTRA_ARGS="--ms-enable-electron-run-as-node"
+declare -x VSCODE_GIT_ASKPASS_MAIN="/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js"
+declare -x VSCODE_GIT_ASKPASS_NODE="/Applications/Visual Studio Code.app/Contents/MacOS/Electron"
+declare -x VSCODE_GIT_IPC_HANDLE="/var/folders/zz/zyxvpxvq6csfxvn_n000bgq0002vxr/T/vscode-git-3cfb53cf4c.sock"
+declare -x XPC_FLAGS="0x0"
+declare -x XPC_SERVICE_NAME="0"
+declare -x ZSH="/Users/rcuminal/.oh-my-zsh"
+declare -x __CF_USER_TEXT_ENCODING="0x16FB8:0x0:0x0"
+=========================================
+cmd----->export 1TEST=
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export TEST 
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export ""="" 
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export TES=T=""
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export TE+S=T=""
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export TEST=LOL 
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->echo $TEST
+minishell================================
+$TEST
+bash=====================================
+
+=========================================
+cmd----->export TEST=LOL
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->echo $TEST$TEST$TEST=lol$TEST
+minishell================================
+$TEST$TEST$TEST=lol$TEST
+bash=====================================
+=lol
+=========================================
+cmd----->export TEST=LOL
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export TEST+=LOL
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->export TEST="ls       -l     - a" 
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->echo $TEST
+minishell================================
+$TEST
+bash=====================================
+
+=========================================
+cmd----->export HI=h"i| env | sort | greg HI
+minishell================================
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->unset PWD | /bin/Ls
+minishell================================
+bash=====================================
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test
+test>lol>test>>lol>test
+tester_minshell
+=========================================
+cmd----->unset PWD | /bin/ls
+minishell================================
+bash=====================================
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test
+test>lol>test>>lol>test
+tester_minshell
+=========================================
+cmd----->cd gdhahahad
+minishell================================
+cd: gdhahahad: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->ls -la | wtf
+minishell================================
+command not found : wtfminishell ~ total 4104
+command not found : totalminishell ~ drwxr-xr-x  21 rcuminal  4221      714 Apr 23 02:42 .
+command not found : drwxr-xr-xminishell ~ drwxr-xr-x@ 14 rcuminal  4221      476 Apr 23 02:41 ..
+command not found : drwxr-xr-x@minishell ~ -rw-r--r--   1 rcuminal  4221     8196 Apr 15 22:16 .DS_Store
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221        0 Apr 23 00:12 2
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221       86 Apr 23 00:12 2>3
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221       86 Apr 23 00:12 3
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221        1 Apr 23 00:25 <
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221     5225 Apr 14 05:23 Makefile
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221       25 Apr 23 02:42 _log
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221        0 Apr 23 02:42 _log1
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221     8788 Apr 23 02:42 _logError
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221      168 Apr 23 02:41 _tesit
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221  2000000 Apr 23 02:37 big_file
+command not found : -rw-r--r--minishell ~ drwxr-xr-x   3 rcuminal  4221      102 Apr 14 05:26 includes
+command not found : drwxr-xr-xminishell ~ drwxr-xr-x   7 rcuminal  4221      238 Apr 15 21:17 libft
+command not found : drwxr-xr-xminishell ~ -rwxr-xr-x   1 rcuminal  4221    38540 Apr 23 02:12 minishell
+command not found : -rwxr-xr-xminishell ~ drwxr-xr-x  10 rcuminal  4221      340 Apr 23 02:12 objs
+command not found : drwxr-xr-xminishell ~ drwxr-xr-x  11 rcuminal  4221      374 Apr 14 05:22 srcs
+command not found : drwxr-xr-xminishell ~ -rw-r--r--   1 rcuminal  4221       31 Apr 23 02:41 test
+command not found : -rw-r--r--minishell ~ -rw-r--r--   1 rcuminal  4221        0 Apr 23 02:37 test>lol>test>>lol>test
+command not found : -rw-r--r--minishell ~ drwxr-xr-x   5 rcuminal  4221      170 Apr 22 23:17 tester_minshell
+bash=====================================
+=========================================
+cmd----->/bin/ls
+minishell================================
+bash=====================================
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+ls
+minishell
+objs
+srcs
+test
+test>lol>test>>lol>test
+tester_minshell
+=========================================
+cmd----->cat < ls
+minishell================================
+bash=====================================
+test test
+=========================================
+cmd----->cat big_file | ls
+minishell================================
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+bash=====================================
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+tester_minshell
+=========================================
+cmd----->cat big_file | echo lol
+minishell================================
+bash=====================================
+lol
+=========================================
+cmd----->cat /dev/random | head -c 100 | wc -c
+minishell================================
+bash=====================================
+     100
+=========================================
+cmd----->cd .. && cat M*
+minishell================================
+cd: .. && cat M*: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && cat M*e
+minishell================================
+cd: .. && cat M*e: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && touch testelele && cat *le && rm -rf testelele
+minishell================================
+cd: .. && touch testelele && cat *le && rm -rf testelele: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && echo salut > _tesit && cat _**************************************************************it && cat *esit && rm -rf _tesit
+minishell================================
+bash=====================================
+salut
+salut
+=========================================
+cmd----->cd .. && touch ....... && la .* && rm -rf .......
+minishell================================
+cd: .. && touch ....... && la .* && rm -rf .......: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && ls ./* * .* 
+minishell================================
+cd: .. && ls ./* * .*: No such file or directory
+minishell ~ exit
+bash=====================================
+.......
+.DS_Store
+
+.:
+Minishellfromzero
+Philosophers
+minishell2104
+minishellatracker
+minishellinealix
+minishellinealixnogit
+philo
+philo2
+
+..:
+Git
+Icon
+
+./Minishellfromzero:
+
+./Philosophers:
+Makefile
+includes
+objs
+philo
+srcs
+
+./minishell2104:
+Makefile
+includes
+libft
+objs
+srcs
+
+./minishellatracker:
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+tester_minshell
+
+./minishellinealix:
+1
+2
+3
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./minishellinealixnogit:
+2
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./philo:
+Makefile
+includes
+objs
+philo
+srcs
+
+./philo2:
+Makefile
+includes
+objs
+philo
+srcs
+
+.git:
+COMMIT_EDITMSG
+FETCH_HEAD
+HEAD
+ORIG_HEAD
+config
+description
+hooks
+index
+info
+logs
+objects
+packed-refs
+refs
+
+.vscode:
+settings.json
+
+Minishellfromzero:
+
+Philosophers:
+Makefile
+includes
+objs
+philo
+srcs
+
+minishell2104:
+Makefile
+includes
+libft
+objs
+srcs
+
+minishellatracker:
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+tester_minshell
+
+minishellinealix:
+1
+2
+3
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+minishellinealixnogit:
+2
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+philo:
+Makefile
+includes
+objs
+philo
+srcs
+
+philo2:
+Makefile
+includes
+objs
+philo
+srcs
+=========================================
+cmd----->cd .. && ls ./*
+minishell================================
+cd: .. && ls ./*: No such file or directory
+minishell ~ exit
+bash=====================================
+./Minishellfromzero:
+
+./Philosophers:
+Makefile
+includes
+objs
+philo
+srcs
+
+./minishell2104:
+Makefile
+includes
+libft
+objs
+srcs
+
+./minishellatracker:
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+tester_minshell
+
+./minishellinealix:
+1
+2
+3
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./minishellinealixnogit:
+2
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./philo:
+Makefile
+includes
+objs
+philo
+srcs
+
+./philo2:
+Makefile
+includes
+objs
+philo
+srcs
+=========================================
+cmd----->cd .. && rm -rf .......
+minishell================================
+cd: .. && rm -rf .......: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && cat M*
+minishell================================
+cd: .. && cat M*: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && cat M*e
+minishell================================
+cd: .. && cat M*e: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && touch testelele && cat *le && rm -rf testelele
+minishell================================
+cd: .. && touch testelele && cat *le && rm -rf testelele: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && echo salut > _tesit && cat _**************************************************************it && cat *esit && rm -rf _tesit
+minishell================================
+bash=====================================
+salut
+salut
+=========================================
+cmd----->cd .. && touch ....... && la .* && rm -rf .......
+minishell================================
+cd: .. && touch ....... && la .* && rm -rf .......: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================
+cmd----->cd .. && ls ./* * .* 
+minishell================================
+cd: .. && ls ./* * .*: No such file or directory
+minishell ~ exit
+bash=====================================
+.......
+.DS_Store
+
+.:
+Minishellfromzero
+Philosophers
+minishell2104
+minishellatracker
+minishellinealix
+minishellinealixnogit
+philo
+philo2
+
+..:
+Git
+Icon
+
+./Minishellfromzero:
+
+./Philosophers:
+Makefile
+includes
+objs
+philo
+srcs
+
+./minishell2104:
+Makefile
+includes
+libft
+objs
+srcs
+
+./minishellatracker:
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+tester_minshell
+
+./minishellinealix:
+1
+2
+3
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./minishellinealixnogit:
+2
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./philo:
+Makefile
+includes
+objs
+philo
+srcs
+
+./philo2:
+Makefile
+includes
+objs
+philo
+srcs
+
+.git:
+COMMIT_EDITMSG
+FETCH_HEAD
+HEAD
+ORIG_HEAD
+config
+description
+hooks
+index
+info
+logs
+objects
+packed-refs
+refs
+
+.vscode:
+settings.json
+
+Minishellfromzero:
+
+Philosophers:
+Makefile
+includes
+objs
+philo
+srcs
+
+minishell2104:
+Makefile
+includes
+libft
+objs
+srcs
+
+minishellatracker:
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+tester_minshell
+
+minishellinealix:
+1
+2
+3
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+minishellinealixnogit:
+2
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+philo:
+Makefile
+includes
+objs
+philo
+srcs
+
+philo2:
+Makefile
+includes
+objs
+philo
+srcs
+=========================================
+cmd----->cd .. && ls ./*
+minishell================================
+cd: .. && ls ./*: No such file or directory
+minishell ~ exit
+bash=====================================
+./Minishellfromzero:
+
+./Philosophers:
+Makefile
+includes
+objs
+philo
+srcs
+
+./minishell2104:
+Makefile
+includes
+libft
+objs
+srcs
+
+./minishellatracker:
+2
+2>3
+3
+<
+Makefile
+_log
+_log1
+_logError
+_tesit
+big_file
+includes
+libft
+minishell
+objs
+srcs
+test>lol>test>>lol>test
+tester_minshell
+
+./minishellinealix:
+1
+2
+3
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./minishellinealixnogit:
+2
+Makefile
+includes
+libft
+minishell
+objs
+srcs
+
+./philo:
+Makefile
+includes
+objs
+philo
+srcs
+
+./philo2:
+Makefile
+includes
+objs
+philo
+srcs
+=========================================
+cmd----->cd .. && rm -rf .......
+minishell================================
+cd: .. && rm -rf .......: No such file or directory
+minishell ~ exit
+bash=====================================
+=========================================

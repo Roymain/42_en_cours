@@ -6,13 +6,12 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 03:08:31 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/21 01:57:06 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/23 00:22:35 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// deuxieme triche pr " vwerv v   ""vwe" voir nonackpossible executils2
 int	ft_redir(t_list *lst, t_list *cmd)
 {
 	int	fd;
@@ -50,115 +49,9 @@ int	ft_redir(t_list *lst, t_list *cmd)
 	return (i);
 }
 
-void	ft_execcmdpipe(t_list *cmd, char **env, pid_t pid, int	*pfd)
-{
-	char	*path;
-	char **split;
-	
-	split = ft_split(cmd->key, ' ', 0);
-	ft_nobackpossible(split);
-	if (cmd->key[0] != '\0')
-	{
-		path = ft_path(split[0], env, 0);
-		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
-			return ((void)printf("command not found : %s", path));
-	}
-	else
-		return ((void)printf("command not found"));
-	pipe(pfd);
-	pid = fork();
-	if (pid == -1)
-		exit(printf("error fork"));
-	if (pid)
-	{
-		close(pfd[1]);
-		dup2(pfd[0], 0);
-	}
-	else
-	{
-		close(pfd[0]);
-		dup2(pfd[1], 1);
-		if (cmd->key[0] != '\0')
-		{
-			if (cmd->redir)
-				ft_redir(cmd->redir, cmd);
-			execve(path, split , env);
-			perror("error execve ");
-			exit (EXIT_FAILURE);
-		}
-	}
-}
-
-void	ft_execcmdd(t_list *cmd, char **env, pid_t pid, int	*pfd, int save, int savee)
-{
-	char	*path;
-	char **split;
-	
-	split = ft_split(cmd->key, ' ', 0);
-	ft_nobackpossible(split);
-	if (cmd->key[0] != '\0')
-	{
-		path = ft_path(split[0], env, 0);
-		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
-			return ((void)printf("command not found : %s", path));
-	}
-	else
-		return ((void)printf("command not found"));
-	pid = fork();
-	if (pid == -1)
-		exit(printf("error fork"));
-	if (pid)
-		dup2(savee, 0);
-	else
-	{
-		if (cmd->key[0] != '\0')
-		{
-			dup2(save, 1);
-			if (cmd->redir)
-				ft_redir(cmd->redir, cmd);
-			execve(path, split , env);
-			perror("error execve ");
-			exit (EXIT_FAILURE);
-		}
-	}
-}
-
-void	ft_execcmd(t_list *cmd, char **env, pid_t pid, int	*pfd)
-{
-	char	*path;
-	char **split;
-	
-	split = ft_split(cmd->key, ' ', 0);
-	ft_nobackpossible(split);
-	if (cmd->key[0] != '\0')
-	{
-		path = ft_path(split[0], env, 0);
-		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
-			return ((void)printf("command not found : %s", path));
-	}
-	else
-		return ((void)printf("command not found"));
-	pid = fork();
-	if (pid == -1)
-		exit(printf("error fork"));
-	if (pid)
-		;	
-	else
-	{
-		if (cmd->key[0] != '\0')
-		{
-			if (cmd->redir)
-				ft_redir(cmd->redir, cmd);
-			execve(path, split , env);
-			perror("error execve ");
-			exit (EXIT_FAILURE);
-		}
-	}
-}
-
 int	ft_usebuiltin(char *str, t_env *env)
 {
-	printf("%s", str);
+//	printf("%s", str);
 	if (ft_strncmp(str, "unset ", 5) == 0)
 		builtin_unset(env, str + 6);
 	if (ft_strncmp(str, "export ", 7) == 0)
@@ -196,6 +89,186 @@ int	ft_isitbuiltin(char *str)
 	return (0);
 }
 
+void	ft_execbuiltin(t_list *cmd, pid_t pid, int	*pfd, t_env *env)
+{
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+		;	
+	else
+	{
+		if (cmd->key[0] != '\0')
+		{
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			ft_usebuiltin(cmd->key, env);
+		}
+	}
+}
+
+void	ft_execbuiltinpipe(t_list *cmd, pid_t pid, int	*pfd, t_env *ennv)
+{
+	pipe(pfd);
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+	{
+		close(pfd[1]);
+		dup2(pfd[0], 0);
+	}
+	else
+	{
+		close(pfd[0]);
+		dup2(pfd[1], 1);
+		if (cmd->key[0] != '\0')
+		{
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			exit (ft_usebuiltin(cmd->key, ennv));
+		}
+	}
+}
+
+void	ft_execbuiltinn(t_list *cmd, pid_t pid, int	*pfd, int save, int savee, t_env *ennv)
+{
+	pipe(pfd);
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+		dup2(savee, 0);
+	else
+	{
+		if (cmd->key[0] != '\0')
+		{
+			dup2(save, 1);
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			exit (ft_usebuiltin(cmd->key, ennv));
+		}
+	}
+}
+
+
+
+void	ft_execcmdpipe(t_list *cmd, char **env, pid_t pid, int	*pfd, t_env *ennv)
+{
+	char	*path;
+	char **split;
+	
+	if (ft_isitbuiltin(cmd->key) == 1)
+		return (ft_execbuiltinpipe(cmd, pid, pfd, ennv));
+	split = ft_split(cmd->key, ' ', 0);
+	ft_nobackpossible(split);
+	if (cmd->key[0] != '\0')
+	{
+		path = ft_path(split[0], env, 0);
+		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
+			return ((void)printf("command not found : %s", path));
+	}
+	else
+		return ((void)printf("command not found"));
+	pipe(pfd);
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+	{
+		close(pfd[1]);
+		dup2(pfd[0], 0);
+	}
+	else
+	{
+		close(pfd[0]);
+		dup2(pfd[1], 1);
+		if (cmd->key[0] != '\0')
+		{
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			execve(path, split , env);
+			perror("error execve ");
+			exit (EXIT_FAILURE);
+		}
+	}
+}
+
+void	ft_execcmdd(t_list *cmd, char **env, pid_t pid, int	*pfd, int save, int savee, t_env *ennv)
+{
+	char	*path;
+	char **split;
+	
+	if (ft_isitbuiltin(cmd->key) == 1)
+		return (ft_execbuiltinn(cmd, pid, pfd, save, savee, ennv));
+	split = ft_split(cmd->key, ' ', 0);
+	ft_nobackpossible(split);
+	if (cmd->key[0] != '\0')
+	{
+		path = ft_path(split[0], env, 0);
+		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
+			return ((void)printf("command not found : %s", path));
+	}
+	else
+		return ((void)printf("command not found"));
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+		dup2(savee, 0);
+	else
+	{
+		if (cmd->key[0] != '\0')
+		{
+			dup2(save, 1);
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			execve(path, split , env);
+			perror("error execve ");
+			exit (EXIT_FAILURE);
+		}
+	}
+}
+
+
+
+void	ft_execcmd(t_list *cmd, char **env, pid_t pid, int	*pfd, t_env *ennv)
+{
+	char	*path;
+	char **split;
+
+	if (ft_isitbuiltin(cmd->key) == 1)
+		return (ft_execbuiltin(cmd, pid, pfd, ennv));
+	split = ft_split(cmd->key, ' ', 0);
+	ft_nobackpossible(split);
+	if (cmd->key[0] != '\0')
+	{
+		path = ft_path(split[0], env, 0);
+		if (ft_strncmp(cmd->key, path, ft_strlen(path)) == 0)
+			return ((void)printf("command not found : %s", path));
+	}
+	else
+		return ((void)printf("command not found"));
+	pid = fork();
+	if (pid == -1)
+		exit(printf("error fork"));
+	if (pid)
+		;	
+	else
+	{
+		if (cmd->key[0] != '\0')
+		{
+			if (cmd->redir)
+				ft_redir(cmd->redir, cmd);
+			execve(path, split , env);
+			perror("error execve ");
+			exit (EXIT_FAILURE);
+		}
+	}
+}
+
+
+
 int	ft_exec(t_env *env, t_cmd *cmd)
 {
 	char	**ev;
@@ -209,18 +282,16 @@ int	ft_exec(t_env *env, t_cmd *cmd)
 		return (0);
 	save = dup(1);
 	savee = dup(0);
-	if (!cmd->listcmd->next && !cmd->listcmd->prev && ft_isitbuiltin(cmd->listcmd->key) == 1)
-		return (ft_usebuiltin(cmd->listcmd->key, env));
 	if (!cmd->listcmd->next)
-		ft_execcmd(cmd->listcmd, ev, pid, pfd);
+		ft_execcmd(cmd->listcmd, ev, pid, pfd, env);
 	else 
 	{
 		while (cmd->listcmd->next)
 		{
-			ft_execcmdpipe(cmd->listcmd, ev, pid, pfd);
+			ft_execcmdpipe(cmd->listcmd, ev, pid, pfd, env);
 			cmd->listcmd = cmd->listcmd->next;
 		}
-		ft_execcmdd(cmd->listcmd, ev, pid, pfd, save, savee);
+		ft_execcmdd(cmd->listcmd, ev, pid, pfd, save, savee, env);
 		dup2(cmd->listcmd->fdout, 1);
 	}
 	while (waitpid(-1, NULL, 0) != -1)

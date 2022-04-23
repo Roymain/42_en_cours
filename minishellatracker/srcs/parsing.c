@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:27:25 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/15 21:15:33 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/23 02:11:13 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*ft_joinarg(char *str, t_env *env, int *i, t_track *tracker, char *tmp)
 		j++;
 	arg = ft_track(malloc((j - *i + 3) * sizeof(char)), &tracker);
 	j = 0;
-	while (str[*i + j] != '"')
+	while (str[*i + j] != '"' && str[*i + j] != ' ')
 	{
 		
 		
@@ -131,7 +131,7 @@ char	*ft_joinarg(char *str, t_env *env, int *i, t_track *tracker, char *tmp)
 		tmp[j] = '\'';
 		tmp[j + 1] = '\0';
 		if (str[*i + 2])
-		tmp = ft_strjoinnospace(tmp, str + *i + 1);
+			tmp = ft_strjoinnospace(tmp, str + *i + 1);
 		*i = j - 1;
 		return (tmp);
 	}
@@ -168,7 +168,7 @@ char	*ft_double(char *str, t_env *env, int *i, t_track *tracker)
 		{
 			tmp[j - 1] = 0;
 			tmp = ft_joinarg(str, env, &j, tracker, tmp);
-			*i = j + 2;
+			*i = j - 2;
 			return (tmp);
 		}
 		else
@@ -184,11 +184,11 @@ char	*ft_double(char *str, t_env *env, int *i, t_track *tracker)
 	j++;
 	while (str[j])
 	{
-		tmp[j - 2] = str[j];
+		tmp[j] = str[j];
 		j++;
 		
 	}
-	tmp[j - 2] = 0;
+	tmp[j] = 0;
 	return (tmp);
 }
 
