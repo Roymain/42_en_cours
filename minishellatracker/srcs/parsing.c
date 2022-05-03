@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:27:25 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/23 02:11:13 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/28 01:32:57 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,51 +95,37 @@ char	*ft_returncontent(char *arg, t_env *env)
 
 
 	tmp = env->list;
-	while (ft_strncmp(tmp->key, arg + 1, ft_strlen(arg)) != 0)
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, arg + 1, ft_strlen(arg)) == 0)
+			return (tmp->content);
 		tmp = tmp->next;
-	return (tmp->content);
+	}
+	return (NULL);
 }
 
-char	*ft_joinarg(char *str, t_env *env, int *i, t_track *tracker, char *tmp)
+char	*ft_joinarg(char *str, t_env *env, int *i, t_track *tracker, char *tmp, int *stri)
 {
 	char *arg;
 	int	j;
 	int	save;
 	
-	j = *i;
-	while (str[j] != '"')
-		j++;
-	arg = ft_track(malloc((j - *i + 3) * sizeof(char)), &tracker);
+	arg = ft_track(malloc((100  + 3) * sizeof(char)), &tracker);
 	j = 0;
-	while (str[*i + j] != '"' && str[*i + j] != ' ')
+	*i += 1;
+	while (str[*stri] && str[*stri] != ' ' && str[*stri] != '"' && str[*stri] != '\'')
 	{
-		
-		
-			arg[j] = str[*i + j];
+		arg[j] = str[*stri];
 		j++;
-		
+		*i += 1;
+		*stri += 1;
 	}
-	if (arg[j - 1] == '\'')
-		arg[j - 1] = 0;
 	arg[j] = 0;
-	*i = *i + j;
 	tmp = ft_strjoinnospace(tmp, ft_returncontent(arg, env));
-	if (str[*i - 1] == '\'')
-	{
-		while (tmp[j])
-			j++;
-		tmp[j] = '\'';
-		tmp[j + 1] = '\0';
-		if (str[*i + 2])
-			tmp = ft_strjoinnospace(tmp, str + *i + 1);
-		*i = j - 1;
-		return (tmp);
-	}
-	j = 0;
-	while (tmp[j])
-		j++;
-	tmp = ft_strjoinnospace(tmp, str + *i + 1);
-	*i = j - 1;
+	save = *i + 2;
+	*i = ft_strlen(tmp) - 1;
+	tmp = ft_strjoinnospace(tmp, str + *stri + 1);
+	*stri -= 1;
 	return (tmp);
 }
 
@@ -147,48 +133,67 @@ char	*ft_double(char *str, t_env *env, int *i, t_track *tracker)
 {
 	char	*tmp;
 	int		j;
-	int		count;
+	int		heredoc;
 	int		k;
 
-	count = 0;
-	j = 0;
 	k = 0;
-	
-	tmp = ft_track(malloc((ft_strlen(str) + 2) * sizeof(char)), &tracker);
+	j = 0;
+	tmp = ft_track(malloc(200  * sizeof(char)), &tracker);
 	while (str[j] && j < *i)
 	{
-	
 			tmp[j] = str[j];
-		j++;
+			j++;
 	}
-	j++;
-	while (str[j] && str[j] != '"')
+	*i += 1;
+	while (str[*i] && str[*i] != '"')
 	{
-		if (str[j] == '$' && str[j-2] != '<' && str[j-3] != '<')
+		if (str[*i] == '$')
 		{
-			tmp[j - 1] = 0;
-			tmp = ft_joinarg(str, env, &j, tracker, tmp);
-			*i = j - 2;
-			return (tmp);
+			k = 1;
+			tmp[j] = 0;
+			tmp = ft_joinarg(str, env, &j, tracker, tmp, i);
+		
 		}
 		else
 		{
-			if (str[j] == ' ')
-				tmp[j - 1] = '\\';
+			if (str[*i] == ' ')
+				tmp[j] = '\\';
 			else
-				tmp[j - 1] = str[j];
+				tmp[j] = str[*i];
 		}
 		j++;
-		
+		*i += 1;
 	}
-	j++;
-	while (str[j])
+	*i = j;
+	if (k == 0)
 	{
-		tmp[j] = str[j];
-		j++;
-		
+		tmp[j] = 0;
+		tmp = ft_strjoinnospace(tmp, str + *i + 2);
 	}
-	tmp[j] = 0;
+	return (tmp);
+}
+
+char	*ft_joinargg(char *str, t_env *env, int *stri, t_track *tracker, char *tmp)
+{
+	char *arg;
+	int	j;
+	int	save;
+	
+	arg = ft_track(malloc((100  + 3) * sizeof(char)), &tracker);
+	j = 0;
+	while (str[*stri] && str[*stri] != ' ')
+	{
+		arg[j] = str[*stri];
+		j++;
+		*stri += 1;
+	}
+	arg[j] = 0;
+	printf("==>%s\n", arg);
+	tmp = ft_strjoinnospace(tmp, ft_returncontent(arg, env));
+	
+	*stri = ft_strlen(tmp) - 1;
+	tmp = ft_strjoin(tmp, str + *stri + ft_strlen(arg));
+	
 	return (tmp);
 }
 
@@ -196,20 +201,48 @@ char	*ft_quotes(char *str, t_env *env, t_track *tracker)
 {
 	char *tmp;
 	int		i;
+	int		j;
 	char	q;
 
+	tmp = ft_track(malloc((100  + 3) * sizeof(char)), &tracker);
 	q = 'q';
 	i = 0;
-	while(str[i])
+	j = 0;
+	while(str[i] && str[i + 1])
 	{
-		if (str[i] == '\'' || str[i] == '"')
+		if (str[i] == '\'' || str[i] == '"' || str[i] == '$')
 		{
-			
 			q = str[i];
 			if (q == '\'')
 				str = ft_simple(str, env, &i, tracker);
 			else if (q == '"')
-				str = ft_double(str, env, &i, tracker);
+			{
+				if ((str[i - 1] == '<' && str[i - 2] == '<' ) || (  str[i - 2] == '<' && str[i - 3]))
+				{
+					str[i] = ' ';
+					i++;
+					while (str[i] != '"')
+					{
+						if (str[i] == ' ')
+							str[i] = '\\';
+						i++;
+					}
+					str[i] = ' ';
+				}
+				else
+					str = ft_double(str , env, &i, tracker);
+			}
+			else if (q == '$')
+			{
+				printf("->%d\n", i);
+				while (j < i)
+				{
+					tmp[j] = str[j];
+					j++;
+				}
+				tmp[j] = 0;
+				str = ft_joinargg(str, env, &i, tracker, tmp);
+			}
 		}
 		q = 'q';
 		i++;
@@ -398,3 +431,96 @@ void	parsingline(char *line, t_cmd	*cmd, t_track *track, t_env *env)
 	ft_parse_redir(cmd->listcmd, track);
 	return ;
 }
+
+
+// char	*ft_joinarg(char *str, t_env *env, int *i, t_track *tracker, char *tmp)
+// {
+// 	char *arg;
+// 	int	j;
+// 	int	save;
+	
+// 	j = *i;
+// 	while (str[j] != '"')
+// 		j++;
+// 	arg = ft_track(malloc((j - *i + 3) * sizeof(char)), &tracker);
+// 	j = 0;
+// 	while (str[*i + j] != '"' && str[*i + j] != ' ')
+// 	{
+		
+		
+// 			arg[j] = str[*i + j];
+// 		j++;
+		
+// 	}
+// 	if (arg[j - 1] == '\'')
+// 		arg[j - 1] = 0;
+// 	arg[j] = 0;
+// 	*i = *i + j;
+// 	tmp = ft_strjoinnospace(tmp, ft_returncontent(arg, env));
+// 	if (str[*i - 1] == '\'')
+// 	{
+// 		while (tmp[j])
+// 			j++;
+// 		tmp[j] = '\'';
+// 		tmp[j + 1] = '\0';
+// 		if (str[*i + 2])
+// 			tmp = ft_strjoinnospace(tmp, str + *i + 1);
+// 		*i = j - 1;
+// 		return (tmp);
+// 	}
+// 	j = 0;
+// 	while (tmp[j])
+// 		j++;
+// 	tmp = ft_strjoinnospace(tmp, str + *i + 1);
+// 	*i = j - 1;
+// 	return (tmp);
+// }
+
+// char	*ft_double(char *str, t_env *env, int *i, t_track *tracker)
+// {
+// 	char	*tmp;
+// 	int		j;
+// 	int		count;
+// 	int		k;
+
+// 	count = 0;
+// 	j = 0;
+// 	k = 0;
+	
+// 	tmp = ft_track(malloc((ft_strlen(str) + 2) * sizeof(char)), &tracker);
+// 	while (str[j] && j < *i)
+// 	{
+	
+// 			tmp[j] = str[j];
+// 		j++;
+// 	}
+// 	j++;
+// 	while (str[j] && str[j] != '"')
+// 	{
+// 		if (str[j] == '$' && str[j-2] != '<' && str[j-3] != '<')
+// 		{
+// 			tmp[j - 1] = 0;
+// 			tmp = ft_joinarg(str, env, &j, tracker, tmp);
+// 			*i = j - 2;
+// 			return (tmp);
+// 		}
+// 		else
+// 		{
+// 			if (str[j] == ' ')
+// 				tmp[j - 1] = '\\';
+// 			else
+// 				tmp[j - 1] = str[j];
+// 		}
+// 		j++;
+		
+// 	}
+// 	j++;
+// 	while (str[j])
+// 	{
+// 		tmp[j] = str[j];
+// 		j++;
+		
+// 	}
+// 	tmp[j] = 0;
+// 	return (tmp);
+// }

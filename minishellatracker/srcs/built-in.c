@@ -6,13 +6,11 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:41:06 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/04/23 05:00:17 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/04/28 00:19:47 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-
 
 int already_in(t_list	*list, char *key)
 {
@@ -46,7 +44,6 @@ void	export_modif(t_list *list, char *content)
 			else
 				tmp->content = NULL;
 		}
-
 		tmp = tmp->next;
 	}
 }
@@ -94,7 +91,7 @@ void	builtin_env(t_env *env)
 		env->list = env->list->next;
 	}
 	env->list = tmp;
-}
+} 
 
 char	*ft_pathuser(t_env *env, char *dir)
 {
@@ -106,7 +103,7 @@ char	*ft_pathuser(t_env *env, char *dir)
 	return(tmp->content);
 }
 
-void	builtin_cd(t_env *env, char *dir)							//naze        utilse get env mais je vois pas encorem comment se deplacer
+void	builtin_cd(t_env *env, char *dir)
 {
 	t_list	*tmp;
 	char	*old;
@@ -148,12 +145,17 @@ void	builtin_unset(t_env *env, char *key)
 	t_list *tmp;
 	
 	tmp = env->list;
-	while (ft_strncmp(tmp->next->key, key, ft_strlen(key)) != 0)
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->next->key, key, ft_strlen(key)) == 0)
+		{
+			if (tmp->next->next)
+				tmp->next = tmp->next->next;
+			else
+				tmp->next = NULL;
+		}
 		tmp = tmp->next;
-	if (tmp->next->next)
-		tmp->next = tmp->next->next;
-	else
-		tmp->next = NULL;
+	}
 }
 
 //void	builtin_echo
