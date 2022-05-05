@@ -39,7 +39,7 @@ OBJ_BONUS		=	$(addprefix $(PATH_OBJ_BONUS), $(OBJ_SRC_BONUS))
 HEADER 			= 	includes/$(EXEC).h
 HEADERBONUS 	= 	includes_bonus/$(EXEC)_bonus.h
 MK				= 	Makefile
-SAN 			= 	-g3 -fsanitize=address
+SAN 			= 	
 FLAGS 			= 	-Wall -Werror -Wextra 
 #-ggdb 
 LIB				= 	-llibft

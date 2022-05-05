@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 00:27:31 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/16 21:21:09 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/05/05 00:13:28 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_destroyallmutex(t_val *val)
 			return ;
 		i++;
 	}
+	pthread_mutex_destroy(&(val->write));
 	return ;
 }
 
@@ -57,20 +58,20 @@ void	ft_printstate(t_philosopher *philosopher, t_val *val)
 	{
 		pthread_mutex_lock(&(val->write));
 		if (philosopher->state == 0)
-			fprintf(stderr, "%d %d is thinking\n",
+			printf("%d %d is thinking\n",
 				time_diff(&(val->startprog), &time), philosopher->id);
 		if (philosopher->state == 1)
-			fprintf(stderr, "%d %d is eating\n",
+			printf("%d %d is eating\n",
 				time_diff(&(val->startprog), &time), philosopher->id);
 		if (philosopher->state == 2)
 		{
-			fprintf(stderr, "%d %d has taken a fork\n",
+			printf("%d %d has taken a fork\n",
 				time_diff(&(val->startprog), &time), philosopher->id);
-			fprintf(stderr, "%d %d has taken a fork\n",
+			printf("%d %d has taken a fork\n",
 				time_diff(&(val->startprog), &time), philosopher->id);
 		}
 		if (philosopher->state == 3)
-			fprintf(stderr, "%d %d is sleeping\n",
+			printf("%d %d is sleeping\n",
 				time_diff(&(val->startprog), &time), philosopher->id);
 		pthread_mutex_unlock(&(val->write));
 	}
@@ -78,8 +79,13 @@ void	ft_printstate(t_philosopher *philosopher, t_val *val)
 
 void	ft_dead(t_val *val, t_philosopher *philo)
 {
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
 	pthread_mutex_lock(&(philo->val->write));
-	fprintf(stderr, "%d %d died\n", time_diff(&(val->startprog),
+	printf("%d %d died\n", time_diff(&(val->startprog),
+			&(philo->end)), philo->id);
+	printf("%d %d died\n", time_diff(&(philo->start),
 			&(philo->end)), philo->id);
 	pthread_mutex_unlock(&(philo->val->write));
 }

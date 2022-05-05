@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:22:58 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/16 21:48:21 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/05/04 23:00:02 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_philosopher
 typedef struct s_val
 {
 	int				*tab;
-	int				time;
 	int				numerus;
 
 	int				allalive;
@@ -64,7 +63,7 @@ void	ft_parsarg(int argc, char **argv, t_val *val);
 void	setval(t_philosopher *philo, t_val *val);
 void	ft_printstate(t_philosopher *philosopher, t_val *val);
 
-void	ft_sleep(t_val *val);
+void	ft_sleep(t_philosopher *philo);
 void	philoeat(t_val *val, t_philosopher *philo);
 int		ft_eat(t_val *val, t_philosopher *philo);
 void	ft_dead(t_val *val, t_philosopher *philo);

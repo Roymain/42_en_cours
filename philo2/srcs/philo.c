@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:32:57 by Romain            #+#    #+#             */
-/*   Updated: 2022/02/16 22:02:47 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/05/05 00:44:11 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,34 @@ void	ft_pattern(t_val *val, t_philosopher *philo)
 	{
 		philo->state = 3;
 		ft_printstate(philo, val);
-		usleep(5);
+		usleep(300);
 	}
 	philo->state = 0;
+	gettimeofday(&(philo->end), NULL);
 	ft_printstate(philo, val);
-	while (time_diff(&(philo->start), &(philo->end)) <= val->tab[1]
-		- val->tab[3] && val->allalive == 1 && val->tab[0] > 1)
+	while (time_diff(&(philo->start), &(philo->end)) <= val->tab[1] && val->allalive == 1)
 	{
-		if (ft_eat(val, philo) == 0)
-		{
+		gettimeofday(&(philo->end), NULL);
+		ft_eat(val, philo);
+		
+			gettimeofday(&(philo->end), NULL);
+			if (time_diff(&(philo->start), &(philo->end)) > val->tab[1])
+			{
+				
+				return ;
+			}
 			philo->state = 3;
 			if (val->allalive == 1)
 				ft_printstate(philo, val);
-			ft_sleep(val);
-			gettimeofday(&(philo->end), NULL);
+			ft_sleep(philo);
+		//	gettimeofday(&(philo->end), NULL);
 			philo->state = 0;
 			if (val->allalive == 1)
 				ft_printstate(philo, val);
-		}
-		usleep(10);
+	
 		gettimeofday(&(philo->end), NULL);
 	}
+	return ;
 }
 
 void	ft_setthread(t_val *val, t_philosopher *philo)
@@ -57,21 +64,34 @@ void	ft_patternmeal(t_val *val, t_philosopher *philo)
 	}
 	philo->state = 0;
 	ft_printstate(philo, val);
-	while (time_diff(&(philo->start), &(philo->end)) <= val->time
-		&& val->allalive == 1 && val->tab[0] > 1 && philo->meal < val->tab[4])
+	while (time_diff(&(philo->start), &(philo->end)) <= val->tab[1]
+		 && val->tab[0] > 1 && philo->meal < val->tab[4])
 	{
 		if (ft_eat(val, philo) == 0)
 		{
-			philo->state = 3;
-			if (val->allalive == 1)
+			philo->state = 2;
+			
 				ft_printstate(philo, val);
-			ft_sleep(val);
+			philo->state = 1;
+			
+				ft_printstate(philo, val);
+			gettimeofday(&philo->start, NULL);
+			philoeat(val, philo);
+			if (philo->id != 1)
+				pthread_mutex_unlock(&(val->philo[philo->id - 2].forkette));
+			else
+				pthread_mutex_unlock(&(val->philo[val->tab[0] - 1].forkette));
+			pthread_mutex_unlock(&(philo->forkette));
+			philo->state = 3;
+			
+				ft_printstate(philo, val);
+			ft_sleep(philo);
 			gettimeofday(&(philo->end), NULL);
 			philo->state = 0;
-			if (val->allalive == 1)
+			
 				ft_printstate(philo, val);
 		}
-		usleep(10);
+	//	usleep(10);
 		gettimeofday(&(philo->end), NULL);
 	}
 }
@@ -80,7 +100,6 @@ void	*ft_recherche(void *arg)
 {
 	t_philosopher	*philo;
 	t_val			*val;
-	int				numerus;
 
 	philo = (t_philosopher *)arg;
 	val = philo->val;
@@ -90,17 +109,19 @@ void	*ft_recherche(void *arg)
 	else
 		ft_pattern(val, philo);
 	if (val->allalive == 0)
-	{
-		numerus += 1;
 		return (arg);
-	}
-	if (time_diff(&(philo->start), &(philo->end)) >= val->tab[1] - val->tab[3])
+//	gettimeofday(&(philo->end), NULL);
+	if (time_diff(&(philo->start), &(philo->end)) >= val->tab[1])
 	{
 		val->allalive = 0;
+		philo->val->allalive = 0;
 		philo->dead = 1;
 	}
 	if (philo->dead == 1)
+	{
+		//ft_destroyallmutex(val);
 		ft_dead(val, philo);
+	}
 	return (arg);
 }
 
@@ -121,13 +142,15 @@ int	main(int argc, char **argv)
 		{
 			pthread_create(&(val->philo[val->numerus].philosopher),
 				NULL, &ft_recherche, (void *)&(val->philo[val->numerus]));
+			//usleep(10);
 			val->numerus++;
 		}
-		while (val->numerus != 0)
+		while (val->numerus != -1)
 		{
 			pthread_join(val->philo[val->numerus].philosopher, NULL);
 			val->numerus--;
 		}
+		ft_destroyallmutex(val);
 		return (0);
 	}
 	return (write(1, "Invalid number of arguments.", 29));
