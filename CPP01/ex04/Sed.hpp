@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 02:41:57 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/14 02:45:35 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/07/14 04:40:33 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 class Sed {
 
 	private:
-			std::string		s1;
-			std::string		s2;
+			std::string		_s1;
+			std::string		_s2;
+			std::fstream    _replaced;
 	public:
-			
+			void replaceator( std::string line, size_t size );
+			void replicator( std::string line );
 
-
-			Sed( std::string s1, std::string s2 );
+			Sed( void );
+			Sed( std::string s1, std::string s2, std::string replaced );
 			~Sed( void );
 	
 	
