@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 03:01:21 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/14 04:58:18 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/07/14 22:33:34 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,18 @@ void Sed::replaceator( std::string line, size_t size ){
     line.erase(0, i + this->_s1.length());
     this->_replaced << line << std::endl;
 
-}
+};
  
 void Sed::replicator( std::string line ){
     if ( line.find(this->_s1)  )
         this->_replaced << line << std::endl;
     else
         replaceator(line, line.find(this->_s1));
-}
+};
+
+void Sed::closing( void ){
+	this->_replaced.close();
+};
 
 Sed::Sed( void ){};
 

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 02:17:51 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/14 04:52:46 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/07/14 21:46:19 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int main(int argc, char **argv){
 		getline(file, str);
 		Sed.replicator(str);
 	}
-	
-
-
+	Sed.closing();
 	file.close();
 
 
