@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
+/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 00:37:43 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/26 03:15:27 by rcuminal         ###   ########.fr       */
+/*   Created: 2022/07/26 00:39:27 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/07/26 00:39:28 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ROBOTOMY_CREATION_FORM_HPP
-# define ROBOTOMY_CREATION_FORM_HPP
+#ifndef PRESIDENTIAL_PARDON_FORM_HPP
+# define PRESIDENTIAL_PARDON_FORM_HPP
 
 # include <iostream>
 
@@ -20,7 +20,7 @@
 
 class Form;
 
-class RobotomyRequestForm : public Form {
+class PresidentialPardonForm : public Form {
 
 private:
 	std::string _target;
@@ -31,13 +31,13 @@ public:
 	std::string getTarget() const;
 
     
-    RobotomyRequestForm (const RobotomyRequestForm &RobotomyRequestForm);
-    RobotomyRequestForm (const std::string &target);
-    RobotomyRequestForm & operator= (const RobotomyRequestForm &RobotomyRequestForm);
+    PresidentialPardonForm (const PresidentialPardonForm &presidentialPardonForm);
+    PresidentialPardonForm (const std::string &target);
+    PresidentialPardonForm & operator= (const PresidentialPardonForm &presidentialPardonForm);
 
 
-	RobotomyRequestForm();
-	~RobotomyRequestForm();
+	PresidentialPardonForm();
+	~PresidentialPardonForm();
 };
 
 #endif
