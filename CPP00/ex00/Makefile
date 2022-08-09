@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/08 21:30:21 by rcuminal          #+#    #+#              #
+#    Updated: 2022/08/08 21:30:23 by rcuminal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 #Setting Color
 CCEND 		=   	\033[0m
 CCYAN 		=   	\033[34m
@@ -7,16 +19,14 @@ CCPURPLE 	=   	\033[35m
 
 #Get arguments pass
 ARGV		=	$(filter-out $@,$(MAKECMDGOALS))
-NAME 		= 	 phonebook.a
-EXEC 		= 	 phonebook
-CC 			= 	 g++
+NAME 		= 	 megaphone.a
+EXEC 		= 	 megaphone
+CC 			= 	 c++
 
 PATH_SRC	=	./srcs/
 PATH_OBJ	=	./objs/
 
-SRC 		=   	Contact.cpp		\
-					Phonebook.cpp		\
-					main.cpp
+SRC 		=   megaphone.cpp
 
 OBJ_SRC		=	$(SRC:.cpp=.o)
 
@@ -25,12 +35,12 @@ OBJ_S		=	$(addprefix $(PATH_OBJ), $(OBJ_SRC))
 
 HEADER 		= 	./includes/
 MK			= 	Makefile
-SAN 		=
-FLAGS 		= -std=c++98 -Wall -Werror -Wextra 
+SAN 		= 	-g3 -fsanitize=address
+FLAGS 		= 	-Wall -Werror -Wextra -std=c++98 
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.cpp $(MK)
 	@mkdir $(PATH_OBJ) 2> /dev/null || true
-	@-$(CC) -I includes -o $@ -c $<
+	@-$(CC) -o $@ -c $<
 	@printf "\r\t\033[K$(CCYAN)\t$< $(CCPURPLE)--> $(CCYAN)$@ $(CCEND)"
 	@sleep 0.1
 
@@ -41,7 +51,7 @@ $(NAME): $(OBJ_S)
 	@printf "\n$(CCYAN)[✅]\t$(CCPURPLE)Creation of Objs $(EXEC)...$(CCEND)\n"
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ)$(NAME) $(OBJ_S)
-	@$(CC) -I $(HEADER) $(PATH_OBJ)$(NAME) -o $(EXEC)
+	@$(CC) $(PATH_OBJ)$(NAME) -o $(EXEC)
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Compilation ./$(EXEC)...$(CCEND)\n"
 
 clean:

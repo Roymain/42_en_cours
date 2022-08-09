@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 22:25:22 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/12 03:55:57 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/08/08 22:21:49 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void Phonebook::ft_printsearch( int index){
 void Phonebook::ft_search(){
 	int	index = 0;
 	int i = 0;
-	while (!this->_Contact[i].present() ){
+	while (!this->_Contact[i].present() && i < 8 ){
 		std::cout << "|" << std::setw(10) << std::right << i + 1;
 		std::cout << "|" << std::setw(10) << std::right << ft_format_char(_Contact[i].get_firstname());
 		std::cout << "|" << std::setw(10) << ft_format_char(this->_Contact[i].get_lastname());
@@ -65,6 +65,8 @@ void Phonebook::ft_search(){
 	}
 	std::cout << "quel index?" << std::endl;
 	ft_getline();
+	if (std::cin.eof())
+		exit (1);
 	if (std::isdigit(_line[0])){
 		index = std::stoi( _line );
 		if (index < 1 || index > i )
@@ -78,40 +80,59 @@ void Phonebook::ft_search(){
 
 void Phonebook::run(){
 	ft_getline();
+	if (std::cin.eof())
+		exit (1);
 	while( this->_line != "EXIT" ){
 		if (this->_line == "ADD")
 			ft_add();
 		else if (this->_line == "SEARCH")
 			ft_search();
+		else
+			std::cout << "mauvaise commande" << std::endl;
 		ft_getline();
+		std::cout << "\033[2J" << std::endl;
+		if (std::cin.eof())
+			exit (1);
 	}
 };
 
 void Phonebook::ft_firstname( void ){
 
 	std::cout << "Saisir le prenom :" << std::endl;
-	_Contact[_incrementeur].set_firstname(ft_getline());
+	ft_getline();
+	if (std::cin.eof())
+		exit (1);
+//	_Contact[_incrementeur].set_firstname();
 	
 };
 
 void Phonebook::ft_lastname( void ){
 
 	std::cout << "Saisir le nom :" << std::endl;
-	_Contact[_incrementeur].set_lastname(ft_getline());
+	std::string line = ft_getline();
+	if (std::cin.eof())
+		exit (1);
+	_Contact[_incrementeur].set_lastname(line);
 	
 };
 
 void Phonebook::ft_nickname( void ){
 
 	std::cout << "Saisir le surnom :" << std::endl;
-	_Contact[_incrementeur].set_nickname(ft_getline());
+	std::string line = ft_getline();
+	if (std::cin.eof())
+		exit (1);
+	_Contact[_incrementeur].set_nickname(line);
 	
 };
 
 void Phonebook::ft_phonenumber( void ){
 
 	std::cout << "Saisir le numero de telephone :" << std::endl;
-	_Contact[_incrementeur].set_phonenumber(ft_getline());
+	std::string line = ft_getline();
+	if (std::cin.eof())
+		exit (1);
+	_Contact[_incrementeur].set_phonenumber(line);
 	
 };
 

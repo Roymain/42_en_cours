@@ -1,22 +1,23 @@
-#Setting Color
-CCEND 		=   	\033[0m
-CCYAN 		=   	\033[34m
-CGREEN		=   	\033[33m
-CCRED 		=   	\033[31m
-CCPURPLE 	=   	\033[35m
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/09 21:22:18 by rcuminal          #+#    #+#              #
+#    Updated: 2022/08/09 21:48:20 by rcuminal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-#Get arguments pass
-ARGV		=	$(filter-out $@,$(MAKECMDGOALS))
-NAME 		= 	 phonebook.a
-EXEC 		= 	 phonebook
-CC 			= 	 g++
+NAME 		= 	 02.a
+EXEC 		= 	 02
+CC 			= 	 c++
 
-PATH_SRC	=	./srcs/
-PATH_OBJ	=	./objs/
+SRC 		=   main.cpp \
 
-SRC 		=   	Contact.cpp		\
-					Phonebook.cpp		\
-					main.cpp
+				
+				
 
 OBJ_SRC		=	$(SRC:.cpp=.o)
 
@@ -41,7 +42,7 @@ $(NAME): $(OBJ_S)
 	@printf "\n$(CCYAN)[✅]\t$(CCPURPLE)Creation of Objs $(EXEC)...$(CCEND)\n"
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ)$(NAME) $(OBJ_S)
-	@$(CC) -I $(HEADER) $(PATH_OBJ)$(NAME) -o $(EXEC)
+	@$(CC) -I $(HEADER) $(PATH_OBJ) -o $(NAME)
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Compilation ./$(EXEC)...$(CCEND)\n"
 
 clean:

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/09 21:22:18 by rcuminal          #+#    #+#              #
+#    Updated: 2022/08/09 21:39:43 by rcuminal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 #Setting Color
 CCEND 		=   	\033[0m
 CCYAN 		=   	\033[34m
@@ -7,16 +19,18 @@ CCPURPLE 	=   	\033[35m
 
 #Get arguments pass
 ARGV		=	$(filter-out $@,$(MAKECMDGOALS))
-NAME 		= 	 phonebook.a
-EXEC 		= 	 phonebook
-CC 			= 	 g++
+NAME 		= 	 01.a
+EXEC 		= 	 01
+CC 			= 	 c++
 
 PATH_SRC	=	./srcs/
 PATH_OBJ	=	./objs/
 
-SRC 		=   	Contact.cpp		\
-					Phonebook.cpp		\
-					main.cpp
+SRC 		=   main.cpp \
+				Zombie.cpp \
+				zombieHorde.cpp \
+				
+				
 
 OBJ_SRC		=	$(SRC:.cpp=.o)
 

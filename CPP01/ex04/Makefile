@@ -5,8 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/09 22:05:51 by rcuminal          #+#    #+#              #
+#    Updated: 2022/08/09 22:06:15 by rcuminal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/09 21:22:18 by rcuminal          #+#    #+#              #
-#    Updated: 2022/08/09 21:33:56 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/08/09 21:51:23 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,17 +31,15 @@ CCPURPLE 	=   	\033[35m
 
 #Get arguments pass
 ARGV		=	$(filter-out $@,$(MAKECMDGOALS))
-NAME 		= 	 00.a
-EXEC 		= 	 00
+NAME 		= 	 04.a
+EXEC 		= 	 04
 CC 			= 	 c++
 
 PATH_SRC	=	./srcs/
 PATH_OBJ	=	./objs/
 
 SRC 		=   main.cpp \
-				newZombie.cpp \
-				randomChump.cpp \
-				Zombie.cpp
+				Sed.cpp \
 				
 				
 
