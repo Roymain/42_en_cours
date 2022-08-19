@@ -6,7 +6,7 @@
 /*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:27:38 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/19 04:57:44 by Romain           ###   ########.fr       */
+/*   Updated: 2022/08/19 16:55:21 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,32 @@
 # define PI 3.1415926535
 
 typedef struct s_data {
+	
 	void	*img;
 	char	*addr;
+	
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	
 	float		x;
 	float		y;
 	float		pdx;
 	float		pdy;
 	float		pa;
-	int		move;
 }					t_data;
 
 typedef struct cub
 {
 	void	*mlx;
 	void	*mlxwin;
-	// int		**pars;
-	// int		**color;
-	// int		x;
-	// int		y;
-	// int		fd;
-	// t_pos	pos;
-	// t_var	var;
+
+	int		mapW;
+	int		mapH;
+	int		mapScale;
+	
+
+
 	t_data	*image;
 }					t_cub;
 
