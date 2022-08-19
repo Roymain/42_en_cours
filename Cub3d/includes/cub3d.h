@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:27:38 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/13 04:50:52 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/08/19 04:57:44 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@
 # include <fcntl.h>
 # include <stdio.h>
 
+
+# define PI 3.1415926535
+
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	float		x;
+	float		y;
+	float		pdx;
+	float		pdy;
+	float		pa;
+	int		move;
+}					t_data;
+
 typedef struct cub
 {
 	void	*mlx;
@@ -35,15 +52,9 @@ typedef struct cub
 	// int		fd;
 	// t_pos	pos;
 	// t_var	var;
+	t_data	*image;
 }					t_cub;
 
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}					t_data;
 
 
 
