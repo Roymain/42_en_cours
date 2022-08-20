@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:14:36 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/20 05:36:49 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/08/20 05:55:54 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	ft_draw_line(t_data *data, int beginx, int beginy, int endx, int endy)
 	deltay /= pixels;
 	pixelx = beginx;
 	pixely = beginy;
-	if (pixelx > 1000)
-		pixelx = 1000;
-	if (pixely > 1000)
-		pixely = 1000;
-	while (pixels && pixelx > 0 && pixely > 0 && pixelx < 1000 && pixely < 1000)
+	// if (pixelx > 1000)
+	// 	pixelx = 1000;
+	// if (pixely > 1000)
+	// 	pixely = 1000;
+	while (pixels) //&& pixelx > 0 && pixely > 0 && pixelx < 1000 && pixely < 1000
 	{
 		my_mlx_pixel_put(data, pixelx, pixely, 0xff0000);
 		pixelx += deltax;
@@ -60,6 +60,18 @@ void	ft_draw_line(t_data *data, int beginx, int beginy, int endx, int endy)
 		--pixels;
 	}
 	return ;
+}
+
+void ft_drawwalls(t_data *data, int beginx, int beginy, int lineH)
+{
+	int i;
+
+	i = 0;
+	while (i < 8)
+	{
+		ft_draw_line(data, beginx + i, beginy, beginx + i, lineH);
+		i++;
+	}
 }
 
 u_int32_t**	ft_mem2array(uint32_t *mem, size_t len_x, size_t len_y)
@@ -168,11 +180,27 @@ void	drawrays(t_data *data, int mapX, int mapY, int mapS)
 			if(mp > 0 && mp<mapX*mapY && map[mp]==1){vx = rx; vy = ry; disV = dist(data->x, data->y, vx, vy, ra); dof=8;}//hit
 			else{ rx+=xo; ry+=yo; dof+=1;}  
 		}
-		if (disV > disH){rx = hx; ry = hy; disH=disV;}
-		if (disV < disH){rx = vx; ry = vy; disV=disH;}
+		if (disV > disH){rx = hx; ry = hy; disT=disV;}
+		if (disV < disH){rx = vx; ry = vy; disT=disH;}
 		ft_draw_line(data, data->x, data->y, rx, ry);
 		//ra=data->pa - DR * 30;
- 		ra += DR;                                                               //ray set back 30 degrees
+
+
+		
+		float lineH = (mapS * 320)/disT;
+		if (lineH > 320)
+			lineH = 320;
+		ft_drawwalls(data, r * 8 + 1080, 0, lineH);
+
+
+
+
+
+
+
+
+		
+ 		ra += DR;
 		if (ra < 0)
 			ra += 2 * PI;
 		if (ra > 2 * PI)
