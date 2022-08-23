@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/09 21:22:18 by rcuminal          #+#    #+#              #
-#    Updated: 2022/08/13 04:54:43 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/08/22 22:52:47 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJ_S		=	$(addprefix $(PATH_OBJ), $(OBJ_SRC))
 HEADER 		= 	./includes/
 MK			= 	Makefile
 SAN 		=
-FLAGS 		=	 -Wall -Werror -Wextra  
+FLAGS 		=	 -Wall -Werror -Wextra  -fsanitize=address
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c $(MK)
 	@mkdir $(PATH_OBJ) 2> /dev/null || true

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:14:36 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/20 05:55:54 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/08/22 23:24:24 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void ft_drawwalls(t_data *data, int beginx, int beginy, int lineH)
 	int i;
 
 	i = 0;
-	while (i < 8)
+	while (i < 8)				
 	{
-		ft_draw_line(data, beginx + i, beginy, beginx + i, lineH);
+		ft_draw_line(data, beginx + i, beginy - lineH, beginx + i, beginy + lineH);
 		i++;
 	}
 }
@@ -128,6 +128,7 @@ void	drawrays(t_data *data, int mapX, int mapY, int mapS)
 			rx = (data->y - ry) * aTan + data->x;
 			yo = -64;
 			xo = -yo * aTan;
+			// N
 		}
 		if (ra < PI){
 			ry = (((int)data->y>>6)<<6) + 64;
@@ -140,6 +141,7 @@ void	drawrays(t_data *data, int mapX, int mapY, int mapS)
 			rx = data->x;
 			ry = data->y;
 			dof = 8;
+			// S
 		}
 		while (dof < 8)
 		{
@@ -161,12 +163,14 @@ void	drawrays(t_data *data, int mapX, int mapY, int mapS)
 			ry = (data->x - rx) * nTan + data->y;
 			xo = -64;
 			yo = -xo * nTan;
+			// W
 		}
 		if (ra < PI2 || ra > PI3){
 			rx = (((int)data->x>>6)<<6) + 64;
 			ry = (data->x - rx) * nTan + data->y;
 			xo = 64;
 			yo = -xo * nTan;
+			// E
 		}
 		if (ra == 0 || ra == PI)
 		{
@@ -180,17 +184,23 @@ void	drawrays(t_data *data, int mapX, int mapY, int mapS)
 			if(mp > 0 && mp<mapX*mapY && map[mp]==1){vx = rx; vy = ry; disV = dist(data->x, data->y, vx, vy, ra); dof=8;}//hit
 			else{ rx+=xo; ry+=yo; dof+=1;}  
 		}
-		if (disV > disH){rx = hx; ry = hy; disT=disV;}
-		if (disV < disH){rx = vx; ry = vy; disT=disH;}
+		if (disV > disH){rx = hx; ry = hy; disT=disH;}
+		if (disV < disH){rx = vx; ry = vy; disT=disV;}
 		ft_draw_line(data, data->x, data->y, rx, ry);
 		//ra=data->pa - DR * 30;
 
 
-		
-		float lineH = (mapS * 320)/disT;
-		if (lineH > 320)
-			lineH = 320;
-		ft_drawwalls(data, r * 8 + 1080, 0, lineH);
+		float ca = data->pa - ra;
+		if (ca < 0)
+			ca += 2 * PI;
+		if (ca > 2 * PI)
+			ca -= 2 * PI;
+		disT = disT * cos(ca);
+		float lineH = (mapS * 500)/disT;
+		if (lineH > 500)
+			lineH = 500;
+		float lineO = 300 - lineH / 2;
+		ft_drawwalls(data, r * 8 + 1000, lineO , lineH);
 
 
 
@@ -362,6 +372,10 @@ int	render_next_frame(t_cub *cub)
 
 int	key_hook(int keycode, t_data *data)  // direction et gauche droite
 {
+	if (keycode == 53)
+	{
+		exit (0);
+	}
 	if (keycode == 13)
 	{
 		data->x += data->pdx ;
