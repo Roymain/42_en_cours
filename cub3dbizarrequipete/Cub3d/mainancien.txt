@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/13 01:14:36 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/25 05:21:16 by rcuminal         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    mainancien.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/13 01:14:36 by rcuminal          #+#    #+#              #
+#    Updated: 2022/08/23 04:37:49 by rcuminal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #include "../includes/cub3d.h"
 
@@ -54,8 +54,8 @@ void	ft_draw_line(t_data *data, int beginx, int beginy, int endx, int endy)
 	// 	pixely = 1000;
 	while (pixels) //&& pixelx > 0 && pixely > 0 && pixelx < 1000 && pixely < 1000
 	{
-		my_mlx_pixel_put(data, pixelx, pixely, 0xff0000;
-		pixelx += deltax;)
+		my_mlx_pixel_put(data, pixelx, pixely, 0xff0000);
+		pixelx += deltax;
 		pixely += deltay;
 		--pixels;
 	}
@@ -106,7 +106,7 @@ void	drawrays(t_data *data, int mapX, int mapY, int mapS)
 	};
 
 	
-	int r,mx,my,mp,dof; float vx,vy,rx,ry,ra,xo,yo,disV,disH,hx,hy, disT;
+	int r,mx,my,mp,dof; float vx,vy,rx,ry,ra,xo,yo,disV,disH,hx,hy, disT;         // ra player angle temporaire ; aTan nTan
 
 	//ra = data->pa;
 	ra=data->pa - DR * 30;
@@ -186,8 +186,10 @@ void	drawrays(t_data *data, int mapX, int mapY, int mapS)
 		}
 		if (disV > disH){rx = hx; ry = hy; disT=disH;}
 		if (disV < disH){rx = vx; ry = vy; disT=disV;}
-	//	ft_draw_line(data, data->x, data->y, rx, ry);
+		ft_draw_line(data, data->x, data->y, rx, ry);
 		//ra=data->pa - DR * 30;
+
+
 		float ca = data->pa - ra;
 		if (ca < 0)
 			ca += 2 * PI;
@@ -302,7 +304,7 @@ void ft_drawsquare(uint32_t**	img_color, int posx, int posy, int scale, int colo
 		x = posx;
 		while (x < 1920)
 		{
-			if (y <= posy + scale  && x <= posx + scale )
+			if (y <= posy + scale  && x <= posx + scale)
 				img_color[y][x++] = 0xF3F3F2;
 			else
 				x++;
@@ -482,3 +484,26 @@ int main()
 	// 	++i;
 	// }
 
+
+
+
+
+
+im1.img = mlx_new_image(cub.mlx, 1920, 1080);
+	im2.img = mlx_new_image(cub.mlx, 1920, 1080);
+	im3.img = mlx_new_image(cub.mlx, 1920, 1080);
+	im1.addr = mlx_get_data_addr(im1.img, &im1.bits_per_pixel, &im1.line_length,
+			&im1.endian);
+	im2.addr = mlx_get_data_addr(im2.img, &im2.bits_per_pixel, &im2.line_length,
+			&im2.endian);
+	im3.addr = mlx_get_data_addr(im3.img, &im3.bits_per_pixel, &im3.line_length,
+			&im3.endian);
+	int i = 0;
+	while (i < 63)
+	{
+		cub.map[i] = map[i];
+		i++;
+	}
+	cub.image[0] = &im1;
+	cub.image[1] = &im2;
+	cub.image[2] = &im3;
