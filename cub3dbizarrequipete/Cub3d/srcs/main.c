@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:14:36 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/25 05:39:33 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/02 00:31:05 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#include "/Users/rcuminal/Desktop/Cub3d/libft/includes/libft.h"
+#include "/Users/Romain/Desktop/propro/cub3dbizarrequipete/Cub3d/libft/includes/libft.h"
 
 void	ft_freetabb(u_int32_t**tab)
 {
@@ -57,7 +57,7 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	ft_draw_line(t_image *data, int beginx, int beginy, int endx, int endy)
+void	ft_draw_line(t_image *data, int beginx, int beginy, int endx, int endy, int color)
 {
 	float	deltax;
 	float	deltay;
@@ -65,7 +65,7 @@ void	ft_draw_line(t_image *data, int beginx, int beginy, int endx, int endy)
 	float	pixely;
 	int		pixels;
 
-	uint32_t color;
+
 
 	pixelx = beginx;
 	pixely = beginy;
@@ -81,10 +81,13 @@ void	ft_draw_line(t_image *data, int beginx, int beginy, int endx, int endy)
 	// 	pixelx = 1000;
 	// if (pixely > 1000)
 	// 	pixely = 1000;
-	color = 0xff0000;
+	
 	while (pixels) //&& pixelx > 0 && pixely > 0 && pixelx < 1000 && pixely < 1000
 	{
-			my_mlx_pixel_put(data, pixelx, pixely, color);
+		if (color == 2)
+			my_mlx_pixel_put(data, pixelx, pixely, 0xff0000);
+		else if (color == 1)
+			my_mlx_pixel_put(data, pixelx, pixely, 0xfffe00);
 		pixelx += deltax;
 		pixely += deltay;
 		--pixels;
@@ -109,45 +112,36 @@ u_int32_t**	ft_mem2array(uint32_t *mem, size_t len_x, size_t len_y)
 	return (arr);
 }
 
-void	ft_drawwalls(t_cub *cub, int beginx, int beginy, int lineH)
+void	ft_drawwalls(t_cub *cub, int beginx, int beginy, int lineH, int dir)
 {
-	int i;
+	int x;
+	int y;
 
-	i = 0;
-	while (i < 8)				
+	x = beginx;
+	while (x < beginx + 8)				
 	{
-
-			ft_draw_line(&cub->image[0], beginx + i, beginy - lineH, beginx + i, beginy + lineH);
-	
-		i++;
+		y = beginy - lineH;
+		while ( y < beginy + lineH )
+		{
+			if (x > 0 && y > 0 && x < 1920 && y < 1080)
+			{
+				if (dir == 1)
+					cub->image[0].arr[y++][x] = 0xffff00;
+				else
+					cub->image[0].arr[y++][x] = 0xff1100;
+			}
+			else
+				y++;
+			
+		}
+		x++;
 	}
 
 }
 
-// void	ft_drawwalls(uint32_t**	arr, int beginx, int beginy, int lineH)
-// {
-// //	uint32_t**	arr = ft_mem2array((uint32_t*)cub->image[0].addr, 1920, 1080);
-// 	int x;
-// 	int y;
-
-// 	y = 0;
-// 	while (y < 1080)				
-// 	{
-// 		x = 0;
-// 		while ( x < 1910)
-// 		{
-// 			if (x > beginx && x < beginx + 8 && y > beginy - lineH && y < beginy + lineH)
-// 				arr[y][x++] = 0xffff00;
-// 			else
-// 				x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
-
 void	drawrays(t_cub *cub)
 {
+
 //	char tmp;
 	int map[]=
 	{
@@ -162,9 +156,10 @@ void	drawrays(t_cub *cub)
 	};
 	
 	int r,mx,my,mp,dof;      // ra player angle temporaire ; aTan nTan
-	
-		int x;
+	int dir;
+	int x;
 	int y;
+	dir = 1;
 	x = 0;
 	y = 0;
 	while (y < 1080)
@@ -178,8 +173,6 @@ void	drawrays(t_cub *cub)
 		}
 		++y;
 	}
-	//ra = image->pa;
-//	ft_bzero(&cub->data, sizeof(t_raycasting));
 	cub->data.ra = cub->pos.pa - DR * 30;
 	if (cub->data.ra < 0)
 		cub->data.ra += 2 * PI;
@@ -187,6 +180,7 @@ void	drawrays(t_cub *cub)
 		cub->data.ra -= 2 * PI;
 	for (r = 0; r < 60; r++)
 	{
+		dir = 1;
 	// P1
 		dof = 0;
 		cub->data.disH = 1000000;
@@ -289,19 +283,19 @@ void	drawrays(t_cub *cub)
 		
 		if (cub->data.disV > cub->data.disH)
 		{
-			cub->data.dir = 'b';
+			dir = 1;
 			cub->data.rayX = cub->data.horix;
 			cub->data.rayY = cub->data.horiy;
 			cub->data.disT = cub->data.disH;
 		}
 		if (cub->data.disV < cub->data.disH)
 		{
-			cub->data.dir = 'a';
+			dir = 2;
 			cub->data.rayX = cub->data.vertx;
 			cub->data.rayY = cub->data.verty;
 			cub->data.disT = cub->data.disV;
 		}
-		//ft_draw_line(&cub->image[0], cub->pos->x, cub->pos->y, cub->data->rayX, cub->data->rayY);
+		ft_draw_line(&cub->image[1], cub->pos.x, cub->pos.y, cub->data.rayX, cub->data.rayY, 2);
 	
 		cub->data.ca = cub->pos.pa - cub->data.ra;
 		if (cub->data.ca < 0)
@@ -314,18 +308,13 @@ void	drawrays(t_cub *cub)
 			cub->data.lineH = 500;
 		cub->data.lineO = 300 - cub->data.lineH / 2;
 		
-		ft_drawwalls(cub, r * 8 + 1000, cub->data.lineO , cub->data.lineH);
+		ft_drawwalls(cub, r * 8 + 1000, cub->data.lineO , cub->data.lineH, dir);
  		cub->data.ra += DR;
 		if (cub->data.ra < 0)
 			cub->data.ra += 2 * PI;
 		if (cub->data.ra > 2 * PI)
 			cub->data.ra -= 2 * PI;
 	}
-//	dprintf(2, "->>%f\n", cub->data->lineO);
-//	ft_draw_line(cub->image[1], r * 8 + 1000, cub->data->lineO,  r * 8 + 1000, cub->data->lineO + cub->data->lineH);
-//	mlx_put_image_to_window(cub->mlx, cub->mlxwin, cub->image[0].img, 0, 0);
-//	ft_freetab((char **)img_color);
-//	mlx_clear_window(cub->mlx, cub->mlxwin);
 }
 
 void ft_putplayer(uint32_t**	img_color, t_pos *pos) // petit carre avec direction grace a un point
@@ -378,7 +367,6 @@ void ft_drawmap(t_cub *cub)
 
 	x = 0;
 	y = 0;
-	uint32_t**	img_color = ft_mem2array((uint32_t*) cub->image[0].addr, 1920, 1080);
 	y = 0;
 	while (y < cub->mapH)
 	 {
@@ -389,15 +377,13 @@ void ft_drawmap(t_cub *cub)
 			cub->yo = y * cub->mapScale;
 			if(cub->map[ y * cub->mapW + x] == 1)
 			{
-				ft_drawsquare(img_color, cub->xo, cub->yo, 64, 0x858485);
+				ft_drawsquare(cub->image[1].arr, cub->xo, cub->yo, 64, 0x858485);
 			}
 			x++;
 		}
 		y++;
 	}
-	ft_putplayer(img_color, &cub->pos);
-//	drawrays(cub);
-	mlx_put_image_to_window(cub->mlx, cub->mlxwin, cub->image[0].img, 0, 0);
+	ft_putplayer(cub->image[1].arr, &cub->pos);
 }
 
 void	draw_font(t_cub *cub)
@@ -426,22 +412,15 @@ void	draw_font(t_cub *cub)
 int	render_next_frame(t_cub *cub)
 {
 	mlx_clear_window(cub->mlx, cub->mlxwin);
-//	draw_font(cub);
-//	ft_drawmap(cub);
-//	ft_putplayer(cub->image[1], cub->pos);
-//	ft_bzero(cub->data, sizeof(t_raycasting));
+
+	ft_drawmap(cub);
+
 	drawrays(cub);
-//	draw_font(cub);
-//	uint32_t**	img_color = ft_mem2array((uint32_t*)cub->image[0].addr, 1920, 1080);
-//	ft_drawwalls(cub, 0, 400, 50);
+
 	mlx_put_image_to_window(cub->mlx, cub->mlxwin, cub->image[0].img, 0, 0);
+	mlx_put_image_to_window(cub->mlx, cub->mlxwin, cub->image[1].img, 0, 0);
 	return (0);
 };
-
-
-
-
-
 
 int	key_hook(int keycode, t_cub *cub)  // direction et gauche droite
 {
@@ -563,28 +542,22 @@ int main()
 		1,1,1,1,1,1,1,1,
 	};
 
-	// cub->image[0].img = mlx_new_image(cub->mlx, 1920, 1080);
-	// // cub->image[1].img = mlx_new_image(cub->mlx, 1920, 1080);
-	// // cub->image[2].img = mlx_new_image(cub->mlx, 1920, 1080);
-	// cub->image[0].addr = mlx_get_data_addr(cub->image[0].img, &cub->image[0].bits_per_pixel, &cub->image[0].line_length,
-	// 		&cub->image[0].endian);
-	// cub->image[1].addr = mlx_get_data_addr(cub->image[1].img, &cub->image[1].bits_per_pixel, &cub->image[1].line_length,
-	// 		&cub->image[1].endian);
-	// cub->image[2].addr = mlx_get_data_addr(cub->image[2].img, &cub->image[2].bits_per_pixel, &cub->image[2].line_length,
-	// 		&cub->image[2].endian);
-	
 	int i = 0;
 	while (i < 64){
 		cub.map[i] = map[i];
 		i++;
 	}
-	cub.data.dir = 1;
+
 	cub.image[0].img = mlx_new_image(cub.mlx, 1920, 1080);
-	// cub->image[1].img = mlx_new_image(cub->mlx, 1920, 1080);
-	// cub->image[2].img = mlx_new_image(cub->mlx, 1920, 1080);
+	cub.image[1].img = mlx_new_image(cub.mlx, 1920, 1080);
+
 	cub.image[0].addr = mlx_get_data_addr(cub.image[0].img, &cub.image[0].bits_per_pixel, &cub.image[0].line_length,
 			&cub.image[0].endian);
 	cub.image[0].arr = ft_mem2array((uint32_t*)cub.image[0].addr, 1920, 1080);
+	
+	cub.image[1].addr = mlx_get_data_addr(cub.image[1].img, &cub.image[1].bits_per_pixel, &cub.image[1].line_length,
+			&cub.image[1].endian);
+	cub.image[1].arr = ft_mem2array((uint32_t*)cub.image[1].addr, 1920, 1080);
 
 	mlx_hook(cub.mlxwin, 2, 1L<<0, key_hook, &cub);
 	mlx_loop_hook(cub.mlx, render_next_frame, &cub);

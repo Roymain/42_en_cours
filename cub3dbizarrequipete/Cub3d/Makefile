@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/09 21:22:18 by rcuminal          #+#    #+#              #
-#    Updated: 2022/08/23 09:31:20 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/09/02 00:28:49 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,12 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c $(MK)
 
 all: $(NAME)
 
-$(NAME): $(OBJ_S) mlx lft tracker
+$(NAME): $(OBJ_S) mlx tracker
 	@printf "\r\t\033[K$(CCYAN)[✅]\t$(EXEC) $(CCPURPLE)--> $(CCYAN) Gen Objs$(CCEND)"
 	@printf "\n$(CCYAN)[✅]\t$(CCPURPLE)Creation of Objs $(EXEC)...$(CCEND)\n"
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Creation of $(NAME)...$(CCEND)\n"
 	@ar rc $(PATH_OBJ)$(NAME) $(OBJ_S)
-	@$(CC)  -fsanitize=address -g3  -Llibmlx -lmlx -framework OpenGL -framework AppKit  $(PATH_OBJ)$(NAME)  -o $(EXEC)
+	@$(CC)    -Llibmlx -lmlx -framework OpenGL -framework AppKit  $(PATH_OBJ)$(NAME)  -o $(EXEC)
 	@printf "$(CCYAN)[✅]\t$(CCPURPLE)Compilation ./$(EXEC)...$(CCEND)\n"
 
 clean:

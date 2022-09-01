@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:27:38 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/25 03:58:40 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/08/25 07:46:24 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_pos
 
 typedef struct s_raycasting
 {
-	char		dir;
+	
 	float		disV;
 	float		disH;
 	float		disT;
