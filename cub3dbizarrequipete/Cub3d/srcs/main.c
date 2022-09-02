@@ -6,7 +6,7 @@
 /*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:14:36 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/02 00:31:05 by Romain           ###   ########.fr       */
+/*   Updated: 2022/09/02 14:33:36 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,36 @@ void	ft_drawwalls(t_cub *cub, int beginx, int beginy, int lineH, int dir)
 
 }
 
+void	ft_drawwallssmooth(t_cub *cub, int beginx, int beginy, int lineH, int dir)
+{
+	int x;
+	int y;
+	int sm;
+
+	sm = 0;
+	x = beginx;
+	while (x < beginx + 24)				
+	{
+		y = beginy - lineH - sm;
+		while ( y < beginy + lineH + sm )
+		{
+			if (x > 0 && y > 0 && x < 1920 && y < 1080)
+			{
+				if (dir == 1)
+					cub->image[0].arr[y++][x] = 0xffff00;
+				else
+					cub->image[0].arr[y++][x] = 0xff1100;
+			}
+			else
+				y++;
+			
+		}
+		x++;
+		sm++;
+	}
+
+}
+
 void	drawrays(t_cub *cub)
 {
 
@@ -178,7 +208,7 @@ void	drawrays(t_cub *cub)
 		cub->data.ra += 2 * PI;
 	if (cub->data.ra > 2 * PI)
 		cub->data.ra -= 2 * PI;
-	for (r = 0; r < 60; r++)
+	for (r = 0; r < 240; r++)
 	{
 		dir = 1;
 	// P1
@@ -303,13 +333,15 @@ void	drawrays(t_cub *cub)
 		if (cub->data.ca > 2 * PI)
 			cub->data.ca -= 2 * PI;
 		cub->data.disT = cub->data.disT * cos(cub->data.ca);
-		cub->data.lineH = (cub->mapScale * 500) / cub->data.disT;
-		if (cub->data.lineH > 500)
-			cub->data.lineH = 500;
-		cub->data.lineO = 300 - cub->data.lineH / 2;
-		
-		ft_drawwalls(cub, r * 8 + 1000, cub->data.lineO , cub->data.lineH, dir);
- 		cub->data.ra += DR;
+		cub->data.lineH = (cub->mapScale * 340) / cub->data.disT;
+		if (cub->data.lineH > 540)
+			cub->data.lineH = 540;
+		cub->data.lineO = 540;
+		// if (cub->data.disT < 100)
+		// 	ft_drawwallssmooth(cub, r * 24, cub->data.lineO , cub->data.lineH, dir);
+		// else
+			ft_drawwalls(cub, r * 8, cub->data.lineO , cub->data.lineH, dir);
+ 		cub->data.ra += DR / 4;
 		if (cub->data.ra < 0)
 			cub->data.ra += 2 * PI;
 		if (cub->data.ra > 2 * PI)
