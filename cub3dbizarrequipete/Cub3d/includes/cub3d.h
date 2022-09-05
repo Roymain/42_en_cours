@@ -6,7 +6,7 @@
 /*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:27:38 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/08/25 07:46:24 by Romain           ###   ########.fr       */
+/*   Updated: 2022/09/05 17:23:11 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct cub
 	void	*mlx;
 	void	*mlxwin;
 
-	int		map[64];
+	int		map[72];
 
 	int		mapW;
 	int		mapH;
