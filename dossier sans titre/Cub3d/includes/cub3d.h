@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 01:27:38 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/08 03:27:13 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/12 18:17:03 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-
 # define PI 3.1415926535
 # define PI2 PI / 2
 # define PI3 3 * PI / 2
@@ -38,15 +37,12 @@
 
 typedef struct s_pos
 {
-	
-	float		x;		// pose
+	float		x;
 	float		y;
-	float		pdx;	// Delta x et y deplacement
+	float		pdx;
 	float		pdy;	
-	float		pa;		//player angle
-
+	float		pa;
 }					t_pos;
-
 
 typedef struct s_raycasting
 {
@@ -55,14 +51,13 @@ typedef struct s_raycasting
 	int			dir;
 
 	int			focal;
-	
+
 	float		disV;
 	float		disH;
 	float		disT;
 
 	float		lineH;
 	float		lineO;
-	
 
 	float		aTan;
 	float		nTan;
@@ -78,52 +73,46 @@ typedef struct s_raycasting
 	float		yo;
 	float		ca;
 
-	
+	float		ratiox;
+	float		shade;
 
+	int			mp;
+	int			mx;
+	int			my;
+	int			dow;
 }					t_raycasting;
-
 
 typedef struct s_image
 {
-	
-	void	*img;
-
-	char	*addr;
-	
+	void		*img;
+	char		*addr;
 	u_int32_t	**arr;
-	
-	int		bits_per_pixel; // for image
-	int		line_length;
-	int		endian;
 
-	int		Widt; // for texture
-	int		Heig;
-	
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+
+	int			Widt;
+	int			Heig;
 }					t_image;
-
 
 typedef struct cub
 {
-	void	*mlx;
-	void	*mlxwin;
+	void			*mlx;
+	void			*mlxwin;
 
-	int		map[91];
+	int				map[91];
 
+	int				mapW;
+	int				mapH;
+	int				mapScale;
 
-	int		mapW;
-	int		mapH;
-	int		mapScale;
-
-	char 	clavier[6];
+	char			clavier[6];
 
 	t_raycasting	data;
 	t_pos			pos;
-	
-	t_image		image[3];
-	t_image		texture[4];
+	t_image			image[3];
+	t_image			texture[4];
 }					t_cub;
-
-
-
 
 #endif

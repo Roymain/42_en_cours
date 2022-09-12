@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/09 21:22:18 by rcuminal          #+#    #+#              #
-#    Updated: 2022/09/07 22:47:24 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/09/12 19:40:37 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,9 @@ SRC 		=   main.c	\
 				math.c	\
 				draw.c	\
 				utils.c	\
+				key_loop.c \
+				raycastinghv.c \
+				raycastingutils.c \
 
 		
 
