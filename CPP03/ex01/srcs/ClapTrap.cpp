@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:15:43 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 00:07:22 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:46:02 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void ClapTrap::takeDamage( unsigned int amount ){
 };
 
 int ClapTrap::getHp(){
-	std::cout << "hp = " << this->_hp << std::endl;
 	return (this->_hp);	
 };
 
