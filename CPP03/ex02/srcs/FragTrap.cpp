@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:21:41 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 00:27:07 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:42:36 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ FragTrap &FragTrap::operator = (const FragTrap &rhs){
 }
 
 int FragTrap::getHp(){
-	std::cout << "hp = " << this->_hp << std::endl;
 	return (this->_hp);	
 };
 
-void highFivesGuys(void){
+void FragTrap::highFivesGuys(void){
     std::cout << "high five bro?!?" << std::endl;
 };
 
@@ -68,5 +67,5 @@ FragTrap::FragTrap( std::string name ): ClapTrap(name){
 };
 
 FragTrap::~FragTrap( void ){
-    std::cout << "FragTrap destructor called" << std::endl;
+    std::cout << this->_name << "'s FragTrap destructor called" << std::endl;
 };
