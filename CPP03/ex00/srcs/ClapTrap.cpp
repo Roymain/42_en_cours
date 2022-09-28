@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:15:43 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/20 23:02:44 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:06:16 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void ClapTrap::beRepaired( unsigned int amount ){
 
 
 
-ClapTrap::ClapTrap( void ): _hp(10), _mana(10), _ad(10){
-	std::cout << "constructor called" << std::endl;
+ClapTrap::ClapTrap( void ): _hp(10), _mana(10), _ad(0){
+	std::cout << "default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap( std::string name ): _name(name), _hp(10), _mana(10), _ad(10){
+ClapTrap::ClapTrap( std::string name ): _name(name), _hp(10), _mana(10), _ad(0){
 	std::cout << "constructor called" << std::endl;
 }
 

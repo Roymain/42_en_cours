@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 23:05:47 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 01:25:06 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:16:06 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ ScavTrap & operator = (const ScavTrap &rhs);
 
 			int	getHp();
 
+			ScavTrap( void );
 			ScavTrap( std::string name );
 			~ScavTrap( void );
 	

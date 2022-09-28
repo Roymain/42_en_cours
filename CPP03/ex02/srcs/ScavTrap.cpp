@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 23:10:01 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 01:32:12 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:08:50 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,14 @@ void	ScavTrap::guardGate(void){
 int ScavTrap::getHp(){
 	std::cout << "hp = " << this->_hp << std::endl;
 	return (this->_hp);	
+};
+
+ScavTrap::ScavTrap( void ): ClapTrap("default"){
+    std::cout << "ScavTrap constructor called" << std::endl;
+    this->_ad = 20;
+    this->_hp = 100;
+    this->_mana = 50;
+	this->_odor = false;
 };
 
 ScavTrap::ScavTrap( std::string name ): ClapTrap(name){
