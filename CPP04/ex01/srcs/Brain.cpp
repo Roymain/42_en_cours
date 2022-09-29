@@ -1,21 +1,32 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Brain.cpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 03:55:38 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 05:42:27 by rcuminal         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# include "../includes/Brain.hpp"
 
-#include "../includes/Brain.hpp"
 
-Brain::Brain( std::string name ): _name(name) {
-	std::cout << "Brain constructor called for " << name << std::endl;
-};
+Brain::Brain(const Brain &brain){
+	std::cout << "Brain copy constructor called" << std::endl;
+	*this = brain;
+	return;
+}
 
-Brain::~Brain(){
-	std::cout << "Brain destructor called for " << _name << std::endl;
-};
+Brain &Brain::operator = (const Brain &brain){
+	std::cout << "Brain copy operator called" << std::endl;
+	if (&brain != this)
+	{
+		for (int i = 0; i < 100; i++)
+			_ideas[i] = brain._ideas[i];
+	}
+	return (*this);
+}
+
+
+
+Brain::Brain(void){
+	std::cout << "Brain default constructor called" << std::endl;
+	for (int i = 0; i < 100; i++)
+		_ideas[i] = "Have no idea!";
+	return ;
+}
+
+Brain::~Brain(void){
+	std::cout << "Brain destructor called" << std::endl;
+	return ;
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:56 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 05:04:28 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:05:33 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include "../includes/Dog.hpp"
 #include "../includes/Cat.hpp"
 #include "../includes/Brain.hpp"
+
+void Cat::makeSound( void ) const {
+	std::cout << "Miaaaouu!" << std::endl;
+}
+
+Brain *Cat::getBrain(void) const {
+	return (this->_point);
+}
+
 
 
 Cat::Cat(const Cat &Cat){
@@ -23,31 +32,25 @@ Cat::Cat(const Cat &Cat){
 
 Cat &Cat::operator = (const Cat &rhs){
 	if (&rhs != this)
-	{
-		_name = rhs._name;
 		_type = rhs._type;
-		_point = rhs._point;
-	}
 	return (*this);
 }
 
-Brain *Cat::getBrain(void) const {
-	return (this->_point);
-}
 
-Cat::Cat( void ): Animal("unnamed", "Cat") {
-    std::cout << "A Cat constructor has been called for unnamed" << std::endl;
-    this->_type = "Cat";
-	this->_point = new Brain( "unnamed" );
+
+
+
+Cat::Cat( void ){
+    std::cout << "A Cat default constructor has been called" << std::endl;
+    this->_type = "DefaultCat";
+	this->_point = new Brain();
 };
 
-Cat::Cat( std::string name, std::string type ): Animal(name, type) {
-    std::cout << "A Cat constructor has been called for " << name << std::endl;
-    this->_name = name;
+Cat::Cat( std::string type ){
+    std::cout << "A Cat constructor has been called for " << type << std::endl;
     this->_type = type;
-	this->_point = new Brain( this->_name );
+	this->_point = new Brain();
 };
-
 
 Cat::~Cat( void ){
     std::cout << "A Cat destructor has been called" << std::endl;

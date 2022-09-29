@@ -3,25 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 03:56:09 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 05:40:46 by rcuminal         ###   ########.fr       */
+/*   Created: 2022/09/29 16:36:30 by Romain            #+#    #+#             */
+/*   Updated: 2022/09/29 16:51:51 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <iostream>
 
 #ifndef BRAIN_HPP
 # define BRAIN_HPP
 
-class Brain {
-	private:
-			std::string		_ideas[100];
-			std::string		_name;
+# include <iostream>
+
+class	Brain{
+	private:	
+		std::string _ideas[100];
 	public:
-			Brain( std::string name );
-			virtual ~Brain( void );
+	
+		Brain( const Brain &Brain );
+		Brain & operator = ( const Brain &brain );
+		
+		Brain(void);
+		~Brain(void);
+
 };
 
 #endif

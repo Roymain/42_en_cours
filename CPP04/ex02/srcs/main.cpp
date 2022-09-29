@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:12:42 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 05:41:42 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:04:46 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,36 @@
 
 
 int main(){
-	
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog("Brutus", "Dog");
-	const Animal* i = new Cat("Roger", "Cat");
 
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
+	Animal* animals[20];
+
+	for (int i = 0; i < 10; i++)
+		animals[i] = new Dog();
+	for (int i = 10; i < 20; i++)
+		animals[i] = new Cat();
+
+	for (int i = 0; i < 20; i++)
+		delete animals[i];
+		
 	
-//	delete j->getBrain();
-	delete j;
-	delete i;
-	delete meta;
+	// const Animal* meta = new Animal();
+	// const Animal* i = new Cat();
+	// const Animal* j = new Dog();
+	// const WrongAnimal* k = new WrongCat();
+	// const WrongAnimal* meta2 = new WrongAnimal();
+
+
+
+	// i->makeSound();
+	// j->makeSound();
+	// k->makeSound();
+	// meta->makeSound();
+	// meta2->makeSound();
+
+	// delete meta;
+	// delete meta2;
+	// delete i;
+	// delete j;
+	// delete k;
 	return (0);
 };

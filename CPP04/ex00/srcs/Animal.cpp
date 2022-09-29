@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:52 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 03:03:32 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:30:42 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 #include "../includes/Cat.hpp"
 
 void Animal::makeSound( void ) const {
-	if ( this->_type == "Dog")
-		std::cout << this->_type << ": Whooooouuuuf!" << std::endl;
-	else if (this->_type == "Cat")  
-		std::cout << this->_type << ": Miaaouuuuuu!" << std::endl;
-	else
-		std::cout << "wtf?!" << std::endl;
+	std::cout << "wtf?!" << std::endl;
 }
+
+
 
 Animal::Animal(const Animal &Animal){
 	*this = Animal;
@@ -30,20 +27,19 @@ Animal::Animal(const Animal &Animal){
 
 Animal & Animal::operator = (const Animal &rhs){
 	if (&rhs != this)
-	{
-		_name = rhs._name;
 		_type = rhs._type;
-	}
 	return (*this);
 }
 
+
+
+
 Animal::Animal( void ){
-    std::cout << "An animal constructor has been called for" << std::endl;
+    std::cout << "An animal default constructor has been called" << std::endl;
 };
 
-Animal::Animal( std::string name, std::string type ): _name(name), _type(type){
-    std::cout << "An animal constructor has been called for" << name << std::endl;
-	this->_name = name;
+Animal::Animal( std::string type ): _type(type){
+    std::cout << "An animal constructor has been called for " << type << std::endl;
 	this->_type = type;
 };
 

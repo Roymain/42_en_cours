@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:58 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 05:10:05 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:05:45 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 #include "../includes/Cat.hpp"
 #include "../includes/Brain.hpp"
 
+void Dog::makeSound( void ) const {
+	std::cout << "Whouuuf!" << std::endl;
+}
+
+Brain *Dog::getBrain(void) const {
+	return (this->_point);
+}
+
+
+
 Dog::Dog(const Dog &Dog){
 	*this = Dog;
 	return;
@@ -22,29 +32,23 @@ Dog::Dog(const Dog &Dog){
 
 Dog &Dog::operator = (const Dog &rhs){
 	if (&rhs != this)
-	{
-		_name = rhs._name;
 		_type = rhs._type;
-		_point = rhs._point;
-	}
 	return (*this);
 }
 
-Brain *Dog::getBrain(void) const {
-	return (this->_point);
-}
 
-Dog::Dog( void ): Animal("unnamed", "Dog") {
-    std::cout << "A Dog constructor has been called for unnammed" << std::endl;
-    this->_type = "Dog";
-	this->_point = new Brain( "unnamed" );
+
+
+Dog::Dog( void ){
+    std::cout << "A Dog default constructor has been called" << std::endl;
+    this->_type = "defaultDog";
+	this->_point = new Brain();
 };
 
-Dog::Dog( std::string name, std::string type ): Animal(name, type) {
-    std::cout << "A Dog constructor has been called for " << name << std::endl;
-    this->_name = name;
+Dog::Dog( std::string type ){
+    std::cout << "A Dog constructor has been called for " << type << std::endl;
     this->_type = type;
-	this->_point = new Brain( this->_name );
+	this->_point = new Brain();
 };
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:20:03 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/21 02:42:17 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 15:56:35 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 
 class Cat : public Animal {
 	protected:
-			std::string		_name;
 			std::string		_type;
 	public:
+			virtual void makeSound( void ) const;
 			
 			Cat & operator = (const Cat &rhs);
             Cat(const Cat &Cat);
             
 			Cat( void );
-			Cat( std::string name, std::string type );
-			~Cat( void );
+			Cat( std::string type );
+			virtual ~Cat( void );
 			
 };
 
