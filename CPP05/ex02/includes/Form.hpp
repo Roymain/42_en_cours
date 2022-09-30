@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:21 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/26 03:04:13 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/30 02:13:20 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ class Form{
 			Form & operator = (const Form &rhs);
 		//	Form & operator << (const Form &rhs);
 			Form( std::string name, unsigned int ntosign, unsigned int ntoexec );
-			~Form( void );
+			virtual ~Form( void );
 
 
 };

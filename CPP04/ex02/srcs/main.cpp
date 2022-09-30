@@ -6,7 +6,7 @@
 /*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:12:42 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 17:04:46 by Romain           ###   ########.fr       */
+/*   Updated: 2022/09/30 16:26:48 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,34 @@
 
 int main(){
 
-	Animal* animals[20];
+	// Animal* animals[20];
 
-	for (int i = 0; i < 10; i++)
-		animals[i] = new Dog();
-	for (int i = 10; i < 20; i++)
-		animals[i] = new Cat();
+	// for (int i = 0; i < 10; i++)
+	// 	animals[i] = new Dog();
+	// for (int i = 10; i < 20; i++)
+	// 	animals[i] = new Cat();
 
-	for (int i = 0; i < 20; i++)
-		delete animals[i];
+	// for (int i = 0; i < 20; i++)
+	// 	delete animals[i];
 		
-	
-	// const Animal* meta = new Animal();
-	// const Animal* i = new Cat();
-	// const Animal* j = new Dog();
-	// const WrongAnimal* k = new WrongCat();
-	// const WrongAnimal* meta2 = new WrongAnimal();
+
+	const Animal* i = new Cat();
+	const Animal* j = new Dog();
+	const WrongAnimal* k = new WrongCat();
+	const WrongAnimal* meta2 = new WrongAnimal();
 
 
 
-	// i->makeSound();
-	// j->makeSound();
-	// k->makeSound();
-	// meta->makeSound();
-	// meta2->makeSound();
+	i->makeSound();
+	j->makeSound();
+	k->makeSound();
 
-	// delete meta;
-	// delete meta2;
-	// delete i;
-	// delete j;
-	// delete k;
+	meta2->makeSound();
+
+	delete meta;
+	delete meta2;
+	delete i;
+	delete j;
+	delete k;
 	return (0);
 };
