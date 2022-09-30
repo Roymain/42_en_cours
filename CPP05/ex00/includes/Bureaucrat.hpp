@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:01:57 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/25 22:24:13 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/29 23:56:19 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 class Bureaucrat {
 	
 	private:
-			std::string		_name;
+			const std::string		_name;
 			int	_grade;
 	public:
 	
@@ -44,6 +44,7 @@ class Bureaucrat {
 			Bureaucrat(const Bureaucrat &Bureaucrat);
 			Bureaucrat & operator = (const Bureaucrat &rhs);
 			Bureaucrat & operator << (const Bureaucrat &rhs);
+			
 			Bureaucrat( void );
 			Bureaucrat( std::string name, unsigned int grade );
 			~Bureaucrat( void );

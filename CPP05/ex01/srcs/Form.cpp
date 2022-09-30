@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:16 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/25 23:55:00 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/09/30 01:45:33 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ Form::Form(std::string name, unsigned int ntosign, unsigned int ntoexec): _formn
     std::cout << "form's constructor called for " << name << std::endl;
     try
 	{
-		if( ntosign > 150 || ntosign < 1 || ntoexec > 150 || ntoexec < 1)
-			throw std::exception();
+		if( ntosign > 150 || ntoexec > 150 )
+			throw Bureaucrat::GradeTooLowException();
+		if( ntosign < 1 || ntoexec < 1 )
+			throw Bureaucrat::GradeTooHighException();
 		else
 			this->_ntosign = ntosign;
 			this->_ntoexec = ntoexec;
