@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:09:53 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/30 02:06:45 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/02 23:11:45 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ std::string Bureaucrat::getName( void ) const {
 	return (this->_name);
 }
 
-std::ostream & operator << ( std::ostream & oper, Bureaucrat const & rhs ){
-	oper << rhs.getGrade();
-	return oper ;
-};
+
+
+
+
 
 char const* Bureaucrat::GradeTooHighException::what() const throw() {
 	return ("error, too high");
@@ -73,6 +73,10 @@ char const* Bureaucrat::GradeTooLowException::what() const throw() {
 
 
 
+std::ostream & operator << ( std::ostream & oper, Bureaucrat const & rhs ){
+	oper << rhs.getGrade();
+	return oper ;
+};
 
 Bureaucrat::Bureaucrat(const Bureaucrat &Bureaucrat){
 	*this = Bureaucrat;
@@ -106,7 +110,6 @@ Bureaucrat::Bureaucrat( std::string name, unsigned int grade ): _name(name) {   
 	catch(std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
-		
 	}
 	
 };

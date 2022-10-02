@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 00:40:22 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/26 03:23:18 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/02 23:50:22 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ PresidentialPardonForm::PresidentialPardonForm() : Form (FORM_NAME, SIGN_GRADE, 
 };
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target(target){
-	std::cout << "Constructor for " << target << " called" << std::endl;
+	std::cout << "PP Constructor for " << target << " called" << std::endl;
 };
 
 PresidentialPardonForm::~PresidentialPardonForm() {

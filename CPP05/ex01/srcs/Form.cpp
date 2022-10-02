@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:16 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/30 01:45:33 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/02 23:09:02 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ Form::Form(std::string name, unsigned int ntosign, unsigned int ntoexec): _formn
 	}
 	catch(std::exception & e)
 	{
-		std::cout << "error wrong grade, minimum grade applied" << std::endl;
+		std::cout << e.what() << std::endl;
 		this->_ntosign = 150;
 		this->_ntoexec = 150;
 	}
