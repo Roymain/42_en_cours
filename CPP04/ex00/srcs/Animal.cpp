@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:52 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 16:30:42 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:49:53 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ Animal & Animal::operator = (const Animal &rhs){
 
 
 
-Animal::Animal( void ){
+Animal::Animal( void ) : _type("None"){
     std::cout << "An animal default constructor has been called" << std::endl;
 };
 
 Animal::Animal( std::string type ): _type(type){
     std::cout << "An animal constructor has been called for " << type << std::endl;
-	this->_type = type;
 };
 
 

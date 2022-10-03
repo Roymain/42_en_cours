@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:16 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/02 23:09:02 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 05:21:36 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,45 +22,40 @@ char const* Form::GradeTooLowException::what() const throw() {
 
 
 void Form::beSigned( const Bureaucrat & bureaucrat ){
-	try
-	{
 		if(bureaucrat.getGrade() > this->_ntosign)
 			throw Form::GradeTooLowException();
 		this->_signedd = true;
-	}
-	catch(std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
 }
 
-bool Form::getBool(){
+bool Form::getBool() const {
 	return (this->_signedd);
 };
 
-std::string Form::getFormname(){
+std::string Form::getFormname() const {
 	return (this->_formname);
 };
 
+unsigned int const Form::getNtosign() const {
+	return (this->_ntosign);
+}
 
-Form::Form(std::string name, unsigned int ntosign, unsigned int ntoexec): _formname(name), _signedd(false){
+unsigned int const Form::getNtoexec() const {
+	return (this->_ntoexec);
+}
+
+std::ostream & operator << ( std::ostream & oper, Form const & rhs ){
+	oper << rhs.getFormname() << ", sign :" << rhs.getNtosign() << " exec : " <<
+	rhs.getNtoexec() << " signed : " << rhs.getBool() << "." << std::endl;
+	return oper ;
+};
+
+Form::Form(std::string const name, unsigned int const ntosign, unsigned int const ntoexec):
+_formname(name), _signedd(false), _ntosign(ntosign), _ntoexec(ntoexec){
     std::cout << "form's constructor called for " << name << std::endl;
-    try
-	{
 		if( ntosign > 150 || ntoexec > 150 )
 			throw Bureaucrat::GradeTooLowException();
 		if( ntosign < 1 || ntoexec < 1 )
 			throw Bureaucrat::GradeTooHighException();
-		else
-			this->_ntosign = ntosign;
-			this->_ntoexec = ntoexec;
-	}
-	catch(std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-		this->_ntosign = 150;
-		this->_ntoexec = 150;
-	}
 };
 
 Form::~Form(){

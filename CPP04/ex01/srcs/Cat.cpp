@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:56 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 17:05:33 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:54:13 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,17 @@ Brain *Cat::getBrain(void) const {
 
 
 Cat::Cat(const Cat &Cat){
+	this->_point = new Brain();
 	*this = Cat;
 	return;
 }
 
 Cat &Cat::operator = (const Cat &rhs){
 	if (&rhs != this)
+	{
 		_type = rhs._type;
+		*(this->_point) = *(rhs.getBrain());
+	}
 	return (*this);
 }
 
@@ -40,15 +44,8 @@ Cat &Cat::operator = (const Cat &rhs){
 
 
 
-Cat::Cat( void ){
+Cat::Cat( void ) : Animal("cat") {
     std::cout << "A Cat default constructor has been called" << std::endl;
-    this->_type = "DefaultCat";
-	this->_point = new Brain();
-};
-
-Cat::Cat( std::string type ){
-    std::cout << "A Cat constructor has been called for " << type << std::endl;
-    this->_type = type;
 	this->_point = new Brain();
 };
 

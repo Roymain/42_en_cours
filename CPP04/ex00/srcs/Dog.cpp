@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:58 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 16:13:19 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:51:04 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,9 @@ Dog &Dog::operator = (const Dog &rhs){
 
 
 
-Dog::Dog( void ){
+Dog::Dog( void ) : Animal("dog"){
     std::cout << "A Dog default constructor has been called" << std::endl;
-    this->_type = "Dog";
 };
-
-Dog::Dog( std::string type ){
-    std::cout << "A Dog constructor has been called for " << type << std::endl;
-    this->_type = type;
-};
-
 
 Dog::~Dog( void ){
     std::cout << "A Dog destructor has been called" << std::endl;

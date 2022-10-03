@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:09:53 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/30 00:20:55 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 04:59:56 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,20 @@
 
 
 void Bureaucrat::minusGrade( void ){
-	try
-	{
+
 		if(this->_grade == 150)
 			throw Bureaucrat::GradeTooLowException();
 		this->_grade++;
-	}
-	catch(std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	
+
 };
 
 void Bureaucrat::plusGrade( void ){
-	try
-	{
+
 		if(this->_grade == 1)
 			throw Bureaucrat::GradeTooHighException();
 		this->_grade--;
-	}
-	catch(std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+
 };
 
 unsigned int Bureaucrat::getGrade( void ) const {
@@ -48,7 +39,7 @@ std::string Bureaucrat::getName( void ) const {
 }
 
 std::ostream & operator << ( std::ostream & oper, Bureaucrat const & rhs ){
-	oper << rhs.getGrade();
+	oper << rhs.getName() << ", bureaucrat grade " << rhs.getGrade() << "." << std::endl;
 	return oper ;
 };
 
@@ -68,41 +59,26 @@ char const* Bureaucrat::GradeTooLowException::what() const throw() {
 
 
 
-Bureaucrat::Bureaucrat(const Bureaucrat &Bureaucrat){
+Bureaucrat::Bureaucrat(const Bureaucrat &Bureaucrat) : _name(Bureaucrat._name) {
 	*this = Bureaucrat;
 	return;
 };
 
 Bureaucrat & Bureaucrat::operator = (const Bureaucrat &rhs){
-		if (&rhs != this)
+	if (&rhs != this)
 		_grade = rhs._grade;
 	return (*this);
 };
 
 
-Bureaucrat::Bureaucrat( std::string name, unsigned int grade ): _name(name) {    // : _name(name), _grade(grade) 
+Bureaucrat::Bureaucrat( std::string name, unsigned int grade ) : _name(name) {    // : _name(name), _grade(grade) 
 	std::cout << "bureaucrat constructor called for " << name << std::endl;
-	try
-	{
+
 		if(grade < 1)
-		{
-			this->_grade = 150;
 			throw Bureaucrat::GradeTooHighException();
-		}
 		else if(grade > 150)
-		{
-			this->_grade = 150;
 			throw Bureaucrat::GradeTooLowException();
-		}
-		else
-			this->_grade = grade;
-	}
-	catch(std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-		
-	}
-	
+		this->_grade = grade;
 };
 
 Bureaucrat::Bureaucrat(){

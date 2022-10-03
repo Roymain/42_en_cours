@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   WrongAnimal.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:52 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 16:32:44 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:59:54 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,8 @@ WrongAnimal & WrongAnimal::operator = (const WrongAnimal &rhs){
 
 
 
-WrongAnimal::WrongAnimal( void ){
+WrongAnimal::WrongAnimal( void ): _type("WrongCat"){
     std::cout << "An wronganimal constructor has been called for" << std::endl;
-};
-
-WrongAnimal::WrongAnimal( std::string type ):  _type(type){
-    std::cout << "An wronganimal constructor has been called for" << type << std::endl;
-	this->_type = type;
 };
 
 

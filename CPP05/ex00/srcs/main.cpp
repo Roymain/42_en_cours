@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:48:44 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/30 00:20:09 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:02:21 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,28 @@
 
 int main(){
 
+    try
+    {
+        Bureaucrat err1 = Bureaucrat("min", 151);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        Bureaucrat err2 = Bureaucrat("max", 0);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 
-
-    Bureaucrat bribri = Bureaucrat("bribri", 151);
+    Bureaucrat bribri = Bureaucrat("bribri", 150);
     Bureaucrat macron = Bureaucrat("macron", 123);
     std::cout << "grade = " << macron.getGrade() << std::endl;
     std::cout << "bribri grade = " << bribri.getGrade() << std::endl;
-  
+    std::cout << macron << std::endl;
     macron.minusGrade();
     std::cout << "grade = " << macron.getGrade() << std::endl;
     macron.minusGrade();

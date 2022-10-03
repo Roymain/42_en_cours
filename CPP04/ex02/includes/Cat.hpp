@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:20:03 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 16:56:57 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:56:14 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ class Cat : public Animal {
             Cat(const Cat &Cat);
             
 			Cat( void );
-			Cat( std::string type );
 			virtual ~Cat( void );
 			
 };

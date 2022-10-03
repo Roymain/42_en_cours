@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:48:44 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 01:53:40 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 05:46:10 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int main(){
 	macron.executeForm(*formun);
 	macron.plusGrade();
 	macron.executeForm(*formun);
+	
+	delete formun;
 	
 	
 	

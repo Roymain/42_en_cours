@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:21 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/30 01:42:32 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:27:26 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ class Bureaucrat;
 class Form{
 	
 	private:
-			const std::string _formname;
-			bool			_signedd;
+			const std::string	_formname;
+			bool				_signedd;
 			
-			unsigned int	_ntosign;
-			unsigned int	_ntoexec;
+			const unsigned int	_ntosign;
+			const unsigned int	_ntoexec;
 			
 	public:
 
@@ -43,8 +43,11 @@ class Form{
 			};
 			
 			void		beSigned( const Bureaucrat &bureaucrat );
-			bool		getBool( void );
-			std::string	getFormname( void );
+			
+			bool		getBool( void ) const ;
+			unsigned int const		getNtosign( void ) const ;
+			unsigned int const		getNtoexec( void ) const ;
+			std::string	getFormname( void ) const ;
 			
 
 			Form(const Form &Form);
@@ -54,5 +57,7 @@ class Form{
 			Form( std::string name, unsigned int ntosign, unsigned int ntoexec );
 			~Form( void );
 };
+
+std::ostream & operator << ( std::ostream & oper, Form const & rhs );
 
 #endif

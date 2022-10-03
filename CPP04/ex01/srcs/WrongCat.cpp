@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:56 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 16:33:00 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:59:32 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,9 @@ WrongCat &WrongCat::operator = (const WrongCat &rhs){
 
 
 
-WrongCat::WrongCat( void ): WrongAnimal("WrongCat") {
+WrongCat::WrongCat( void ): WrongAnimal() {
     std::cout << "A wrongCat constructor has been called" << std::endl;
-    this->_type = "WrongCat";
 };
-
-WrongCat::WrongCat( std::string type ): WrongAnimal(type) {
-    std::cout << "A wrongCat constructor has been called" << std::endl;
-    this->_type = type;
-};
-
 
 WrongCat::~WrongCat( void ){
     std::cout << "A wrongCat destructor has been called" << std::endl;

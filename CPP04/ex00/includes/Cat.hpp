@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:20:03 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 15:56:35 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:49:00 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # define CAT_HPP
 
 class Cat : public Animal {
-	protected:
-			std::string		_type;
 	public:
 			virtual void makeSound( void ) const;
 			
@@ -27,7 +25,6 @@ class Cat : public Animal {
             Cat(const Cat &Cat);
             
 			Cat( void );
-			Cat( std::string type );
 			virtual ~Cat( void );
 			
 };

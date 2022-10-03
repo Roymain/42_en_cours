@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:56 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 16:13:10 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:49:19 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,8 @@ Cat &Cat::operator = (const Cat &rhs){
 
 
 
-Cat::Cat( void ){
+Cat::Cat( void ) : Animal("cat") {
     std::cout << "A Cat default constructor has been called" << std::endl;
-    this->_type = "Cat";
-};
-
-Cat::Cat( std::string type ){
-    std::cout << "A Cat constructor has been called for " << type << std::endl;
-    this->_type = type;
 };
 
 Cat::~Cat( void ){

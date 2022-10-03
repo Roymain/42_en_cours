@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:30:45 by Romain            #+#    #+#              #
-#    Updated: 2022/09/29 23:51:42 by Romain           ###   ########.fr        #
+#    Updated: 2022/10/03 03:55:06 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,11 @@ SRC 		=   main.cpp \
 				WrongCat.cpp \
 				Dog.cpp \
 
-
+INC = ./includes/Animal.hpp \
+		./includes/Cat.hpp \
+		./includes/Dog.hpp \
+		./includes/WrongAnimal.hpp \
+		./includes/WrongCat.hpp 
 
 
 OBJ_SRC		=	$(SRC:.cpp=.o)
@@ -47,7 +51,7 @@ SAN 		=
 FLAGS 		= -std=c++98 -Wall -Werror -Wextra
 
 
-$(PATH_OBJ)%.o : $(PATH_SRC)%.cpp $(MK)
+$(PATH_OBJ)%.o : $(PATH_SRC)%.cpp $(MK) $(INC)
 	@mkdir $(PATH_OBJ) 2> /dev/null || true
 	$(CC) -I includes $(FLAGS) -o $@ -c $<
 

@@ -1,5 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Brain.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/03 04:05:39 by rcuminal          #+#    #+#             */
+/*   Updated: 2022/10/03 04:13:25 by rcuminal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "../includes/Brain.hpp"
 
+std::string* Brain::getIdeas( void )
+{
+	return(this->_ideas);
+}
 
 Brain::Brain(const Brain &brain){
 	std::cout << "Brain copy constructor called" << std::endl;

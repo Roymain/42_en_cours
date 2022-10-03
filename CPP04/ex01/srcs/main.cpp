@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:12:42 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/02 21:28:19 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 04:41:40 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ int main(){
 
 	for (int i = 0; i < 20; i++)
 		delete animals[i];
-		
 	
+	Cat	Cat1;	
+	Cat	Cat2;
+	Cat1.getBrain()->getIdeas()[1] = "test";
+	Cat2 = Cat1;
+	std::cout << Cat2.getBrain()->getIdeas()[1] << std::endl;
 	// const Animal* meta = new Animal();
 	// const Animal* i = new Cat();
 	// const Animal* j = new Dog();

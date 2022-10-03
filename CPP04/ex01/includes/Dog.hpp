@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:21:11 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 16:56:56 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:56:19 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ class Dog : public Animal {
 			Dog & operator = (const Dog &rhs);
             Dog(const Dog &Dog);
             
-			Dog( void );
-			Dog( std::string type );
-            
+			Dog( void );       
 			virtual ~Dog( void );
 			
 };

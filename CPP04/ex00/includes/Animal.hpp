@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:16:53 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/09/29 23:48:16 by Romain           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:44:27 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ class Animal  {
 			Animal( void );
 			Animal( std::string type );
 			virtual ~Animal( void );
-			
 };
 
 #endif
