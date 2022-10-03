@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 00:39:27 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/02 23:22:14 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:52:33 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ class PresidentialPardonForm : public Form {
 		
 		
 		    PresidentialPardonForm (const PresidentialPardonForm &presidentialPardonForm);
-		    PresidentialPardonForm (const std::string &target);
 		    PresidentialPardonForm & operator= (const PresidentialPardonForm &presidentialPardonForm);
 		
 		
-			PresidentialPardonForm();
-			~PresidentialPardonForm();
+			PresidentialPardonForm( void );
+		    PresidentialPardonForm (const std::string &target);
+			~PresidentialPardonForm( void );
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 00:36:41 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/26 03:14:45 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:53:25 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ class Form;
 
 class ShrubberyCreationForm : public Form {
 
-private:
-	std::string _target;
-	
-public:
-
-	void executeAction() const;
-	std::string getTarget() const;
-
-    
-    ShrubberyCreationForm (const ShrubberyCreationForm &ShrubberyCreationForm);
-    ShrubberyCreationForm (const std::string &target);
-    ShrubberyCreationForm & operator= (const ShrubberyCreationForm &ShrubberyCreationForm);
-	
-	ShrubberyCreationForm();
-	~ShrubberyCreationForm();
+	private:
+			std::string _target;
+			
+	public:
+		
+			void executeAction() const;
+			std::string getTarget() const;
+		
+		
+		    ShrubberyCreationForm (const ShrubberyCreationForm &ShrubberyCreationForm);
+		    ShrubberyCreationForm (const std::string &target);
+		    ShrubberyCreationForm & operator= (const ShrubberyCreationForm &ShrubberyCreationForm);
+			
+			ShrubberyCreationForm();
+			~ShrubberyCreationForm();
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 00:40:22 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/26 03:23:18 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:48:43 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 # define EXEC_GRADE 5
 # define FORM_NAME "presidentialPardon"
 
-PresidentialPardonForm::PresidentialPardonForm() : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target("No specific target"){
-	std::cout << "Default constructor called (PP)" << std::endl;
+
+void PresidentialPardonForm::executeAction() const {
+	std::cout << getTarget() << " has been pardoned by Zaphotruc!" << std::endl;
 };
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target(target){
-	std::cout << "Constructor for " << target << " called" << std::endl;
+std::string PresidentialPardonForm::getTarget() const {
+	return (this->_target);
 };
 
-PresidentialPardonForm::~PresidentialPardonForm() {
-	std::cout << "Destructor for " << this->_target << " called (PP)" << std::endl;
-};
+
+
+
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &presidentialPardonForm) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE){
 	*this = presidentialPardonForm;
@@ -40,10 +41,16 @@ PresidentialPardonForm & PresidentialPardonForm::operator= (const PresidentialPa
 	return (*this);
 };
 
-std::string PresidentialPardonForm::getTarget() const {
-	return (this->_target);
+
+
+PresidentialPardonForm::PresidentialPardonForm() : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target("No specific target"){
+	std::cout << "Default constructor called (PP)" << std::endl;
 };
 
-void PresidentialPardonForm::executeAction() const {
-	std::cout << getTarget() << " has been pardoned by Zaphotruc!" << std::endl;
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target(target){
+	std::cout << "PP Constructor for " << target << " called" << std::endl;
+};
+
+PresidentialPardonForm::~PresidentialPardonForm() {
+	std::cout << "Destructor for " << this->_target << " called (PP)" << std::endl;
 };

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:09:53 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/02 23:43:11 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 01:32:32 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void Bureaucrat::executeForm(const Form  & form){
 		form.execute(*this);
 		std::cout << _name << " executed " << form.getFormname() << std::endl;
 	} catch (std::exception& e) {
-		std::cout << _name << " cant’t execute " << form.getFormname() << " because... " << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 
 };

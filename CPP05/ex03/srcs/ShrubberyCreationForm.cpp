@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 00:40:30 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/26 03:10:24 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:58:28 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 # define EXEC_GRADE 137
 # define FORM_NAME "shrubberyCreation"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target("No specific target"){
-	std::cout << "Default constructor called (SC)" << std::endl;
-};
-
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target(target){
-	std::cout << "Constructor for " << target << " called" << std::endl;
-};
-
-ShrubberyCreationForm::~ShrubberyCreationForm() {
-	std::cout << "Destructor for " << this->_target << " called (SC)" << std::endl;
-};
-
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &shrubberyCreationForm) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE){
-	*this = shrubberyCreationForm;
-
-};
-
-ShrubberyCreationForm & ShrubberyCreationForm::operator= (const ShrubberyCreationForm &shrubberyCreationForm){
-	if (this != &shrubberyCreationForm) {
-		_target = shrubberyCreationForm.getTarget();
-	}
-	return (*this);
-};
 
 std::string ShrubberyCreationForm::getTarget() const {
 	return (this->_target);
@@ -79,4 +56,32 @@ void ShrubberyCreationForm::executeAction() const {
 	<< "               ...;%@@@@@%%:;;;;,.." << std::endl;
 	shrubberyFile.close();
 
+};
+
+
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &shrubberyCreationForm) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE){
+	*this = shrubberyCreationForm;
+
+};
+
+ShrubberyCreationForm & ShrubberyCreationForm::operator= (const ShrubberyCreationForm &shrubberyCreationForm){
+	if (this != &shrubberyCreationForm) {
+		_target = shrubberyCreationForm.getTarget();
+	}
+	return (*this);
+};
+
+
+
+ShrubberyCreationForm::ShrubberyCreationForm() : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target("No specific target"){
+	std::cout << "Default constructor called (SC)" << std::endl;
+};
+
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form (FORM_NAME, SIGN_GRADE, EXEC_GRADE), _target(target){
+	std::cout << "Constructor for " << target << " called" << std::endl;
+};
+
+ShrubberyCreationForm::~ShrubberyCreationForm() {
+	std::cout << "Destructor for " << this->_target << " called (SC)" << std::endl;
 };

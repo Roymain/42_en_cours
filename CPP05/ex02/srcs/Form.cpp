@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:16 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/02 23:51:20 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 01:32:14 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,14 @@ char const* Form::FormNotSignException::what() const throw() {
 };
 
 void Form::execute(Bureaucrat const & executor) const {
-	try
-	{
+	
 		if (executor.getGrade() > this->_ntoexec)
 			throw Form::GradeTooLowException();
-		if (this->_signedd == false)
+		else if (this->_signedd == false)
 			throw Form::FormNotSignException();
-		executeAction();
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	
+		else
+			executeAction();
+
 };
 
 void Form::beSigned( const Bureaucrat & bureaucrat ){
