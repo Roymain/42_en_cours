@@ -5,23 +5,26 @@
 #                                                     +:+ +:+         +:+      #
 #    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/30 16:27:40 by Romain            #+#    #+#              #
-#    Updated: 2022/10/05 14:58:58 by Romain           ###   ########.fr        #
+#    Created: 2022/10/05 14:51:27 by Romain            #+#    #+#              #
+#    Updated: 2022/10/05 14:58:52 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM debian:buster-slim
 
-WORKDIR /app/MariaDB
+WORKDIR /app/nginx
 
 COPY . /app
 
-RUN apt update && apt install mariadb-client -y && apt install mariadb-server -y 
-#     &&  apt install procps -y
+RUN apt update && apt install nginx -y && apt install openssl -y
 
-EXPOSE 3306
 
+#cryptographiques utilisées ont le format suivant :
+
+#Pour TLS 1.2 : TLS_KE_CIPHER_HASH.
+#Pour TLS 1.3 : TLS_CIPHER_HASH
+
+EXPOSE 443
 
 #twmporaire -> interdit
-CMD ["tail", "-f"]
-
+CMD ["tail", "-f"]  
