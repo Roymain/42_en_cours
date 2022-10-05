@@ -6,7 +6,7 @@
 #    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 16:27:40 by Romain            #+#    #+#              #
-#    Updated: 2022/10/05 14:58:58 by Romain           ###   ########.fr        #
+#    Updated: 2022/10/05 15:00:03 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,6 @@ RUN apt update && apt install mariadb-client -y && apt install mariadb-server -y
 EXPOSE 3306
 
 
-#twmporaire -> interdit
+#temporaire -> interdit
 CMD ["tail", "-f"]
 

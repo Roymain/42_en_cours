@@ -6,7 +6,7 @@
 #    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 14:51:27 by Romain            #+#    #+#              #
-#    Updated: 2022/10/05 14:58:52 by Romain           ###   ########.fr        #
+#    Updated: 2022/10/05 15:01:44 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,5 +26,5 @@ RUN apt update && apt install nginx -y && apt install openssl -y
 
 EXPOSE 443
 
-#twmporaire -> interdit
+#temporaire -> interdit
 CMD ["tail", "-f"]  

@@ -1,5 +1,29 @@
+#volumes:
+#            - mariadb-volumes:    /home/login/data/MariaDB
+
 version: '3,8'
 
-
-volumes:
-            - mariadb-volumes:    /home/login/data/MariaDB
+services:
+  ###############################
+  #           nginx             #
+  ###############################
+    nginx:
+        image: nginx
+        restart: always
+      #  depends_on:
+      #      - wordpress
+        ports:
+             - "443:443"
+      #  volumes:
+      #      - wordpress-volumes:/var/www/wordpress
+      #  build:
+      #      context: ./requirements/nginx
+      #      dockerfile: Dockerfile
+      #      args:
+      #          ARG_URL: ${WP_ACCESS}
+      #          ARG_STUD: ${STUD}
+        networks:
+             inception:
+        extra_hosts:
+            - "rcuminal.42.fr:127.0.0.1"
+        env_file: .env
