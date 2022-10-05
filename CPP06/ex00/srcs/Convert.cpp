@@ -6,19 +6,24 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 23:08:46 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/28 02:59:08 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:42:51 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Convert.hpp"
 
 void Convert::toChar(){
+	int nbr;
 	if (!this->_arg[1] && !std::isdigit(this->_arg[0]))
 	{
 		std::cout << "char: already a char : " << _arg[0] << std::endl;
 		return;
 	}
-	int nbr = std::stoi(this->_arg);
+	try 
+	{
+		nbr = std::stoi(this->_arg);
+	}
+	catch(std::exception & e){}
 	if (std::isprint(nbr) == true)
 		std::cout << "char: " << static_cast<char>(nbr) << std::endl;
 	else
@@ -32,8 +37,16 @@ void Convert::toInt(){
 		std::cout << "int: " << static_cast<int>(this->_arg[0]) << std::endl;
 		return;
 	}	
-	nbr = std::stoi(this->_arg);
-	std::cout << "int: " << static_cast<int>(nbr) << std::endl;
+	try 
+	{
+		nbr = std::stoi(this->_arg);
+		std::cout << "int: " << static_cast<int>(nbr) << std::endl;
+	}
+	catch(std::exception & e)
+	{
+//		std::cout << e.what() << std::endl;
+		std::cout << "int: impossible" << std::endl;
+	}
 };
 
 void Convert::toFloat(){
@@ -43,16 +56,24 @@ void Convert::toFloat(){
 	if (!this->_arg[1] && std::isalpha(this->_arg[0])){
 		std::cout << "float: " << static_cast<float>(this->_arg[0]) << std::endl;
 		return;
-	}	
-	nbr = stof(this->_arg, &sz);
-	int index;
-	index = this->_arg.find(".");
-	std::cout.precision((this->_arg.length() - index));
-	std::cout << "float: " << nbr ;
-	if (nbr - static_cast<int>(nbr) == 0.0)
-		std::cout << ".0" ;
-	std::cout << "f" << std::endl;
-	std::cout.precision(0);
+	}
+	try 
+	{
+		nbr = stof(this->_arg, &sz);
+		
+		int index;
+		index = this->_arg.find(".");
+		std::cout.precision((this->_arg.length() - index));
+		std::cout << "float: " << nbr ;
+		if (nbr - static_cast<int>(nbr) == 0.0)
+			std::cout << ".0" ;
+		std::cout << "f" << std::endl;
+		std::cout.precision(0);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << "float: impossible" << std::endl;
+	}
 };
 
 void Convert::toDouble(){
@@ -62,15 +83,22 @@ void Convert::toDouble(){
 	if (!this->_arg[1] && std::isalpha(this->_arg[0])){
 		std::cout << "double: " << static_cast<double>(this->_arg[0]) << std::endl;
 		return;
-	}	
-	nbr = std::stod(this->_arg);
-	index = this->_arg.find(".");
-	std::cout.precision((this->_arg.length() - index));
-	std::cout << "double: " << nbr;
-	if (nbr - static_cast<int>(nbr) == 0.0)
-		std::cout << ".0" ;
-	std::cout << std::endl;
-	std::cout.precision(0);
+	}
+	try 
+	{
+		nbr = std::stod(this->_arg);
+		index = this->_arg.find(".");
+		std::cout.precision((this->_arg.length() - index));
+		std::cout << "double: " << nbr;
+		if (nbr - static_cast<int>(nbr) == 0.0)
+			std::cout << ".0" ;
+		std::cout << std::endl;
+		std::cout.precision(0);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << "double: impossible" << std::endl;
+	}
 };
 
 
