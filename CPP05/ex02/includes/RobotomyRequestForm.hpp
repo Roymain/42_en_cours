@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 00:37:43 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 00:54:05 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:56:44 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class RobotomyRequestForm : public Form {
 		
 	public:
 	
-		void executeAction() const;
+			void executeAction() const;
 			std::string getTarget() const;
 		
 		

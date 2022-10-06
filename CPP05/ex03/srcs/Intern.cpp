@@ -6,40 +6,41 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 04:28:56 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/06 04:34:38 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:31:52 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Intern.hpp"
+#include "../includes/Form.hpp"
 
 #define FORM_PRES "Presidential Pardon Form"
 #define FORM_ROBO "Robotomy Request Form"
 #define FORM_SHRU "Shrubbery Creation Form"
 
-#define FORM_MAX 3
+char const* Intern::InternFailed::what() const throw() {
+	return ("error, intern failed form creation, unknow form");
+}
 
 Intern::Intern()
 {
-	// std::cout << "[INTERN] Default constructor called" << std::endl;
+	std::cout << "Intern default constructor called" << std::endl;
 	return;
 }
 
 Intern::~Intern()
 {
-	// std::cout << "[INTERN] Destructor called" << std::endl;
+	std::cout << "Intern destructor called" << std::endl;
 	return;
 }
 
 Intern::Intern(const Intern &intern)
 {
-	// std::cout << "[INTERN] Copy constructor called" << std::endl;
 	*this = intern;
 	return;
 }
 
 Intern &Intern::operator=(const Intern &intern)
 {
-	// std::cout << "[INTERN] Copy assignment operator called" << std::endl;
 	(void)intern;
 	return (*this);
 }
@@ -58,8 +59,11 @@ Form *Intern::makeForm(const std::string &formName, const std::string &target)
     (formName == FORM_SHRU) && (form = (this->*arr_functions[T_FORM_SHRU])(target));
 
 	form && std::cout << "Intern created a " << formName << std::endl;
-	!form && std::cout << "Intern failed " << formName << " creation." << std::endl;
-
+	if (!form)
+	{
+		std::cout << "Intern failed " << formName << " creation." << std::endl;
+		throw Intern::InternFailed();
+	}
 	return (form);
 }
 

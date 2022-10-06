@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:21 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/06 19:36:37 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:49:12 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ class Form{
 			void		beSigned( const Bureaucrat &bureaucrat );
 			
 			bool		getBool( void ) const ;
-			unsigned int const		getNtosign( void ) const ;
-			unsigned int const		getNtoexec( void ) const ;
+			unsigned int		getNtosign( void ) const ;
+			unsigned int		getNtoexec( void ) const ;
 			std::string	getFormname( void ) const ;
 			
 

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:16 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/06 20:13:07 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:22:11 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ std::string Form::getFormname() const{
 	return (this->_formname);
 };
 
-unsigned int const Form::getNtosign() const {
+unsigned int Form::getNtosign() const {
 	return (this->_ntosign);
 }
 
-unsigned int const Form::getNtoexec() const {
+unsigned int Form::getNtoexec() const {
 	return (this->_ntoexec);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 04:29:59 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/26 04:30:03 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:26:04 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-# define MAX_OPTIONS 3
+
 
 enum t_form {
 	T_FORM_PRES,
@@ -30,12 +30,18 @@ enum t_form {
 class Intern {
 
 public:
-	Intern();
-	~Intern();
+			class InternFailed : public std::exception
+			{
+				public:
+					 char const* what() const throw ();
+			};
+	Form* makeForm(const std::string &formName, const std::string &target);
+	
 	Intern(const Intern &intern);
 	Intern & operator= (const Intern &intern);
 
-	Form* makeForm(const std::string &formName, const std::string &target);
+	Intern();
+	~Intern();
 
 private:
 	Form* MakePresidentialPardonForm(const std::string &target);
