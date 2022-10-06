@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:09:53 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 04:59:56 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 19:24:20 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ std::ostream & operator << ( std::ostream & oper, Bureaucrat const & rhs ){
 	return oper ;
 };
 
+
+
 char const* Bureaucrat::GradeTooHighException::what() const throw() {
 	return ("error, too high");
 }
@@ -71,7 +73,8 @@ Bureaucrat & Bureaucrat::operator = (const Bureaucrat &rhs){
 };
 
 
-Bureaucrat::Bureaucrat( std::string name, unsigned int grade ) : _name(name) {    // : _name(name), _grade(grade) 
+
+Bureaucrat::Bureaucrat( std::string name, unsigned int grade ) : _name(name) {
 	std::cout << "bureaucrat constructor called for " << name << std::endl;
 
 		if(grade < 1)

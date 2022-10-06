@@ -6,23 +6,21 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:48:44 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 05:46:10 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:22:58 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Bureaucrat.hpp"
 #include "../includes/Form.hpp"
-#include "../includes/Intern.hpp"
 #include "../includes/PresidentialPardonForm.hpp"
 #include "../includes/RobotomyRequestForm.hpp"
 #include "../includes/ShrubberyCreationForm.hpp"
+#include "../includes/Intern.hpp"
 
 int main(){
 
 	Bureaucrat macron = Bureaucrat("macron", 6);
-//	Bureaucrat macron = Bureaucrat("macron", 73);
 
-//	PresidentialPardonForm formun = PresidentialPardonForm("bribri");
 	Intern				fiston = Intern();
 	Form*				formun;
 
@@ -37,13 +35,6 @@ int main(){
 	
 	delete formun;
 	
-	
-	
-//	ShrubberyCreationForm formun = ShrubberyCreationForm("bribri");
-
-
-
-
 
 	
 	return (0);    

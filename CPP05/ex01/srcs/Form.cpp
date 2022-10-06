@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:16 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 05:21:36 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 19:49:00 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char const* Form::GradeTooHighException::what() const throw() {
 char const* Form::GradeTooLowException::what() const throw() {
 	return ("error, garde too low");
 }
+
 
 
 void Form::beSigned( const Bureaucrat & bureaucrat ){
@@ -43,11 +44,29 @@ unsigned int const Form::getNtoexec() const {
 	return (this->_ntoexec);
 }
 
+
+
+
 std::ostream & operator << ( std::ostream & oper, Form const & rhs ){
 	oper << rhs.getFormname() << ", sign :" << rhs.getNtosign() << " exec : " <<
 	rhs.getNtoexec() << " signed : " << rhs.getBool() << "." << std::endl;
 	return oper ;
 };
+
+
+
+Form::Form(const Form &Form) : _formname(Form._formname), _ntosign(Form._ntosign), _ntoexec(Form._ntoexec){
+	*this = Form;
+	return;
+};
+
+Form & Form::operator = (const Form &rhs){
+	if (&rhs != this)
+		_signedd = rhs._signedd;
+	return (*this);
+};
+
+
 
 Form::Form(std::string const name, unsigned int const ntosign, unsigned int const ntoexec):
 _formname(name), _signedd(false), _ntosign(ntosign), _ntoexec(ntoexec){

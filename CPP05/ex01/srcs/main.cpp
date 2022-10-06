@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 00:48:44 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 05:27:12 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:01:57 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,14 @@ int main(){
 	{
 		std::cerr << e.what() << '\n';
 	}
-	macron.signForm(formun);
+	try
+	{
+		macron.signForm(formun);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 	
 	macron.plusGrade();
 	try

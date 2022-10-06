@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 02:37:21 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 05:27:26 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 19:36:37 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ class Form{
 
 			Form(const Form &Form);
 			Form & operator = (const Form &rhs);
-			Form & operator << (const Form &rhs);
 		
 			Form( std::string name, unsigned int ntosign, unsigned int ntoexec );
 			~Form( void );
