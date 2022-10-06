@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 04:07:57 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/28 05:31:32 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 05:00:49 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,12 @@ Base * generate( void ){
 	int		random = rand () % 3;
 	Base	*obj;
 
-	if (random == 0){
+	if (random == 0)
 		return new A();
-	}
-	if (random == 1){
+	if (random == 1)
 		return new B();
-	}
-	if (random == 2){
+	if (random == 2)
 		return new C();
-	
 	return NULL;
 };
 
@@ -46,6 +43,7 @@ void	identify(Base* p){
 int main(){
 	Base *pointer = generate();
 	identify(pointer);
+	delete pointer;
 	return (0);
 	// random instance 
 };

@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 04:28:56 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 05:42:46 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 04:34:38 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ Form *Intern::makeForm(const std::string &formName, const std::string &target)
     (formName == FORM_SHRU) && (form = (this->*arr_functions[T_FORM_SHRU])(target));
 
 	form && std::cout << "Intern created a " << formName << std::endl;
-	!form && std::cout << "You should fire this intern! " << formName << " never ever EVER existed!" << std::endl;
+	!form && std::cout << "Intern failed " << formName << " creation." << std::endl;
 
 	return (form);
 }

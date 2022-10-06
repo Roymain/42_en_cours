@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 23:08:46 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/03 17:42:51 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/06 04:44:19 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 void Convert::toChar(){
 	int nbr;
-	if (!this->_arg[1] && !std::isdigit(this->_arg[0]))
-	{
-		std::cout << "char: already a char : " << _arg[0] << std::endl;
-		return;
-	}
 	try 
 	{
 		nbr = std::stoi(this->_arg);
