@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 23:03:19 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/07/28 02:45:25 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:52:30 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ class Convert {
 			void	toFloat( void );
 			void	toDouble( void );
 
+			Convert & operator = ( const Convert & rhs);
+			Convert( const Convert & rhs);
+			Convert();
 			Convert( char *arg );
 			~Convert( void );
 					

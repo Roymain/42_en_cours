@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 23:08:46 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/06 04:44:19 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:56:16 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,19 @@ void Convert::toDouble(){
 	}
 };
 
+Convert & Convert::operator = ( const Convert & rhs){
+	if (&rhs == this)
+		_arg = rhs._arg;
+	return (*this);
+};
 
+Convert::Convert( const Convert & rhs){
+	*this = rhs;
+	return;
+};
+			
+Convert::Convert(){};
 
-
-Convert::Convert( char *arg): _arg(arg) {};
+Convert::Convert( char *arg ): _arg(arg) {};
 
 Convert::~Convert(){};

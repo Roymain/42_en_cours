@@ -6,21 +6,25 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 14:51:27 by Romain            #+#    #+#              #
-#    Updated: 2022/10/05 21:51:35 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/10/11 02:16:43 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM debian:buster-slim
 
-WORKDIR /app/nginx
+WORKDIR /var/www
 
-COPY . /app
+RUN apt-get update && apt-get install nginx openssl -y
 
-RUN apt update && apt install nginx -y && apt install openssl -y
+COPY conf/default /etc/nginx/sites-enabled/default
+
+RUN mkdir -p /etc/nginx/ssl/ && \
+        openssl req -x509 -nodes \
+		-out /etc/nginx/ssl/rcuminal.42.fr.crt \
+		-keyout /etc/nginx/ssl/rcuminal.42.fr.key \
+		-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=rcuminal.42.fr/UID=rcuminal"
 
 RUN service nginx start
-
-# /var/ww ->default htmltruc
 
 
 #cryptographiques utilisées ont le format suivant :
@@ -28,7 +32,7 @@ RUN service nginx start
 #Pour TLS 1.2 : TLS_KE_CIPHER_HASH.
 #Pour TLS 1.3 : TLS_CIPHER_HASH
 
-EXPOSE 80
+EXPOSE 443
 
 #temporaire -> interdit
 CMD ["nginx", "-g", "daemon off;"]  
