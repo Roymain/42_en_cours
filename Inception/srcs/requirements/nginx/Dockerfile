@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 14:51:27 by Romain            #+#    #+#              #
-#    Updated: 2022/10/11 02:16:43 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/10/11 02:56:46 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,6 @@ RUN mkdir -p /etc/nginx/ssl/ && \
 
 RUN service nginx start
 
-
-#cryptographiques utilisées ont le format suivant :
-
-#Pour TLS 1.2 : TLS_KE_CIPHER_HASH.
-#Pour TLS 1.3 : TLS_CIPHER_HASH
-
 EXPOSE 443
 
-#temporaire -> interdit
 CMD ["nginx", "-g", "daemon off;"]  

@@ -3,25 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 16:27:40 by Romain            #+#    #+#              #
-#    Updated: 2022/10/05 15:00:03 by Romain           ###   ########.fr        #
+#    Updated: 2022/10/11 05:02:31 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM debian:buster-slim
 
-WORKDIR /app/MariaDB
 
-COPY . /app
-
-RUN apt update && apt install mariadb-client -y && apt install mariadb-server -y 
-#     &&  apt install procps -y
+RUN apt-get update && apt-get install mariadb-client mariadb-server -y 
 
 EXPOSE 3306
 
-
-#temporaire -> interdit
-CMD ["tail", "-f"]
-
+COPY tools/script.sh /tmp
+ENTRYPOINT ["bash", "/tmp/script.sh"]
