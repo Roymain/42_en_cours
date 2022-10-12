@@ -42,10 +42,10 @@ server {
         #
         # include snippets/snakeoil.conf;
 
-        root /var/www/html;
+        root /var/www/wordpress;
 
         # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
+        index index.php index.html index.htm index.nginx-debian.html;
 
         server_name rcuminal.42.fr;
 
@@ -57,14 +57,14 @@ server {
 
         # pass PHP scripts to FastCGI server
         #
-        #location ~ \.php$ {
-        #       include snippets/fastcgi-php.conf;
-        #
-        #       # With php-fpm (or other unix sockets):
-        #       fastcgi_pass unix:/run/php/php7.3-fpm.sock;
-        #       # With php-cgi (or other tcp sockets):
-        #       fastcgi_pass 127.0.0.1:9000;
-        #}
+        location ~ \.php$ {
+               include snippets/fastcgi-php.conf;
+        
+               # With php-fpm (or other unix sockets):
+               #fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+               # With php-cgi (or other tcp sockets):
+               fastcgi_pass wordpress:9000;
+        }
 
         # deny access to .htaccess files, if Apache's document root
         # concurs with nginx's one
@@ -73,23 +73,3 @@ server {
         #       deny all;
         #}
 }
-
-
-# Virtual Host configuration for example.com
-#
-# You can move that to a different file under sites-available/ and symlink that
-# to sites-enabled/ to enable it.
-#
-#server {
-#       listen 80;
-#       listen [::]:80;
-#
-#       server_name example.com;
-#
-#       root /var/www/example.com;
-#       index index.html;
-#
-#       location / {
-#               try_files $uri $uri/ =404;
-#       }
-#}

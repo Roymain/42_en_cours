@@ -6,7 +6,7 @@
 #    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 16:27:40 by Romain            #+#    #+#              #
-#    Updated: 2022/10/11 05:02:31 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/10/12 03:30:54 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,4 +18,5 @@ RUN apt-get update && apt-get install mariadb-client mariadb-server -y
 EXPOSE 3306
 
 COPY tools/script.sh /tmp
+
 ENTRYPOINT ["bash", "/tmp/script.sh"]
