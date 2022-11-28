@@ -5,7 +5,7 @@ COMPIL		=	docker-compose --project-directory srcs -p $(NAME)
 PATH_DATA	=	/home/rcuminal/data
 
 up : $(PATH_DATA)
-	$(COMPIL) up --build
+	$(COMPIL) up --build -d
 #-d
 
 build:
@@ -13,7 +13,6 @@ build:
 
 down :
 	$(COMPIL) down
-	rm -rf *
 
 ps:
 	$(COMPIL) ps

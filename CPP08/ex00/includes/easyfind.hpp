@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:00:13 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/10 00:03:57 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/17 01:30:21 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,3 @@ typename T::const_iterator easyfind(const T &truc, const int entier)
 {
     return (std::find(truc.begin(), truc.end(), entier));
 }
-            

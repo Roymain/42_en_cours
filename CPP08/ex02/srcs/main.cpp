@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:07:40 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/10 03:50:50 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/17 00:53:29 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int main()
 		MutantStack<int> mstack;
 		mstack.push(5);
 		mstack.push(17);
-		std::cout << mstack.top() << std::endl;
+		std::cout << "=>" << mstack.top() << std::endl;
 		mstack.pop();
-		std::cout << mstack.size() << std::endl;
+		std::cout << "=>" << mstack.size() << std::endl;
 		mstack.push(3);
 		mstack.push(5);
 		mstack.push(737);

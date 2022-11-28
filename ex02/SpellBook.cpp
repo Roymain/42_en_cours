@@ -30,7 +30,7 @@ void SpellBook::forgetSpell(const std::string& spell){
 ASpell* SpellBook::createSpell(const std::string& spell){
 	for (std::vector<ASpell*>::iterator it = _book.begin(); it != _book.end(); it++){
 		if ((*it)->getName() == spell)
-			return (*it);
+			return ((*it)->clone());
 	}
     return NULL;
 };

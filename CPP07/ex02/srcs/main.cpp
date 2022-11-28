@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:07:40 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/10/09 23:39:33 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/10/14 00:02:13 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,19 @@ int main()
 		std::cerr << e.what() << std::endl;
 	}
 
-	for (size_t i = 0; i < j.size(); i++)
-	{
-		j[i] = rand();
-		std::cout << j[i] << " " ;
-	}
-	std::cout << std::endl ;
-	const Array<int> b(j);
-	for (size_t i = 0; i < b.size(); i++)
-	{
-		//b[i] = 0;
-		std::cout << b[i] << " " ;
-	}
-	const unsigned int	x = 5;
-	const Array<int> xC(x);
+	// for (size_t i = 0; i < j.size(); i++)
+	// {
+	// 	j[i] = rand();
+	// 	std::cout << j[i] << " " ;
+	// }
+	// std::cout << std::endl ;
+	// const Array<int> b(j);
+	// for (size_t i = 0; i < b.size(); i++)
+	// {
+	// 	//b[i] = 0;
+	// 	std::cout << b[i] << " " ;
+	// }
+	// const unsigned int	x = 5;
+	// const Array<int> xC(x);
 	return 0;
 }

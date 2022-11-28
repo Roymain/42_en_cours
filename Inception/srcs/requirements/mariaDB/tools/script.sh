@@ -18,7 +18,6 @@ skip-networking=0
 skip-bind-address
 EOF
 
-# run init.sql
 service mysql start
 mysql < $sql_file
 rm -f $sql_file
