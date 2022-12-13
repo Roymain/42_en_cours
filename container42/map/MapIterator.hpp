@@ -3,151 +3,158 @@
 #include <cstddef>
 
 #include "../IteratorTraits.hpp"
+#include "Map.hpp"
 #include <iterator>
 
 
 namespace ft {
 
-	template <class T> class MapIterator{
+	template <class Key, class T, class Compare, typename Node, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+		class MapIterator{
 			public:
-					typedef T								value_type;
-					typedef ptrdiff_t						difference_type;
-					typedef T*								pointer;
-					typedef T&								reference;
-					typedef std::random_access_iterator_tag	iterator_category;
+    			typedef Key  			iterator_category;
+    			typedef T         		value_type;
+    			typedef Distance  		difference_type;
+    			typedef Pointer   		pointer;
+    			typedef Reference 		reference;
+				typedef Compare			key_comp;
+				typedef Node*			nodePtr;
+
 			private:
-					pointer		_ptr;
+					nodePtr		_nodePtr;
+					key_comp	_comp;
 
 			public:
 
-					VectorIterator() : _ptr(pointer()){};
+			MapIterator(nodePtr node = 0, const key_comp& comp = key_comp()): _nodePtr(node), _comp(comp){};
 
-					VectorIterator ( pointer ptr ) : _ptr(ptr){};
+			MapIterator(pointer node, const key_comp& comp = key_comp()): _comp(comp), _nodePtr(node){};
 
-					template <class Z>
-  					VectorIterator (const VectorIterator<Z>& rhs) : _ptr(rhs.base()){};
-					
-					VectorIterator(const VectorIterator& rhs) : _ptr(rhs._ptr) {};
+			MapIterator(const MapIterator<Key, T, Compare, Node> &copy){
+				_nodePtr = copy.getNodePtr();
+				_comp = copy.getComp();
+			};
 
-					~VectorIterator() {};
-
-					VectorIterator& operator++ ( void ) {
-						++_ptr;
-						return (*this);
-					};
-
-					VectorIterator operator++ (int) {
-						VectorIterator temp = *this;
-  						++(*this);
-						return temp;
-					};
-					
-					VectorIterator& operator-- ( void ) {
-						--_ptr;
-						return (*this);
-					};
-
-					VectorIterator operator-- (int) {
-						VectorIterator temp = *this;
-  						--(*this);
-						return temp;
-					};
-
-					pointer base() const{
-						return (_ptr);
-					};
-
-					template <class C>
-					bool operator==	( const VectorIterator<C> &rhs){
-						return (_ptr == rhs.base());
-					}
-
-					template <class C>
-					bool operator!=	( const VectorIterator<C> &rhs){
-						return (_ptr != rhs.base());
-					}
-					
-					reference operator*() const{
-						return *(_ptr);
-					};
-
-					pointer operator->() const {
-  						return &(operator*());
-					};
-					
-					reference operator*(){
-						return *(_ptr);
-					};
-
-					pointer operator->(){
-  						return &(operator*());
-					};
-
-					VectorIterator	operator+(const difference_type n) const {
-						VectorIterator	tmp(*this);
-
-						tmp += n;
-						return (tmp);
-					}
-					
-					friend VectorIterator	operator+(const difference_type n, const VectorIterator& rhs) {
-						VectorIterator	tmp(rhs);
-
-						tmp += n;
-						return (tmp);
-					}
-					
+			~MapIterator(){};
 
 
-					VectorIterator	operator-(const difference_type n) const {
-						VectorIterator	tmp(*this);
+			
+			nodePtr getNodePtr() const {
+				return _nodePtr;
+			};
 
-						tmp -= n;
-						return (tmp);
-					}
+			key_comp getComp() const {
+				return _comp;
+			};
 
-					difference_type	operator-(const VectorIterator it) const {
-						return (this->_ptr - it._ptr);
-					}
 
-					template <class C>
-					bool operator<	( const VectorIterator<C> &rhs){
-						return (_ptr < rhs.base());
-					}
+			MapIterator& operator=(const MapIterator& rhs){
+				if (this != rhs){
+					_nodePtr = rhs.getNodePtr();
+					_comp = rhs.getComp();
+				}
+			}
 
-					template <class C>
-					bool operator<=	( const VectorIterator<C> &rhs){
-						return (_ptr <= rhs.base());
-					}
+			bool operator==(const MapIterator& it) const {
+				return (it._nodePtr == _nodePtr);
+			}
 
-					template <class C>
-					bool operator>=	( const VectorIterator<C> &rhs){
-						return (_ptr >= rhs.base());
-					}
+            bool operator!=(const MapIterator& it) const {
+				return (it._nodePtr != _nodePtr);
+			}
 
-					template <class C>
-					bool operator>	( const VectorIterator<C> &rhs){
-						return (_ptr > rhs.base());
-					}
+			MapIterator& operator*() const {
+				return _nodePtr->content;
+			}
+			
+			MapIterator& operator->() const {
+				return (&_nodePtr->content);
+			}
 
-					VectorIterator&	operator+=(const difference_type n) {
-						this->_ptr += n;
+			MapIterator& operator++(){
+				nodePtr origin = _nodePtr;
+
+				if (_nodePtr->right){
+					_nodePtr = _nodePtr->right;
+					return (*this);
+				}
+				_nodePtr = _nodePtr->parent;
+				while (!_comp(origin->content.first, _nodePtr->content.first)){
+					if (_comp(origin->content.first, _nodePtr->right->content.first && _nodePtr->right != origin)){
+						_nodePtr = _nodePtr->right;
 						return (*this);
 					}
+					_nodePtr = _nodePtr->parent;
+				}
+				return (*this);   //? sinon = map.end()
+			};
 
-					VectorIterator&	operator-=(const difference_type n) {
-						this->_ptr -= n;
+			MapIterator operator++(int){
+				MapIterator	copy(*this);
+
+				if (_nodePtr->right){
+					_nodePtr = _nodePtr->right;
+					return (copy);
+				}
+				_nodePtr = _nodePtr->parent;
+				while (!_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
+					if (_comp(copy._nodePtr->content.first, _nodePtr->right->content.first && _nodePtr->right != copy._nodePtr)){
+						_nodePtr = _nodePtr->right;
+						return (copy);
+					}
+					_nodePtr = _nodePtr->parent;
+				}
+				return (copy);
+			};
+
+			MapIterator& operator--(){
+				nodePtr origin = _nodePtr;
+
+				if (_nodePtr->left){
+					_nodePtr = _nodePtr->left;
+					return (*this);
+				}
+				_nodePtr = _nodePtr->parent;
+				while (!_comp(origin->content.first, _nodePtr->content.first)){
+					if (_comp(origin->content.first, _nodePtr->left->content.first && _nodePtr->left != origin)){
+						_nodePtr = _nodePtr->left;
 						return (*this);
 					}
+					_nodePtr = _nodePtr->parent;
+				}
+				return (*this);
+			};
 
-					reference operator[](const difference_type n) const {
-						return (this->_ptr[n]);
-					}
+			MapIterator operator--(int){
+				MapIterator	copy(*this);
 
-					reference operator[](const difference_type n) {
-						return (this->_ptr[n]);
+				if (_nodePtr->left){
+					_nodePtr = _nodePtr->left;
+					return (copy);
+				}
+				_nodePtr = _nodePtr->parent;
+				while (!_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
+					if (_comp(copy._nodePtr->content.first, _nodePtr->left->content.first && _nodePtr->left != copy._nodePtr)){
+						_nodePtr = _nodePtr->left;
+						return (copy);
 					}
-					
+					_nodePtr = _nodePtr->parent;
+				}
+				return (copy);
+			};
+
+
+
+			Node* findMin(Node* t)
+    		{
+    		    	if(t == NULL)
+    					return NULL;
+    		    	else if(t->left == NULL)
+    		        	return t;
+    		    	else
+    		        	return findMin(t->left);
+    		}
+
 
 		};
 }
