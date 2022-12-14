@@ -3,8 +3,7 @@
 #include <cstddef>
 
 #include "../IteratorTraits.hpp"
-#include "Map.hpp"
-#include <iterator>
+
 
 
 namespace ft {
@@ -30,7 +29,7 @@ namespace ft {
 
 			MapIterator(pointer node, const key_comp& comp = key_comp()): _comp(comp), _nodePtr(node){};
 
-			MapIterator(const MapIterator<Key, T, Compare, Node> &copy){
+			MapIterator(const MapIterator<const Key, T, Compare, Node> &copy){
 				_nodePtr = copy.getNodePtr();
 				_comp = copy.getComp();
 			};
@@ -63,22 +62,28 @@ namespace ft {
 				return (it._nodePtr != _nodePtr);
 			}
 
-			MapIterator& operator*() const {
+			reference operator*() const {
 				return _nodePtr->content;
 			}
 			
-			MapIterator& operator->() const {
+			pointer operator->() const {
 				return (&_nodePtr->content);
 			}
 
 			MapIterator& operator++(){
+				std::cout << "haha\n";
+				if (_nodePtr == NULL)
+					return NULL;
 				nodePtr origin = _nodePtr;
 
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
 					return (*this);
 				}
-				_nodePtr = _nodePtr->parent;
+				if (_nodePtr->parent)
+					_nodePtr = _nodePtr->parent;
+				else
+					return NULL;
 				while (!_comp(origin->content.first, _nodePtr->content.first)){
 					if (_comp(origin->content.first, _nodePtr->right->content.first && _nodePtr->right != origin)){
 						_nodePtr = _nodePtr->right;
@@ -91,18 +96,26 @@ namespace ft {
 
 			MapIterator operator++(int){
 				MapIterator	copy(*this);
+				if (copy.getNodePtr() == NULL)
+					return copy;
 
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
 					return (copy);
 				}
-				_nodePtr = _nodePtr->parent;
+				if (_nodePtr->parent)
+					_nodePtr = _nodePtr->parent;
+				else
+					return copy;
 				while (!_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
-					if (_comp(copy._nodePtr->content.first, _nodePtr->right->content.first && _nodePtr->right != copy._nodePtr)){
+					if (_comp(copy._nodePtr->content.first, _nodePtr->right->content.first) && _nodePtr->right != copy._nodePtr){
 						_nodePtr = _nodePtr->right;
 						return (copy);
 					}
-					_nodePtr = _nodePtr->parent;
+					if (_nodePtr->parent)
+						_nodePtr = _nodePtr->parent;
+					else
+						return (copy);
 				}
 				return (copy);
 			};
@@ -114,31 +127,44 @@ namespace ft {
 					_nodePtr = _nodePtr->left;
 					return (*this);
 				}
-				_nodePtr = _nodePtr->parent;
+				if (_nodePtr->parent)
+					_nodePtr = _nodePtr->parent;
+				else
+					return (*this);
 				while (!_comp(origin->content.first, _nodePtr->content.first)){
-					if (_comp(origin->content.first, _nodePtr->left->content.first && _nodePtr->left != origin)){
+					if (_comp(origin->content.first, _nodePtr->left->content.first) && _nodePtr->left != origin){
 						_nodePtr = _nodePtr->left;
 						return (*this);
 					}
-					_nodePtr = _nodePtr->parent;
+					if (_nodePtr->parent)
+						_nodePtr = _nodePtr->parent;
+					else
+						return (*this);
 				}
 				return (*this);
 			};
 
 			MapIterator operator--(int){
 				MapIterator	copy(*this);
-
+				if (copy.getNodePtr() == NULL)
+					return copy;
 				if (_nodePtr->left){
 					_nodePtr = _nodePtr->left;
 					return (copy);
 				}
-				_nodePtr = _nodePtr->parent;
+				if (_nodePtr->parent)
+					_nodePtr = _nodePtr->parent;
+				else
+					return copy;
 				while (!_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
-					if (_comp(copy._nodePtr->content.first, _nodePtr->left->content.first && _nodePtr->left != copy._nodePtr)){
+					if (_comp(copy._nodePtr->content.first, _nodePtr->left->content.first) && _nodePtr->left != copy._nodePtr){
 						_nodePtr = _nodePtr->left;
 						return (copy);
 					}
-					_nodePtr = _nodePtr->parent;
+					if (_nodePtr->parent)
+						_nodePtr = _nodePtr->parent;
+					else
+						return (copy);
 				}
 				return (copy);
 			};

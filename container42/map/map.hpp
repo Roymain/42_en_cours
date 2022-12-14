@@ -13,38 +13,39 @@
 #include <algorithm>
 
 namespace ft {
-	template< class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator< std::pair<const Key, T> > > 
+	template< class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator< ft::pair<const Key, T> > > 
 	class map {
-
-		public:
-			typedef Key							key_type;
-			typedef T							mapped_type;
-			typedef ft::pair<const Key, T>		value_type;
-			typedef std::size_t					size_type;
-			typedef	std::ptrdiff_t				difference_type;
-			typedef	Compare						key_compare;
-			typedef	Allocator					allocator_type;
-			typedef typename allocator_type::reference					reference;
-			typedef typename allocator_type::const_reference			const_reference;
-			typedef typename allocator_type::pointer					pointer;
-			typedef typename allocator_type::const_pointer				const_pointer;
-
 
 		private:
 			struct  Node {
-				value_type						content;
-				Node                            *parent;
-				Node							*left;
-				Node							*right;
+				pair<const Key, T>				content;
+				Node*                           parent;
+				Node*							left;
+				Node*							right;
 				long long int                   level;
 			};
 
 		public:
+			typedef Key							key_type;
+			typedef T							mapped_type;
+			typedef pair<const key_type, mapped_type>		value_type;
+			typedef std::size_t					size_type;
+			typedef	std::ptrdiff_t				difference_type;
+			typedef	Compare						key_compare;
+			typedef	Allocator					allocator_type;
+			typedef T&							reference;
+			typedef const T&					const_reference;
+			typedef T*							pointer;
+			typedef const T*					const_pointer;
 
-			typedef typename ft::MapIterator<Key, T, Compare, Node>							iterator;
-			typedef typename ft::MapIterator<const Key, T, Compare, Node>					const_iterator;
-			typedef	ft::reverse_iterator<iterator>				reverse_iterator;
-			typedef	ft::reverse_iterator<const_iterator>		const_reverse_iterator;
+
+
+		public:
+
+			typedef ft::MapIterator<Key, T, Compare, Node>							iterator;
+			typedef ft::MapIterator<Key, T, Compare, Node>					const_iterator;
+			typedef	ft::reverse_iterator<iterator>											reverse_iterator;
+			typedef	ft::reverse_iterator<const_iterator>									const_reverse_iterator;
 
 			class value_compare {
 				friend class map;
@@ -67,30 +68,40 @@ namespace ft {
 			allocator_type						_malloc;
 			std::allocator<Node>				_mallocNode;
 			Node*								_root;
+			Node*								_last;
 			size_type							_size;
 			key_compare							_comp;
 
 
 		public:
-		//	map(): _size(0), _malloc(std::allocator()), _comp(NULL), _root(NULL){};
+	//		map( const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _size(0), _malloc(alloc), _comp(comp), _root(NULL){};
 
-			explicit map( const Compare& comp, const Allocator& alloc = Allocator()) : _size(0), _malloc(alloc), _comp(comp), _root(NULL){};
+			explicit map( const key_compare& comp = key_compare(), const Allocator& alloc = Allocator()) : _size(0), _malloc(alloc), _comp(comp), _root(NULL), _last(NULL){};
 
 			template<class InputIt>
 			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
 
+			~map(){};
 
+		Node* find_min(Node* t){
+			if (!t)
+				return (NULL);
+			else if (!t->left)
+				return (t);
+			else
+			        return find_min(t->left);
+		}
 
 			iterator begin() { return iterator(find_min(_root), _comp);}
+
+			Node* getRoot(){return _root;}
 
 
 // MODIFIERS
 			ft::pair<iterator, bool> insert( const value_type& value ){
-				Node *t = __search_key(_root,  value.first);
-				if (t){
-					return (ft::make_pair<iterator, bool>(iterator(t, _comp), false));
-				}
-				_root = __avl_insert(this->_root, value, NULL);
+				Node *t = _root;
+
+				_root = insertInTree(_root, value, NULL);
 				_size++;
 				return (ft::make_pair<iterator, bool>(iterator(_root, _comp), true));
 			};
@@ -100,7 +111,7 @@ namespace ft {
 			/* @Return  iterator*/
 			iterator insert (iterator position, const value_type& val){
 				position = NULL;
-				iterator it(_root = __avl_insert(_root, val, NULL));
+				iterator it(_root = insertInTree(_root, val));
 				_size++;
 				return (it);
 			}
@@ -112,15 +123,14 @@ namespace ft {
 			// };
 
 // INSERTION
-			int _height(Node *temp)
-			{
-				int h = 0;
+			long long int _height(Node* temp){
+        			int h = 0;
 				if (temp != NULL)
 				{
 					int l_height = _height(temp->left);
 					int r_height = _height(temp->right);
-					int max__height = std::max(l_height, r_height);
-					h = max__height + 1;
+					int max_height = std::max(l_height, r_height);
+					h = max_height + 1;
 				}
 				return h;
 			}
@@ -157,26 +167,46 @@ namespace ft {
 			}
 
 
-			Node* insertInTree(Node *root, value_type content)
+			Node* insertInTree(Node* root, const value_type& content, Node* parent)
 			{
+				if (_root)
+					std::cout << _root->content.first << std::endl;
 				if (root == NULL)
 				{
-					root = new Node;
-					root->data = content;
+					std::cout << "hihi\n";
+					root = _mallocNode.allocate(1);
+					_malloc.construct(&root->content, content);
 					root->left = NULL;
 					root->right = NULL;
-					return root;
+					root->parent = parent;
+					root->level = 0;
+					if (!_last || _last->content.first < content.first)
+						_last = root;
+					root->parent = parent;
 				}
-				else if (content < root->data)
+				else if (content.first < root->content.first)
 				{
-					root->left = insertInTree(root->left, content);
+					root->left = insertInTree(root->left, content, root);
+					// if (_height(root->left) - _height(root->right) == 2){
+					// if (content < root->left->content)
+					// 	root = __SRRotate(root);
+					// else
+					// 	root = __DRRotate(root);
+					// }
 					root = balance(root);
 				}
-				else if (content >= root->data)
+				else if (content.first >= root->content.first)
 				{
-					root->right = insertinTree(root->right, content);
+					root->right = insertInTree(root->right, content, root);
+					// if (_height(root->right) - _height(root->left) == 2){
+					// 	if (content > root->right->content)
+					// 		root = __SLRotate(root);
+					// 	else
+					// 		root = __DLRotate(root);
+					// }
 					root = balance(root);
 				}
+				//root->level = std::max(_height(root->left), _height(root->right)) + 1;
 				return root;
 			}
 
@@ -213,6 +243,8 @@ namespace ft {
 				Node* temp;
 				temp = parent->left;
 				parent->left = rr_rotation(temp);
+				// parent->level = std::max(_height(parent->left), _height(parent->right)) + 1;
+				// temp->level = std::max(_height(temp->left), temp->level) + 1;
 				return ll_rotation(parent);
 			}
 
@@ -224,7 +256,82 @@ namespace ft {
 				Node* temp;
 				temp = parent->right;
 				parent->right = ll_rotation(temp);
+				// parent->level = std::max(_height(parent->left), _height(parent->right)) + 1;
+				// temp->level = std::max(_height(temp->left), temp->level) + 1;
 				return rr_rotation(parent);
 			}
+
+
+		// 	Node *__SRRotate(Node* &t){
+		// 	Node *u = t->left;
+
+		// 	if (u)
+		// 		u->parent = t->parent;
+		// 	t->left = u->right;
+		// 	if (t->left)
+		// 		t->left->parent = t;
+		// 	u->right = t;
+		// 	if (u->right)
+		// 		u->right->parent = u;
+
+		// 	t->level = std::max(_height(t->left), _height(t->right)) + 1;
+		// 	u->level = std::max(_height(u->left), u->level) + 1;
+		// 	return (u);
+		// }
+
+		// /* @Brief clear all the tree without us iterator  for faster */
+		// /* @Param Node *t */
+		// /* @Return None */
+		// void __full_clear(Node *t){
+		// 	if(t == NULL)
+        //     			return;
+		// 	__full_clear(t->left);
+		// 	__deallocateNode(t);
+		// 	__full_clear(t->right);
+		// }
+
+		// /* @Brief rotation of the node left*/
+		// /*      	  Q                                 P     */     
+ 		// /*               / \          LEFT ROTATION        / \    */    
+ 		// /*              P   C    <<<-------------------   A   Q   */   
+ 		// /*             / \                                   / \  */  
+ 		// /*            A   B                                 B   C */ 
+		// /* @Param  Node* &t*/
+		// /* @Return  Node**/
+		// Node *__SLRotate(Node* &t){
+		// 	Node *u = t->right;
+
+		// 	if (u)
+		// 		u->parent = t->parent;
+		// 	t->right = u->left;
+		// 	if (t->right)
+		// 		t->right->parent = t;
+		// 	u->left = t;
+		// 	if (u->left)
+		// 		u->left->parent = u;
+		// 	t->level = std::max(_height(t->left), _height(t->right)) + 1;
+		// 	u->level = std::max(_height(u->left), u->level) + 1;
+		// 	return (u);
+		// }
+
+		// /* @Brief Make double rotation left*/
+		// /* @Param  Node *t */
+		// /* @Return  Node*/
+		// Node* __DLRotate(Node* &t){
+    	// 	    	t->right = __SRRotate(t->right);
+    	// 	    	return (__SLRotate(t));
+    	// 	}
+
+		// /* @Brief Make double rotation right*/
+		// /* @Param  Node *t */
+		// /* @Return  Node*/
+    	// 	Node* __DRRotate(Node* &t){
+    	// 	   	t->left = __SLRotate(t->left);
+    	// 	    	return (__SRRotate(t));
+    	// 	}
+
+
+
+
 	};
 };
