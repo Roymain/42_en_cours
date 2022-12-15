@@ -96,26 +96,42 @@ namespace ft {
 
 			MapIterator operator++(int){
 				MapIterator	copy(*this);
+
+
+
+
 				if (copy.getNodePtr() == NULL)
 					return copy;
 
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
+					while (_nodePtr->left)
+						_nodePtr = _nodePtr->left;
 					return (copy);
 				}
-				if (_nodePtr->parent)
+				if (_nodePtr->parent){
 					_nodePtr = _nodePtr->parent;
+					if (_comp(copy._nodePtr->content.first, _nodePtr->content.first))
+						return copy;
+				}
 				else
 					return copy;
 				while (!_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
-					if (_comp(copy._nodePtr->content.first, _nodePtr->right->content.first) && _nodePtr->right != copy._nodePtr){
+					if (_nodePtr->right && _comp(copy._nodePtr->content.first, _nodePtr->right->content.first) && _nodePtr->right != copy._nodePtr){
 						_nodePtr = _nodePtr->right;
 						return (copy);
 					}
 					if (_nodePtr->parent)
 						_nodePtr = _nodePtr->parent;
 					else
+					{
+						Node* nul = 0;
+						_nodePtr = nul;
 						return (copy);
+					}
+					if (_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
+						return (copy);
+					}
 				}
 				return (copy);
 			};
@@ -148,23 +164,38 @@ namespace ft {
 				MapIterator	copy(*this);
 				if (copy.getNodePtr() == NULL)
 					return copy;
+
 				if (_nodePtr->left){
 					_nodePtr = _nodePtr->left;
 					return (copy);
 				}
-				if (_nodePtr->parent)
-					_nodePtr = _nodePtr->parent;
-				else
-					return copy;
-				while (!_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
-					if (_comp(copy._nodePtr->content.first, _nodePtr->left->content.first) && _nodePtr->left != copy._nodePtr){
+				if (_nodePtr->parent && !_comp(_nodePtr->parent->content.first, copy._nodePtr->content.first))
+						_nodePtr = _nodePtr->parent;
+				// else if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, copy._nodePtr->content.first)){
+
+				//  	_nodePtr = _nodePtr->parent;
+				// }
+				// else{
+				// 	Node* nul = 0;
+				// 	_nodePtr = nul;
+				// 	return (copy);
+				// }
+				// if (_nodePtr->parent)
+				// 	_nodePtr = _nodePtr->parent;
+				// else
+				// 	return copy;
+				while (!_comp(_nodePtr->content.first, copy._nodePtr->content.first)){
+					if (_nodePtr->left && !_comp(_nodePtr->content.first, copy._nodePtr->left->content.first && _nodePtr->left != copy._nodePtr)){
 						_nodePtr = _nodePtr->left;
 						return (copy);
 					}
-					if (_nodePtr->parent)
+					if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, copy._nodePtr->content.first))
 						_nodePtr = _nodePtr->parent;
-					else
+					else{
+						Node* nul = 0;
+						_nodePtr = nul;
 						return (copy);
+					}
 				}
 				return (copy);
 			};
