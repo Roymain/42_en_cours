@@ -42,8 +42,8 @@ namespace ft {
 
 		public:
 
-			typedef ft::MapIterator<Key, T, Compare, Node>							iterator;
-			typedef ft::MapIterator<Key, T, Compare, Node>					const_iterator;
+			typedef ft::MapIterator<const Key, T, Compare, Node>							iterator;
+			typedef ft::MapIterator<const Key, T, Compare, Node>					const_iterator;
 			typedef	ft::reverse_iterator<iterator>											reverse_iterator;
 			typedef	ft::reverse_iterator<const_iterator>									const_reverse_iterator;
 
@@ -74,41 +74,79 @@ namespace ft {
 
 
 		public:
-	//		map( const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _size(0), _malloc(alloc), _comp(comp), _root(NULL){};
+	// need end().		map( const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _size(0), _malloc(alloc), _comp(comp), _root(NULL){};
 
-			explicit map( const key_compare& comp = key_compare(), const Allocator& alloc = Allocator()) : _size(0), _malloc(alloc), _comp(comp), _root(NULL), _last(NULL){};
+			explicit map( const key_compare& comp = key_compare(), const Allocator& alloc = Allocator()) : _malloc(alloc), _root(NULL), _last(NULL), _size(0),  _comp(comp){};
 
 			template<class InputIt>
-			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
+			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : _size(0), _mallocNode(alloc), _comp(comp){
+					_root = NULL;
+					_last = NULL;
+               	 	for (; first != last; ++first)
+                    		insert(first.getNode()->content);
+			};
 
-			~map(){};
+			~map(){
+				//tt detruire
+			};
 
-		Node* find_min(Node* t){
-			if (!t)
-				return (NULL);
-			else if (!t->left)
-				return (t);
-			else
-			        return find_min(t->left);
-		}
+			allocator_type get_allocator() const { return _malloc;};
+
+			//from root
+			Node* find_min(Node* node){
+				if (!node)
+					return (NULL);
+				else if (!node->left)
+					return (node);
+				else
+				        return find_min(node->left);
+			}
+			
+			Node* find_max(Node* node){
+				if (!node)
+					return (NULL);
+				else if (!node->right)
+					return (node);
+				else
+				        return find_min(node->right);
+			}
+
+			bool empty() const {
+				if (!_root)
+					return true;
+				return
+					false;
+			};
+
+			size_type size() const {return _size;};
+
+			size_type max_size() const {return allocator_type().max_size();};
 
 			iterator begin() { return iterator(find_min(_root), _comp);}
 
+			const_iterator begin() const { return const_iterator(find_min(_root), _comp);}
+
+			iterator end() { return iterator(find_max(_root), _comp);}
+
+			const_iterator end() const { return const_iterator(find_max(_root), _comp);}
+
 			Node* getRoot(){return _root;}
 
+			map& operator= (const map& x) {
+				if (&x == this)
+					return (*this);
+			//	clear();
+				insert(x.begin(), x.end());
+				return(*this);
+			}
 
-// MODIFIERS
+// INSERT
 			ft::pair<iterator, bool> insert( const value_type& value ){
-				Node *t = _root;
-
 				_root = insertInTree(_root, value, NULL);
 				_size++;
 				return (ft::make_pair<iterator, bool>(iterator(_root, _comp), true));
 			};
 
-			/* @Brief Extends the container by inserting new elements*/
-			/* @Param  const value_type &val*/
-			/* @Return  iterator*/
 			iterator insert (iterator position, const value_type& val){
 				position = NULL;
 				iterator it(_root = insertInTree(_root, val));
@@ -116,13 +154,35 @@ namespace ft {
 				return (it);
 			}
 
-			// template< class InputIt >
-			// void insert( InputIt first, InputIt last,
-		    // typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0){
+			template< class InputIt >
+			void insert( InputIt first, InputIt last,
+		    typename ft::enable_if<!ft::is_integral<InputIt>::value >::type* = 0){
+				while(first != last){
+					insert(first.getNode()->content);
+					_size++;
+					++first;
+				}
+			};
 
-			// };
+// ERASE
+			void erase (iterator position){
+				Node *test = position.getNodePtr();
+				_root = remove(test->content, _root);
+				_size--;
+			};
 
-// INSERTION
+			size_type erase (const key_type& k){
+				Node* test = remove(ft::make_pair<key_type, mapped_type>(k, mapped_type()), _root);
+				if (!test)
+					return 0;
+				_size--;
+				return 1;
+			};
+
+ //   		void erase (iterator first, iterator last);
+
+// UTILS
+
 			long long int _height(Node* temp){
         		return (temp == NULL ? -1 : temp->level);
 			}
@@ -157,8 +217,71 @@ namespace ft {
 				}
 				return temp;
 			}
+// delete
+				//node start as root
+				Node* remove(const value_type& content, Node* node)
+    			{
+    			    Node* temp;
+
+    			    // Element not found
+    			    if(node == NULL)
+    			        return NULL;
+
+    			    // Searching for element
+    			    else if(content.first < node->content.first)
+    			        node->left = remove(content, node->left);
+    			    else if(content.first > node->content.first)
+    			        node->right = remove(content, node->right);
+
+    			    // Element found
+    			    // With 2 children
+    			    else if(node->left && node->right)
+    			    {
+    			        temp = find_min(node->right);
+    			        node->content = temp->content;
+    			        node->right = remove(node->content, node->right);
+    			    }
+    			    // With one or zero child
+    			    else
+    			    {
+    			        temp = node;
+    			        if(node->left == NULL)
+    			            node = node->right;
+    			        else if(node->right == NULL)
+    			            node = node->left;
+    			        delete temp;
+    			    }
+    			    if(node == NULL)
+    			        return node;
+
+    			//    node->height = max(_height(node->left), _height(node->right))+1;
+
+    			    // If node is unbalanced
+    			    // If left node is deleted, right case
+    			    if(_height(node->left) - _height(node->right) == 2)
+    			    {
+    			        // right right case
+    			        if(_height(node->left->left) - _height(node->left->right) == 1)
+    			            return __SLRotate(node);
+    			        // right left case
+    			        else
+    			            return __DLRotate(node);
+    			    }
+    			    // If right node is deleted, left case
+    			    else if(_height(node->right) - _height(node->left) == 2)
+    			    {
+    			        // left left case
+    			        if(_height(node->right->right) - _height(node->right->left) == 1)
+    			            return __SLRotate(node);
+    			        // left right case
+    			        else
+    			            return __DRRotate(node);
+    			    }
+    			    return node;
+    			}
 
 
+// insert
 			Node* insertInTree(Node* root, const value_type& content, Node* parent)
 			{
 				// if (_root)
@@ -199,7 +322,6 @@ namespace ft {
 				root->level = std::max(_height(root->left), _height(root->right)) + 1;
 				return root;
 			}
-
 //ROTATIONS
 
 			/*

@@ -1,5 +1,5 @@
 
-#include "Map.hpp"
+#include "map.hpp"
 #include <string>
 #include <map>
 
@@ -12,16 +12,20 @@ int main(){
 
 	int num = 128;
 	int num2 = 152;
+	std::string lu = "amen";
 	test.insert(ft::make_pair(num, ro));
 	test.insert(ft::make_pair(151, "am"));
 	test.insert(ft::make_pair(100, "amen"));
-	test.insert(ft::make_pair(152, "rvfsgre"));
-	test.insert(ft::make_pair(1, "aens"));
+	test.insert(ft::make_pair(num2, "rvfsgre"));
+	test.insert(ft::make_pair(-2, "aens"));
 	test.insert(ft::make_pair(199, "amis"));
 	test.insert(ft::make_pair(201, "ami"));
 	test.insert(ft::make_pair(170, "amiens"));
 	test.insert(ft::make_pair(22, "a"));
-	std::cout << "humhum" << test.getRoot()->content.first << std::endl;
+
+
+	std::cout << test.begin().getNodePtr()->content.first << "      "  << test.max_size() << std::endl;
+	// std::cout << "humhum" << test.getRoot()->content.first << std::endl;
 	
 	ft::map<int, std::string>::iterator it = test.begin();
 	printf("=>%d\n", it.getNodePtr()->content.first );
@@ -30,18 +34,18 @@ int main(){
 	it++;
 	printf("%d\n", it.getNodePtr()->content.first );
 	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	//printf("~~~%d\n", it.getNodePtr()->right->left->right->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// //printf("~~~%d\n", it.getNodePtr()->right->left->right->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
 	// it++;
 	// printf("%d\n", it.getNodePtr()->content.first );
 	// it--;
