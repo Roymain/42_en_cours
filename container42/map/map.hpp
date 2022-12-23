@@ -28,7 +28,7 @@ namespace ft {
 		public:
 			typedef Key							key_type;
 			typedef T							mapped_type;
-			typedef pair<const key_type, mapped_type>		value_type;
+			typedef ft::pair<const key_type, mapped_type>		value_type;
 			typedef std::size_t					size_type;
 			typedef	std::ptrdiff_t				difference_type;
 			typedef	Compare						key_compare;
@@ -42,7 +42,7 @@ namespace ft {
 
 		public:
 
-			typedef ft::MapIterator<const Key, T, Compare, Node>							iterator;
+			typedef ft::MapIterator<Key, T, Compare, Node>							iterator;
 			typedef ft::MapIterator<const Key, T, Compare, Node>					const_iterator;
 			typedef	ft::reverse_iterator<iterator>											reverse_iterator;
 			typedef	ft::reverse_iterator<const_iterator>									const_reverse_iterator;
@@ -60,6 +60,8 @@ namespace ft {
 						return comp(x.first, y.first);
 					};
 			};
+
+			key_compare key_comp() const { return (_comp);}
 
 			value_compare getValue_compareComp() const { return (value_compare(key_compare()));}
 
@@ -144,6 +146,7 @@ namespace ft {
 			ft::pair<iterator, bool> insert( const value_type& value ){
 				_root = insertInTree(_root, value, NULL);
 				_size++;
+				std::cout << _root->content.first << std::endl;
 				return (ft::make_pair<iterator, bool>(iterator(_root, _comp), true));
 			};
 
@@ -151,6 +154,7 @@ namespace ft {
 				position = NULL;
 				iterator it(_root = insertInTree(_root, val));
 				_size++;
+			//	std::cout << _root->content.first << std::endl;
 				return (it);
 			}
 
@@ -172,7 +176,7 @@ namespace ft {
 			};
 
 			size_type erase (const key_type& k){
-				Node* test = remove(ft::make_pair<key_type, mapped_type>(k, mapped_type()), _root);
+				Node* test = remove(k, _root);
 				if (!test)
 					return 0;
 				_size--;
@@ -204,22 +208,22 @@ namespace ft {
 				if (bal_factor > 1)
 				{
 					if (diff(temp->left) > 0)
-						temp = ll_rotation(temp);
+						temp = __DLRotate(temp);
 					else
-						temp = lr_rotation(temp);
+						temp = __SLRotate(temp);
 				}
 				else if (bal_factor < -1)
 				{
 					if (diff(temp->right) > 0)
-						temp = rl_rotation(temp);
+						temp = __SLRotate(temp);
 					else
-						temp = rr_rotation(temp);
+						temp = __DRotate(temp);
 				}
 				return temp;
 			}
 // delete
 				//node start as root
-				Node* remove(const value_type& content, Node* node)
+				Node* remove(const key_type& content, Node* node)
     			{
     			    Node* temp;
 
@@ -228,55 +232,111 @@ namespace ft {
     			        return NULL;
 
     			    // Searching for element
-    			    else if(content.first < node->content.first)
+    			    else if(content < node->content.first && node->left)
     			        node->left = remove(content, node->left);
-    			    else if(content.first > node->content.first)
+    			    else if(content > node->content.first && node->right)
     			        node->right = remove(content, node->right);
 
     			    // Element found
     			    // With 2 children
-    			    else if(node->left && node->right)
+    			    else if(node->left && node->right && !_comp(content, node->content.first))
     			    {
+						Node* parent;
+						if (node->parent){
+
+							parent = node->parent;
+						}
+						if (node == _root)
+							_root = NULL;
     			        temp = find_min(node->right);
-    			        node->content = temp->content;
-    			        node->right = remove(node->content, node->right);
-    			    }
+						_malloc.destroy(&node->content);
+						_malloc.deallocate(&node->content, 1);
+						_malloc.construct(&node->content, temp->content);
+						if (node->parent)
+							node->parent = parent;
+						node->right = remove(node->content.first, node->right);
+						if (!_root)
+							_root = node;
+					}
     			    // With one or zero child
-    			    else
+    			    else if (!_comp(content, node->content.first))
     			    {
     			        temp = node;
-    			        if(node->left == NULL)
+    			        if(node->left == NULL){
+							if (node->right)
+								node->right->parent = node->parent;
     			            node = node->right;
-    			        else if(node->right == NULL)
+						}
+    			        else if(node->right == NULL){
+							if (node->left)
+								node->left->parent = node->parent;
     			            node = node->left;
-    			        delete temp;
+						}
+				
+    			        _malloc.destroy(&temp->content);
+						_malloc.deallocate(&temp->content, 1);
+						_mallocNode.destroy(temp);
+	
     			    }
     			    if(node == NULL)
     			        return node;
 
-    			//    node->height = max(_height(node->left), _height(node->right))+1;
+    			    node->level = std::max(_height(node->left), _height(node->right))+1;
 
     			    // If node is unbalanced
     			    // If left node is deleted, right case
     			    if(_height(node->left) - _height(node->right) == 2)
     			    {
     			        // right right case
-    			        if(_height(node->left->left) - _height(node->left->right) == 1)
-    			            return __SLRotate(node);
+    			        if(_height(node->left->left) - _height(node->left->right) == 1){
+							Node* tmp;
+							if (!_root){
+								_root = __SLRotate(node);
+								tmp = _root;
+							}
+							else
+								tmp = __SLRotate(node);
+    			            return tmp;
+						}
     			        // right left case
-    			        else
-    			            return __DLRotate(node);
+    			        else{
+							Node* tmp;
+							if (!_root){
+								_root = __DLRotate(node);
+								tmp = _root;
+							}
+							else
+								tmp = __DLRotate(node);
+    			            return tmp;
+						}
     			    }
     			    // If right node is deleted, left case
     			    else if(_height(node->right) - _height(node->left) == 2)
     			    {
     			        // left left case
-    			        if(_height(node->right->right) - _height(node->right->left) == 1)
-    			            return __SLRotate(node);
+    			        if(_height(node->right->right) - _height(node->right->left) == 1){
+							Node* tmp;
+							if (!_root){
+								_root = __SRRotate(node);
+								tmp = _root;
+							}
+							else
+								tmp = __SRRotate(node);
+    			            return tmp;
+						}
     			        // left right case
-    			        else
-    			            return __DRRotate(node);
+    			        else{
+							Node* tmp;
+							if (!_root){
+								_root = __DRRotate(node);
+								tmp = _root;
+							}
+							else
+								tmp = __DRRotate(node);
+    			            return tmp;
+						}
     			    }
+					
     			    return node;
     			}
 

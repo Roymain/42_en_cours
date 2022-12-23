@@ -100,8 +100,10 @@ namespace ft {
 
 
 
-				if (copy.getNodePtr() == NULL)
+				if (copy.getNodePtr() == NULL){
+					_nodePtr = _nodePtr->right;
 					return copy;
+				}
 
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
