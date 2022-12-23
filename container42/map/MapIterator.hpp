@@ -97,9 +97,6 @@ namespace ft {
 			MapIterator operator++(int){
 				MapIterator	copy(*this);
 
-
-
-
 				if (copy.getNodePtr() == NULL){
 					_nodePtr = _nodePtr->right;
 					return copy;
@@ -171,27 +168,20 @@ namespace ft {
 					_nodePtr = _nodePtr->left;
 					return (copy);
 				}
-				if (_nodePtr->parent && !_comp(_nodePtr->parent->content.first, copy._nodePtr->content.first))
-						_nodePtr = _nodePtr->parent;
-				// else if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, copy._nodePtr->content.first)){
+				if (_nodePtr->parent && !_comp(_nodePtr->parent->content.first, copy._nodePtr->content.first)){
+					_nodePtr = _nodePtr->parent;
+					if (_nodePtr->left){
+						_nodePtr = _nodePtr->left;
+						return (copy);
+					}
 
-				//  	_nodePtr = _nodePtr->parent;
-				// }
-				// else{
-				// 	Node* nul = 0;
-				// 	_nodePtr = nul;
-				// 	return (copy);
-				// }
-				// if (_nodePtr->parent)
-				// 	_nodePtr = _nodePtr->parent;
-				// else
-				// 	return copy;
+				}
 				while (!_comp(_nodePtr->content.first, copy._nodePtr->content.first)){
 					if (_nodePtr->left && !_comp(_nodePtr->content.first, copy._nodePtr->left->content.first && _nodePtr->left != copy._nodePtr)){
 						_nodePtr = _nodePtr->left;
 						return (copy);
 					}
-					if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, copy._nodePtr->content.first))
+					if (_nodePtr->parent)
 						_nodePtr = _nodePtr->parent;
 					else{
 						Node* nul = 0;

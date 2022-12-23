@@ -191,9 +191,6 @@ namespace ft {
         		return (temp == NULL ? -1 : temp->level);
 			}
 
-			/*
-			* _Height Difference
-			*/
 			int diff(Node *temp)
 			{
 				int l_height = _height(temp->left);
@@ -227,18 +224,12 @@ namespace ft {
     			{
     			    Node* temp;
 
-    			    // Element not found
     			    if(node == NULL)
     			        return NULL;
-
-    			    // Searching for element
     			    else if(content < node->content.first && node->left)
     			        node->left = remove(content, node->left);
     			    else if(content > node->content.first && node->right)
     			        node->right = remove(content, node->right);
-
-    			    // Element found
-    			    // With 2 children
     			    else if(node->left && node->right && !_comp(content, node->content.first))
     			    {
 						Node* parent;
@@ -258,7 +249,6 @@ namespace ft {
 						if (!_root)
 							_root = node;
 					}
-    			    // With one or zero child
     			    else if (!_comp(content, node->content.first))
     			    {
     			        temp = node;
@@ -280,14 +270,10 @@ namespace ft {
     			    }
     			    if(node == NULL)
     			        return node;
-
     			    node->level = std::max(_height(node->left), _height(node->right))+1;
 
-    			    // If node is unbalanced
-    			    // If left node is deleted, right case
     			    if(_height(node->left) - _height(node->right) == 2)
     			    {
-    			        // right right case
     			        if(_height(node->left->left) - _height(node->left->right) == 1){
 							Node* tmp;
 							if (!_root){
@@ -298,7 +284,6 @@ namespace ft {
 								tmp = __SLRotate(node);
     			            return tmp;
 						}
-    			        // right left case
     			        else{
 							Node* tmp;
 							if (!_root){
@@ -310,10 +295,8 @@ namespace ft {
     			            return tmp;
 						}
     			    }
-    			    // If right node is deleted, left case
     			    else if(_height(node->right) - _height(node->left) == 2)
     			    {
-    			        // left left case
     			        if(_height(node->right->right) - _height(node->right->left) == 1){
 							Node* tmp;
 							if (!_root){
@@ -324,7 +307,6 @@ namespace ft {
 								tmp = __SRRotate(node);
     			            return tmp;
 						}
-    			        // left right case
     			        else{
 							Node* tmp;
 							if (!_root){
@@ -341,11 +323,9 @@ namespace ft {
     			}
 
 
-// insert
+// INSERT
 			Node* insertInTree(Node* root, const value_type& content, Node* parent)
 			{
-				// if (_root)
-				// 	std::cout << _root->content.first << std::endl;
 				if (root == NULL)
 				{
 					root = _mallocNode.allocate(1);
@@ -366,7 +346,6 @@ namespace ft {
 					else
 						root = __DRRotate(root);
 					}
-				//	root = balance(root);
 				}
 				else if (content > root->content)
 				{
@@ -377,80 +356,14 @@ namespace ft {
 						else
 							root = __DLRotate(root);
 					}
-				//	root = balance(root);
 				}
 				root->level = std::max(_height(root->left), _height(root->right)) + 1;
 				return root;
 			}
+
+
+
 //ROTATIONS
-
-			/*
-			* Right- Right Rotation
-			*/
-			// Node* rr_rotation(Node* parent)
-			// {
-			// 	Node* temp;
-			// 	temp = parent->right;
-			// 	parent->right = NULL;
-			// 	if (temp)
-			// 		temp->parent = parent->parent;
-
-			// 	parent->right = temp->left;
-			// 	if (parent->right)
-			// 		parent->right->parent = parent;
-
-
-			// 	temp->left = parent;
-			// 	if (temp->left)
-			// 		temp->left->parent = temp;
-			// 	return temp;
-			// }
-			// /*
-			// * Left- Left Rotation
-			// */
-			// Node* ll_rotation(Node* parent)
-			// {
-			// 	Node* temp;
-			// 	temp = parent->left;
-			// 	parent->left = NULL;
-			// 	if (temp)
-			// 		temp->parent = parent->parent;
-
-			// 	parent->left = temp->right;
-			// 	if (parent->left)
-			// 		parent->left->parent = parent;
-
-			// 	temp->right = parent;
-			// 	if (temp->right)
-			// 		temp->right->parent = temp;
-			// 	return temp;
-			// }
-
-			// /*
-			// * Left - Right Rotation
-			// */
-			// Node* lr_rotation(Node* parent)
-			// {
-
-			// 	parent->left = rr_rotation(parent->left);
-			// 	// parent->level = std::max(_height(parent->left), _height(parent->right)) + 1;
-			// 	// temp->level = std::max(_height(temp->left), temp->level) + 1;
-			// 	return ll_rotation(parent);
-			// }
-
-			// /*
-			// * Right- Left Rotation
-			// */
-			// Node* rl_rotation(Node* parent)
-			// {
-				
-			// 	parent->right = ll_rotation(parent->right);
-			// 	// parent->level = std::max(_height(parent->left), _height(parent->right)) + 1;
-			// 	// temp->level = std::max(_height(temp->left), temp->level) + 1;
-			// 	return rr_rotation(parent);
-			// }
-
-
 			Node *__SRRotate(Node* &t){
 			Node *u = t->left;
 
@@ -468,9 +381,6 @@ namespace ft {
 			return (u);
 		}
 
-		/* @Brief clear all the tree without us iterator  for faster */
-		/* @Param Node *t */
-		/* @Return None */
 		void __full_clear(Node *t){
 			if(t == NULL)
             			return;
@@ -479,14 +389,6 @@ namespace ft {
 			__full_clear(t->right);
 		}
 
-		/* @Brief rotation of the node left*/
-		/*      	  Q                                 P     */     
- 		/*               / \          LEFT ROTATION        / \    */    
- 		/*              P   C    <<<-------------------   A   Q   */   
- 		/*             / \                                   / \  */  
- 		/*            A   B                                 B   C */ 
-		/* @Param  Node* &t*/
-		/* @Return  Node**/
 		Node *__SLRotate(Node* &t){
 			Node *u = t->right;
 
@@ -503,21 +405,15 @@ namespace ft {
 			return (u);
 		}
 
-		/* @Brief Make double rotation left*/
-		/* @Param  Node *t */
-		/* @Return  Node*/
 		Node* __DLRotate(Node* &t){
-    		    	t->right = __SRRotate(t->right);
-    		    	return (__SLRotate(t));
-    		}
+    		t->right = __SRRotate(t->right);
+    		return (__SLRotate(t));
+    	}
 
-		/* @Brief Make double rotation right*/
-		/* @Param  Node *t */
-		/* @Return  Node*/
-    		Node* __DRRotate(Node* &t){
-    		   	t->left = __SLRotate(t->left);
-    		    	return (__SRRotate(t));
-    		}
+    	Node* __DRRotate(Node* &t){
+    	   	t->left = __SLRotate(t->left);
+    	    return (__SRRotate(t));
+    	}
 
 
 
