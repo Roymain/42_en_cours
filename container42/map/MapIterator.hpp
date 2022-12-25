@@ -164,31 +164,43 @@ namespace ft {
 				if (copy.getNodePtr() == NULL)
 					return copy;
 
-				if (_nodePtr->left){
+				if (_nodePtr->left && _comp(_nodePtr->left->content.first, copy._nodePtr->content.first)){
 					_nodePtr = _nodePtr->left;
+					while (_nodePtr->right)
+						_nodePtr = _nodePtr->right;
 					return (copy);
 				}
-				if (_nodePtr->parent && !_comp(_nodePtr->parent->content.first, copy._nodePtr->content.first)){
+				if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, copy._nodePtr->content.first)){
 					_nodePtr = _nodePtr->parent;
-					if (_nodePtr->left){
-						_nodePtr = _nodePtr->left;
-						return (copy);
-					}
 
+						return (copy);
 				}
-				while (!_comp(_nodePtr->content.first, copy._nodePtr->content.first)){
-					if (_nodePtr->left && !_comp(_nodePtr->content.first, copy._nodePtr->left->content.first && _nodePtr->left != copy._nodePtr)){
+				while (_nodePtr->parent){
+					_nodePtr = _nodePtr->parent;
+					if (_comp(_nodePtr->content.first, copy._nodePtr->content.first))
+						return (copy);
+					if (_comp(_nodePtr->content.first, copy._nodePtr->content.first) && _nodePtr->left){
 						_nodePtr = _nodePtr->left;
-						return (copy);
-					}
-					if (_nodePtr->parent)
-						_nodePtr = _nodePtr->parent;
-					else{
-						Node* nul = 0;
-						_nodePtr = nul;
+						while (_nodePtr->right)
+							_nodePtr = _nodePtr->right;
 						return (copy);
 					}
 				}
+				// while (!_comp(_nodePtr->content.first, copy._nodePtr->content.first)){
+				// 	if (_nodePtr->left && !_comp(_nodePtr->content.first, copy._nodePtr->left->content.first && _nodePtr->left != copy._nodePtr)){
+				// 		_nodePtr = _nodePtr->left;
+				// 		return (copy);
+				// 	}
+				// 	if (_nodePtr->parent)
+				// 		_nodePtr = _nodePtr->parent;
+				// 	else{
+				// 		Node* nul = 0;
+				// 		_nodePtr = nul;
+				// 		return (copy);
+				// 	}
+				// }
+				Node* nul = 0;
+						_nodePtr = nul;
 				return (copy);
 			};
 

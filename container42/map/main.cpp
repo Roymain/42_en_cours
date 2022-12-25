@@ -65,47 +65,47 @@ int main(){
 	printf("==>%d\n", it.getNodePtr()->content.first );
 	it--;
 	printf("==>%d\n", it.getNodePtr()->content.first );
-	// printf("==>%d\n", it.getNodePtr()->content.first );
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	// it--;
-	//it++;
-	// printf("%d\n", it.getNodePtr()->content.first );
-	// it++;
-	// printf("%d\n", it.getNodePtr()->content.first );
-	// it++;
-	// printf("%d\n", it.getNodePtr()->content.first );
-	// it++;
-	// printf("%d\n", it.getNodePtr()->content.first );
-	// it++;
+	printf("==>%d\n", it.getNodePtr()->content.first );
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it--;
+	it++;
+	printf("%d\n", it.getNodePtr()->content.first );
+	it++;
+	printf("%d\n", it.getNodePtr()->content.first );
+	it++;
+	printf("%d\n", it.getNodePtr()->content.first );
+	it++;
+	printf("%d\n", it.getNodePtr()->content.first );
+	it++;
 
-	// std::map<int, std::string> test;
+	//  std::map<int, std::string> test;
 
 	// test.insert(std::pair<int, std::string> (152, "haha"));
 	// test.insert(std::pair<int, std::string> (100, "haha"));
 	// test.insert(std::pair<int, std::string> (128, "haha"));
 	// test.insert(std::pair<int, std::string> (170, "haha"));
 
-	// std::map<int, std::string>::iterator it = test.begin();
+	// std::map<int, std::string>::iterator it = test.end();
 	// std::cout << (*it).first << std::endl;
-	// it++;
+	// it--;
 	// std::cout << (*it).first << std::endl;
-	// it++;
+	// it--;
 	// std::cout << (*it).first << std::endl;
-	// it++;
+	// it--;
 	// std::cout << (*it).first << std::endl;
-	// it++;
-	// // std::cout << (*it).first << std::endl;
-	// // it++;
+	// it--;
+	// //std::cout << (*it).first << std::endl;
+	// it--;
 
 
 
