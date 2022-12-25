@@ -31,11 +31,11 @@ int main(){
 	
 	ft::map<int, std::string>::iterator it = test.begin();
 	printf("=>%d\n", it.getNodePtr()->content.first );
-	it++;
+	++it;
 	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
+	++it;
 	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
+	++it;
 	printf("%d\n", it.getNodePtr()->content.first );
 	it++;
 	printf("%d\n", it.getNodePtr()->content.first );
@@ -47,13 +47,13 @@ int main(){
 	printf("==>%d\n", it.getNodePtr()->content.first );
 	it++;
 	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
+	--it;
 	printf("==> - = %d\n", it.getNodePtr()->content.first );
-	it--;
+	--it;
 	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
+	--it;
 	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
+	--it;
 	printf("==>%d\n", it.getNodePtr()->content.first );
 	it--;
 	printf("==>%d\n", it.getNodePtr()->content.first );

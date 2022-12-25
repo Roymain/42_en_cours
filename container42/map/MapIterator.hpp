@@ -71,27 +71,42 @@ namespace ft {
 			}
 
 			MapIterator& operator++(){
-				std::cout << "haha\n";
-				if (_nodePtr == NULL)
-					return NULL;
+
+				
 				nodePtr origin = _nodePtr;
 
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
+					while (_nodePtr->left)
+						_nodePtr = _nodePtr->left;
 					return (*this);
 				}
-				if (_nodePtr->parent)
+				if (_nodePtr->parent){
 					_nodePtr = _nodePtr->parent;
+					if (_comp(origin->content.first, _nodePtr->content.first))
+						return (*this);
+				}
 				else
-					return NULL;
+					return (*this);
 				while (!_comp(origin->content.first, _nodePtr->content.first)){
-					if (_comp(origin->content.first, _nodePtr->right->content.first && _nodePtr->right != origin)){
+					if (_nodePtr->right && _comp(origin->content.first, _nodePtr->right->content.first) && _nodePtr->right != origin){
 						_nodePtr = _nodePtr->right;
 						return (*this);
 					}
-					_nodePtr = _nodePtr->parent;
+					if (_nodePtr->parent)
+						_nodePtr = _nodePtr->parent;
+					else
+					{
+						Node* nul = 0;
+						_nodePtr = nul;
+						return (*this);
+					}
+					if (_comp(origin->content.first, _nodePtr->content.first)){
+						return (*this);
+					}
 				}
-				return (*this);   //? sinon = map.end()
+				return (*this);
+
 			};
 
 			MapIterator operator++(int){
@@ -138,24 +153,32 @@ namespace ft {
 			MapIterator& operator--(){
 				nodePtr origin = _nodePtr;
 
-				if (_nodePtr->left){
+				if (_nodePtr->left && _comp(_nodePtr->left->content.first, origin->content.first)){
 					_nodePtr = _nodePtr->left;
+					while (_nodePtr->right)
+						_nodePtr = _nodePtr->right;
 					return (*this);
 				}
-				if (_nodePtr->parent)
+				if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, origin->content.first)){
 					_nodePtr = _nodePtr->parent;
-				else
-					return (*this);
-				while (!_comp(origin->content.first, _nodePtr->content.first)){
-					if (_comp(origin->content.first, _nodePtr->left->content.first) && _nodePtr->left != origin){
+
+						return (*this);
+				}
+				while (_nodePtr->parent){
+					_nodePtr = _nodePtr->parent;
+					if (_comp(_nodePtr->content.first, origin->content.first))
+						return (*this);
+					if (_comp(_nodePtr->content.first, origin->content.first) && _nodePtr->left){
 						_nodePtr = _nodePtr->left;
+						while (_nodePtr->right)
+							_nodePtr = _nodePtr->right;
 						return (*this);
 					}
-					if (_nodePtr->parent)
-						_nodePtr = _nodePtr->parent;
-					else
-						return (*this);
 				}
+				Node* nul = 0;
+				_nodePtr = nul;
+				return (*this);
+
 				return (*this);
 			};
 
@@ -186,21 +209,8 @@ namespace ft {
 						return (copy);
 					}
 				}
-				// while (!_comp(_nodePtr->content.first, copy._nodePtr->content.first)){
-				// 	if (_nodePtr->left && !_comp(_nodePtr->content.first, copy._nodePtr->left->content.first && _nodePtr->left != copy._nodePtr)){
-				// 		_nodePtr = _nodePtr->left;
-				// 		return (copy);
-				// 	}
-				// 	if (_nodePtr->parent)
-				// 		_nodePtr = _nodePtr->parent;
-				// 	else{
-				// 		Node* nul = 0;
-				// 		_nodePtr = nul;
-				// 		return (copy);
-				// 	}
-				// }
 				Node* nul = 0;
-						_nodePtr = nul;
+				_nodePtr = nul;
 				return (copy);
 			};
 
