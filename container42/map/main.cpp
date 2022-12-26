@@ -27,7 +27,7 @@ int main(){
 	//char* verif = strdup("roger");
 
 
-	test.erase(199);
+	//test.erase(199);
 
 
 
@@ -35,22 +35,61 @@ int main(){
 // 	std::cout << test.begin().getNodePtr()->content.first << "      "  << test.max_size() << std::endl;
 // 	// std::cout << "humhum" << test.getRoot()->content.first << std::endl;
 	
-	ft::map<int, std::string>::iterator it = test.begin();
-	printf("=>%d\n", it.getNodePtr()->content.first );
-	++it;
-	printf("%d\n", it.getNodePtr()->content.first );
-	++it;
-	printf("%d\n", it.getNodePtr()->content.first );
-	++it;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("==>%d\n", it.getNodePtr()->content.first );
+	ft::map<int, std::string>::iterator it = test.end();
+	printf("=>%d.\n", it.getNodePtr()->content.first );
+	it--;
+	printf("=>%d.\n", it.getNodePtr()->content.first );
+
+	--it;
+	--it;
+	--it;
+	--it;
+	--it;
+	--it;
+	--it;
+	--it;
+	--it;
+	--it;
+	--it;
+	printf("=>%d.\n", it.getNodePtr()->content.first );
+	// printf("=>%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("=>%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("=>%d\n", it.getNodePtr()->content.first );
+	// --it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// ++it;
+	// ++it;
+	// ++it;
+	// ++it;
+	// ++it;
+	// ++it;
+	// ++it;
+	// ++it;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
 	// it++;
 // 	 printf("==>%d\n", it.getNodePtr()->content.first );
 // 	it--;

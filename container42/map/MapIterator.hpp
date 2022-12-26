@@ -74,7 +74,10 @@ namespace ft {
 
 				
 				nodePtr origin = _nodePtr;
-
+				// if (origin->right->isLast){
+				// 	_nodePtr = _nodePtr->right;
+				// 	return (*this);
+				// }
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
 					while (_nodePtr->left)
@@ -111,6 +114,10 @@ namespace ft {
 
 			MapIterator operator++(int){
 				MapIterator	copy(*this);
+				// if (copy.getNodePtr()->right->isLast){
+				// 	_nodePtr = _nodePtr->right;
+				// 	return copy;
+				// }
 
 				if (copy.getNodePtr() == NULL){
 					_nodePtr = _nodePtr->right;
@@ -152,7 +159,11 @@ namespace ft {
 
 			MapIterator& operator--(){
 				nodePtr origin = _nodePtr;
-
+				if (origin->isLast)
+				{
+					_nodePtr = _nodePtr->parent;
+					return (*this);
+				}
 				if (_nodePtr->left && _comp(_nodePtr->left->content.first, origin->content.first)){
 					_nodePtr = _nodePtr->left;
 					while (_nodePtr->right)
@@ -184,6 +195,11 @@ namespace ft {
 
 			MapIterator operator--(int){
 				MapIterator	copy(*this);
+				if (copy.getNodePtr()->isLast)
+				{
+					_nodePtr = _nodePtr->parent;
+					return (copy);
+				}
 				if (copy.getNodePtr() == NULL)
 					return copy;
 
