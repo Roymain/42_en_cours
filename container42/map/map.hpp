@@ -141,14 +141,14 @@ namespace ft {
 
 			Node* getRoot(){return _root;}
 
-			Node *search_key(Node *t, const key_type &k) const{
-				while (t){
-					if (t->content.first == k)
-						return (t);
-					if (t->content.first < k)
-						t = t->right;
-					else if (t->content.first > k)
-						t = t->left;
+			Node *search_key(Node *node, const key_type &k) const{
+				while (node){
+					if (node->content.first == k)
+						return (node);
+					if (node->content.first < k)
+						node = node->right;
+					else if (node->content.first > k)
+						node = node->left;
 				}
 				return (NULL);
 			}
@@ -180,7 +180,7 @@ namespace ft {
 			//	_root = find_root(_root);
 				_root = insertInTree(_root, value, NULL);
 				_size++;
-				std::cout << _root->content.first << std::endl;
+			//	std::cout << _root->content.first << std::endl;
 				return (ft::make_pair<iterator, bool>(iterator(_root, _comp), true));
 			};
 
@@ -188,7 +188,6 @@ namespace ft {
 				position = NULL;
 				iterator it(_root = insertInTree(_root, val));
 				_size++;
-				std::cout << "gne" << _root->content.first << std::endl;
 				return (it);
 			}
 
@@ -211,10 +210,9 @@ namespace ft {
 			};
 
 			size_type erase (const key_type& k){
-				// Node* test = remove(k, _root);
-				// if (!test)
-				// 	return 0;
-				remove(k, _root);
+				Node* res = remove(k, _root);
+				if (!res)
+					return 0;
 				_size--;
 				//_root = find_root(_root);
 				return 1;
@@ -240,7 +238,7 @@ namespace ft {
 			//node start as root
 			Node* remove(const key_type& content, Node* node)
     		{
-    			 Node* temp;
+    			Node* temp;
 
     		    if(node == NULL)
     		        return NULL;
@@ -377,79 +375,74 @@ namespace ft {
 
 // CLEAR
 
-		void clear(){
-			if (_size){
-				__full_clear(_root);
-				_size = 0;
-				_root = NULL;
+			void clear(){
+				if (_size){
+					__full_clear(_root);
+					_size = 0;
+					_root = NULL;
+				}
+			};
+
+			void __full_clear(Node *node){
+				if(node == NULL)
+        	    			return;
+				__full_clear(node->left);
+				__full_clear(node->right);
+				_malloc.destroy(&node->content);
+				_malloc.deallocate(&node->content, 1);
+				_mallocNode.destroy(node);
 			}
-		};
-
-		void __deallocateNode(Node *node){
-			_malloc.destroy(&node->content);
-			_malloc.deallocate(&node->content, 1);
-			_mallocNode.destroy(node);
-		}
-
-
-		void __full_clear(Node *t){
-			if(t == NULL)
-            			return;
-			__full_clear(t->left);
-			__full_clear(t->right);
-			__deallocateNode(t);
-		}
 
 
 //ROTATIONS
-			Node *__SRRotate(Node* &t){
-			Node *u = t->left;
+			Node *__SRRotate(Node* &node){
+				Node *tmpL = node->left;
 
-			if (u)
-				u->parent = t->parent;
-			t->left = u->right;
-			if (t->left)
-				t->left->parent = t;
-			u->right = t;
-			if (u->right)
-				u->right->parent = u;
+				if (tmpL)
+					tmpL->parent = node->parent;
+				node->left = tmpL->right;
+				if (node->left)
+					node->left->parent = node;
+				tmpL->right = node;
+				if (tmpL->right)
+					tmpL->right->parent = tmpL;
 
-			t->level = std::max(_height(t->left), _height(t->right)) + 1;
-			u->level = std::max(_height(u->left), u->level) + 1;
-			return (u);
-		}
+				node->level = std::max(_height(node->left), _height(node->right)) + 1;
+				tmpL->level = std::max(_height(tmpL->left), tmpL->level) + 1;
+				return (tmpL);
+			}
 
 
-		Node *__SLRotate(Node* &t){
-			Node *u = t->right;
+			Node *__SLRotate(Node* &node){
+				Node *tmpR = node->right;
 
-			if (u)
-				u->parent = t->parent;
-			t->right = u->left;
-			if (t->right)
-				t->right->parent = t;
-			u->left = t;
-			if (u->left)
-				u->left->parent = u;
-			t->level = std::max(_height(t->left), _height(t->right)) + 1;
-			u->level = std::max(_height(u->left), u->level) + 1;
-			return (u);
-		}
+				if (tmpR)
+					tmpR->parent = node->parent;
+				node->right = tmpR->left;
+				if (node->right)
+					node->right->parent = node;
+				tmpR->left = node;
+				if (tmpR->left)
+					tmpR->left->parent = tmpR;
+				node->level = std::max(_height(node->left), _height(node->right)) + 1;
+				tmpR->level = std::max(_height(tmpR->left), tmpR->level) + 1;
+				return (tmpR);
+			}
 
-		Node* __DLRotate(Node* &t){
-    		t->right = __SRRotate(t->right);
-    		return (__SLRotate(t));
-    	}
+			Node* __DLRotate(Node* &node){
+    			node->right = __SRRotate(node->right);
+    			return (__SLRotate(node));
+    		}
 
-    	Node* __DRRotate(Node* &t){
-    	   	t->left = __SLRotate(t->left);
-    	    return (__SRRotate(t));
-    	}
+    		Node* __DRRotate(Node* &node){
+    		   	node->left = __SLRotate(node->left);
+    		    return (__SRRotate(node));
+    		}
 
-		bool isLast(Node* node){
-			if (node == _last)
-				return true;
-			return false;
-		}
+			bool isLast(Node* node){
+				if (node == _last)
+					return true;
+				return false;
+			}
 	};
-};
+}
