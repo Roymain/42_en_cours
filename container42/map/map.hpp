@@ -153,8 +153,19 @@ namespace ft {
 				return (NULL);
 			}
 
-			// TODO		iterator find (const key_type& k);
-						// const_iterator find (const key_type& k) const;
+			iterator find (const key_type& k){
+				Node *res = search_key(_root, k);
+				if (!res)
+					return this->end();
+				return (iterator(res));
+			};
+			
+			const_iterator find (const key_type& k) const {
+				Node *res = search_key(_root, k);
+				if (!res)
+					return this->end();
+				return (const_iterator(res));
+			};
 
 			map& operator= (const map& x) {
 				if (&x == this)
