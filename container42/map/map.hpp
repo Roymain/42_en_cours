@@ -89,6 +89,8 @@ namespace ft {
 			};
 
 			~map(){
+				_root = find_root(_root);
+				__full_clear(_root);
 				//tt detruire
 			};
 
@@ -101,16 +103,35 @@ namespace ft {
 				else if (!node->left)
 					return (node);
 				else
-				        return find_min(node->left);
+				    return find_min(node->left);
+
+
+				// while (node->parent)
+				// 	node = node->parent;
+				// while (node->left)
+				// 	node = node->left;
+				// return node;
+			}
+
+			Node* find_root(Node* node){
+				while (node->parent)
+					node = node->parent;
+				return node;
 			}
 			
 			Node* find_max(Node* node){
+				// while (node->parent)
+				// 	node = node->parent;
+				// while (node->right)
+				// 	node = node->right;
+				// return node;
+
 				if (!node)
 					return (NULL);
 				else if (!node->right)
 					return (node);
 				else
-				        return find_min(node->right);
+					return find_max(node->right);
 			}
 
 			bool empty() const {
@@ -134,6 +155,18 @@ namespace ft {
 
 			Node* getRoot(){return _root;}
 
+			Node *search_key(Node *t, const key_type &k) const{
+				while (t){
+					if (t->content.first == k)
+						return (t);
+					if (t->content.first < k)
+						t = t->right;
+					else if (t->content.first > k)
+						t = t->left;
+				}
+				return (NULL);
+			}
+
 			map& operator= (const map& x) {
 				if (&x == this)
 					return (*this);
@@ -144,6 +177,7 @@ namespace ft {
 
 // INSERT
 			ft::pair<iterator, bool> insert( const value_type& value ){
+			//	_root = find_root(_root);
 				_root = insertInTree(_root, value, NULL);
 				_size++;
 				std::cout << _root->content.first << std::endl;
@@ -154,7 +188,7 @@ namespace ft {
 				position = NULL;
 				iterator it(_root = insertInTree(_root, val));
 				_size++;
-			//	std::cout << _root->content.first << std::endl;
+				std::cout << "gne" << _root->content.first << std::endl;
 				return (it);
 			}
 
@@ -172,14 +206,17 @@ namespace ft {
 			void erase (iterator position){
 				Node *test = position.getNodePtr();
 				_root = remove(test->content, _root);
+			//	_root = find_root(_root);
 				_size--;
 			};
 
 			size_type erase (const key_type& k){
-				Node* test = remove(k, _root);
-				if (!test)
-					return 0;
+				// Node* test = remove(k, _root);
+				// if (!test)
+				// 	return 0;
+				remove(k, _root);
 				_size--;
+				//_root = find_root(_root);
 				return 1;
 			};
 
@@ -199,128 +236,158 @@ namespace ft {
 				return b_factor;
 			}
 
-			Node*	balance(Node *temp)
-			{
-				int bal_factor = diff(temp);
-				if (bal_factor > 1)
-				{
-					if (diff(temp->left) > 0)
-						temp = __DLRotate(temp);
-					else
-						temp = __SLRotate(temp);
-				}
-				else if (bal_factor < -1)
-				{
-					if (diff(temp->right) > 0)
-						temp = __SLRotate(temp);
-					else
-						temp = __DRotate(temp);
-				}
-				return temp;
-			}
 // delete
-				//node start as root
-				Node* remove(const key_type& content, Node* node)
-    			{
-    			    Node* temp;
+			//node start as root
+			Node* remove(const key_type& content, Node* node)
+    		{
+    			 Node* temp;
 
-    			    if(node == NULL)
-    			        return NULL;
-    			    else if(content < node->content.first && node->left)
-    			        node->left = remove(content, node->left);
-    			    else if(content > node->content.first && node->right)
-    			        node->right = remove(content, node->right);
-    			    else if(node->left && node->right && !_comp(content, node->content.first))
-    			    {
-						Node* parent;
-						if (node->parent){
+				// temp = search_key(_root, content);
+				// std::cout << temp->content.first << std::endl;
 
-							parent = node->parent;
-						}
-						if (node == _root)
-							_root = NULL;
-    			        temp = find_min(node->right);
-						_malloc.destroy(&node->content);
-						_malloc.deallocate(&node->content, 1);
-						_malloc.construct(&node->content, temp->content);
-						if (node->parent)
-							node->parent = parent;
-						node->right = remove(node->content.first, node->right);
-						if (!_root)
-							_root = node;
+				// Node* parent = node->parent;
+				// Node* son = node->left;
+				// if (!son){
+				// 	if (temp == _root)
+				// 		_root = temp->right;
+				// 	else if (temp->parent->left == temp)
+				// 		temp->parent->left = temp->right;
+				// 	else
+				// 		temp->parent->right = temp->right;
+				// 	if (temp->right != NULL)
+				// 		temp->right->parent = temp->parent;
+				// }
+				// else {
+				// 	_malloc.destroy(&temp->content);
+				// 	_malloc.deallocate(&temp->content, 1);
+				// 	_malloc.construct(&temp->content, son->content);
+				// 	if (son->parent->left == son)
+				// 		son->parent->left = son->left;
+				// 	else
+				// 		son->parent->right = son->left;
+				// 	if (son->left != NULL)
+				// 		son->left->parent = son->parent;
+				// 	temp = son;
+				// }
+
+				// node->level = std::max(_height(node->left), _height(node->right))+1;
+    		    // if(_height(node->left) - _height(node->right) == 2)
+    		    // {
+    		    //     if(_height(node->left->left) - _height(node->left->right) == 1){
+				// 		__SLRotate(node);
+				// 	}
+    		    //     else{
+				// 		 __DLRotate(node);
+
+				// 	}
+    		    // }
+    		    // else if(_height(node->right) - _height(node->left) == 2)
+    		    // {
+    		    //     if(_height(node->right->right) - _height(node->right->left) == 1){
+				// 		__SRRotate(node);
+						
+
+				// 	}
+    		    //     else{
+				// 		 __DRRotate(node);
+				// 	}
+    		    // }
+
+
+
+
+    		    if(node == NULL)
+    		        return NULL;
+    		    else if(content < node->content.first)
+    		        node->left = remove(content, node->left);
+    		    else if(content > node->content.first)
+    		        node->right = remove(content, node->right);
+    		    else if(node->left && node->right)
+    		    {
+					Node* parent;
+					if (node->parent){
+						parent = node->parent;
 					}
-    			    else if (!_comp(content, node->content.first))
-    			    {
-    			        temp = node;
-    			        if(node->left == NULL){
-							if (node->right)
-								node->right->parent = node->parent;
-    			            node = node->right;
-						}
-    			        else if(node->right == NULL){
-							if (node->left)
-								node->left->parent = node->parent;
-    			            node = node->left;
-						}
-				
-    			        _malloc.destroy(&temp->content);
-						_malloc.deallocate(&temp->content, 1);
-						_mallocNode.destroy(temp);
-	
-    			    }
-    			    if(node == NULL)
-    			        return node;
-    			    node->level = std::max(_height(node->left), _height(node->right))+1;
+					// if (node == _root)
+					// 	_root = NULL;
+    		        temp = find_min(node->right);
+					_malloc.destroy(&node->content);
+					//_malloc.deallocate(&node->content, 1);
+					_malloc.construct(&node->content, temp->content);
+					if (node->parent)
+						node->parent = parent;
+						std::cout << "ici\n";
+					node->right = remove(node->content.first, node->right);
+					// if (!_root)
+					// 	_root = find_root(node);
+				}
+    		    else// if (!_comp(content, node->content.first))
+    		    {
+    		        temp = node;
+    		        if(node->left == NULL){
+						if (node->right)
+							node->right->parent = node->parent;
+    		            node = node->right;
+					}
+    		        else if(node->right == NULL){
+						if (node->left)
+							node->left->parent = node->parent;
+    		            node = node->left;
+					}
+    		        _malloc.destroy(&temp->content);
+					_malloc.deallocate(&temp->content, 1);
+					_mallocNode.destroy(temp);
 
-    			    if(_height(node->left) - _height(node->right) == 2)
-    			    {
-    			        if(_height(node->left->left) - _height(node->left->right) == 1){
-							Node* tmp;
-							if (!_root){
-								_root = __SLRotate(node);
-								tmp = _root;
-							}
-							else
-								tmp = __SLRotate(node);
-    			            return tmp;
-						}
-    			        else{
-							Node* tmp;
-							if (!_root){
-								_root = __DLRotate(node);
-								tmp = _root;
-							}
-							else
-								tmp = __DLRotate(node);
-    			            return tmp;
-						}
-    			    }
-    			    else if(_height(node->right) - _height(node->left) == 2)
-    			    {
-    			        if(_height(node->right->right) - _height(node->right->left) == 1){
-							Node* tmp;
-							if (!_root){
-								_root = __SRRotate(node);
-								tmp = _root;
-							}
-							else
-								tmp = __SRRotate(node);
-    			            return tmp;
-						}
-    			        else{
-							Node* tmp;
-							if (!_root){
-								_root = __DRRotate(node);
-								tmp = _root;
-							}
-							else
-								tmp = __DRRotate(node);
-    			            return tmp;
-						}
-    			    }
+    		    }
+    		    if(node == NULL){
+					std::cout << "ici\n";
+    		        return node;
+				}
+    		    node->level = std::max(_height(node->left), _height(node->right))+1;
+    		    if(_height(node->left) - _height(node->right) == 2)
+    		    {
+    		        if(_height(node->left->left) - _height(node->left->right) == 1){
+						Node* tmp;
+						tmp = __SLRotate(node);
+						
+							_root = find_root(tmp);
+						
+    		            return tmp;
+					}
+    		        else{
+						Node* tmp;
+						tmp = __DLRotate(node);
 					
-    			    return node;
-    			}
+							_root = find_root(tmp);
+						
+						
+    		            return tmp;
+					}
+    		    }
+    		    else if(_height(node->right) - _height(node->left) == 2)
+    		    {
+    		        if(_height(node->right->right) - _height(node->right->left) == 1){
+						Node* tmp;
+						tmp = __SRRotate(node);
+						
+							_root = find_root(tmp);
+						
+    		            return tmp;
+					}
+    		        else{
+						Node* tmp;
+						tmp = __DRRotate(node);
+		
+							_root = find_root(tmp);
+						
+						
+    		            return tmp;
+					}
+    		    }
+							_root = find_root(node);
+				
+    		   return node;
+    		};
 
 
 // INSERT
@@ -381,13 +448,6 @@ namespace ft {
 			return (u);
 		}
 
-		void __full_clear(Node *t){
-			if(t == NULL)
-            			return;
-			__full_clear(t->left);
-			__deallocateNode(t);
-			__full_clear(t->right);
-		}
 
 		Node *__SLRotate(Node* &t){
 			Node *u = t->right;
@@ -415,8 +475,27 @@ namespace ft {
     	    return (__SRRotate(t));
     	}
 
+		void clear(){
+			if (_size){
+				__full_clear(_root);
+				_size = 0;
+				_root = NULL;
+			}
+		};
+
+		void __deallocateNode(Node *node){
+			_malloc.destroy(&node->content);
+			_malloc.deallocate(&node->content, 1);
+			_mallocNode.destroy(node);
+		}
 
 
-
+		void __full_clear(Node *t){
+			if(t == NULL)
+            			return;
+			__full_clear(t->left);
+			__full_clear(t->right);
+			__deallocateNode(t);
+		}
 	};
 };

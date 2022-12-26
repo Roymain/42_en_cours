@@ -1,7 +1,7 @@
 
 #include "map.hpp"
 #include <string>
-#include <map>
+#include <string.h>
 
 int main(){
 
@@ -23,11 +23,17 @@ int main(){
 	test.insert(ft::make_pair(170, "amiens"));
 	test.insert(ft::make_pair(num, ro));
 	test.insert(ft::make_pair(22, "a"));
-//	test.erase(152);
+	//VERIF
+	//char* verif = strdup("roger");
 
 
-	std::cout << test.begin().getNodePtr()->content.first << "      "  << test.max_size() << std::endl;
-	// std::cout << "humhum" << test.getRoot()->content.first << std::endl;
+	test.erase(199);
+
+
+
+// 	std::cout << "erase done\n";
+// 	std::cout << test.begin().getNodePtr()->content.first << "      "  << test.max_size() << std::endl;
+// 	// std::cout << "humhum" << test.getRoot()->content.first << std::endl;
 	
 	ft::map<int, std::string>::iterator it = test.begin();
 	printf("=>%d\n", it.getNodePtr()->content.first );
@@ -45,48 +51,50 @@ int main(){
 	printf("%d\n", it.getNodePtr()->content.first );
 	it++;
 	printf("==>%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	--it;
-	printf("==> - = %d\n", it.getNodePtr()->content.first );
-	--it;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	--it;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	--it;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	printf("==>%d\n", it.getNodePtr()->content.first );
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it--;
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
-	printf("%d\n", it.getNodePtr()->content.first );
-	it++;
+	// it++;
+// 	 printf("==>%d\n", it.getNodePtr()->content.first );
+// 	it--;
+// 	printf("==> - = %d\n", it.getNodePtr()->content.first );
+// 	--it;
+// 	printf("==>%d\n", it.getNodePtr()->content.first );
+	// --it;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// --it;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// it--;
+	// std::cout << "size = " << test.size() << std::endl;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// it--;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// it--;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// it--;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// it--;
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// printf("==>%d\n", it.getNodePtr()->content.first );
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+	// printf("%d\n", it.getNodePtr()->content.first );
+	// it++;
+
 
 	//  std::map<int, std::string> test;
 
