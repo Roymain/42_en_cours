@@ -24,8 +24,8 @@ namespace ft {
 
 					VectorIterator ( pointer ptr ) : _ptr(ptr){};
 
-					template <class Z>
-  					VectorIterator (const VectorIterator<Z>& rhs) : _ptr(rhs.base()){};
+					template <class C>
+  					VectorIterator (const VectorIterator<C>& rhs) : _ptr(rhs.base()){};
 					
 					VectorIterator(const VectorIterator& rhs) : _ptr(rhs._ptr) {};
 
