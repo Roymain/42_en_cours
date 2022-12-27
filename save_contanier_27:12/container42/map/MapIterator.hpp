@@ -55,6 +55,8 @@ namespace ft {
 			}
 
 			bool operator==(const MapIterator& it) const {
+				if (it._nodePtr == it._nodePtr->last)
+					return true;
 				return (it._nodePtr == _nodePtr);
 			}
 
@@ -78,6 +80,7 @@ namespace ft {
 				// 	_nodePtr = _nodePtr->right;
 				// 	return (*this);
 				// }
+				//std::cout << "gnmne\n";
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
 					while (_nodePtr->left)
@@ -146,8 +149,8 @@ namespace ft {
 						_nodePtr = _nodePtr->parent;
 					else
 					{
-						Node* nul = 0;
-						_nodePtr = nul;
+						//std::cout << "gnas\n";
+						_nodePtr = _nodePtr->last;
 						return (copy);
 					}
 					if (_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
@@ -195,10 +198,12 @@ namespace ft {
 
 			MapIterator operator--(int){
 				MapIterator	copy(*this);
-				if (copy.getNodePtr()->isLast)
+				if ( _nodePtr == _nodePtr->last)
 				{
-					_nodePtr = _nodePtr->parent;
+					std::cout << "vserxvsare\n";
+					_nodePtr = _nodePtr->last->left;
 					return (copy);
+				
 				}
 				if (copy.getNodePtr() == NULL)
 					return copy;

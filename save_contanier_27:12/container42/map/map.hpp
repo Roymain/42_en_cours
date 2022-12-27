@@ -22,6 +22,7 @@ namespace ft {
 				Node*                           parent;
 				Node*							left;
 				Node*							right;
+				Node*							last;
 				long long int                   level;
 				bool							isLast;
 			};
@@ -81,18 +82,21 @@ namespace ft {
 
 			map (const map& x) : _size(0), _malloc(x._malloc), _comp(x._comp), _mallocNode(x._mallocNode){
 				_root = NULL;
-				_last = NULL;
+				_last = _mallocNode.allocate(1);
 				for (iterator it = x.begin(); it != x.end(); ++it)
                 	insert(it.getNode()->content);
 			};
 
 			explicit map( const key_compare& comp = key_compare(), const Allocator& alloc = Allocator())
-				: _malloc(alloc), _root(NULL), _last(NULL), _size(0),  _comp(comp){};
+				: _malloc(alloc), _root(NULL), _last(_mallocNode.allocate(1)), _size(0),  _comp(comp){
+					_malloc.construct(&_last->content, value_type());
+				};
 
 			template<class InputIt>
 			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : _size(0), _mallocNode(alloc), _comp(comp){
 					_root = NULL;
-					_last = NULL;
+					_last = _mallocNode.allocate(1);
+					_malloc.construct(&_last->content, value_type());
                	 	for (; first != last; ++first)
                     		insert(first.getNode()->content);
 			};
@@ -123,7 +127,7 @@ namespace ft {
 				if (!node)
 					return (NULL);
 				else if (!node->right)
-					return (node->right);
+					return (node);
 				else
 					return find_max(node->right);
 			}
@@ -203,6 +207,11 @@ namespace ft {
 			ft::pair<iterator, bool> insert( const value_type& value ){
 			//	_root = find_root(_root);
 				_root = insertInTree(_root, value, NULL);
+
+				_last->left = find_max(_root);
+				_last->last = _last;
+				if (_last)
+					std::cout << "dhvyjtv\n" <<  _last->left->content.first << std::endl;
 				_size++;
 			//	std::cout << _root->content.first << std::endl;
 				return (ft::make_pair<iterator, bool>(iterator(_root, _comp), true));
@@ -358,21 +367,23 @@ namespace ft {
 					root->right = NULL;
 					root->isLast = false;
 					root->parent = parent;
+					if (_last)
+						root->last = _last;
 					root->level = 0;
-					if (!_last){
-						_last = _mallocNode.allocate(1);
-					//	_malloc.construct(&_last->content, value_type());
-						_last->isLast = true;
-						_last->parent = root;
-						//root->right = _last;
-					//	_last->content = NULL;
+					// if (!_last){
+					// 	_last = _mallocNode.allocate(1);
+					// //	_malloc.construct(&_last->content, value_type());
+					// 	_last->isLast = true;
+					// 	_last->parent = root;
+					// 	//root->right = _last;
+					// //	_last->content = NULL;
 						
-					}
-					else if (_last->parent && _last->parent->content.first < content.first){
-						_last->parent = root;
-						//root->right = _last;
-					}
-					std::cout << "PRBLM :" << root->content.second << std::endl; 
+					// }
+					// else if (_last->parent && _last->parent->content.first < content.first){
+					// 	_last->parent = root;
+					// 	//root->right = _last;
+					// }
+				//	std::cout << "PRBLM :" << root->content.second << std::endl; 
 				}
 				else if (content < root->content)
 				{
