@@ -6,7 +6,7 @@
 #    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 12:10:29 by aartiges          #+#    #+#              #
-#    Updated: 2022/12/28 02:44:07 by Romain           ###   ########.fr        #
+#    Updated: 2022/12/28 09:18:20 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,21 +91,21 @@ DIR_SRC_TEST	:=	./test
 
 
 
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator=.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator[].cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_equal_range.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rend.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rbegin.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_map.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_operators.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_swap.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_lower_bound.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_find.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_size.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_get_allocator.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_insert.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_key_comp.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_lower_bound.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_map.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_max_size.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_operators.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_equal_range.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_swap.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator=.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator[].cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rbegin.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rend.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_insert.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_swap.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_upper_bound.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_value_comp.cpp

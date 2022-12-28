@@ -19,8 +19,8 @@ int main ()
   first['z']=32;
 
   //second['i'] = 66;
-
   second=first;                // second now contains 3 ints
+  std::cerr << "error\n";
   first=NAMESPACE::map<char,int>();  // and first is now empty
 
   std::cout << "Size of first: " << first.size() << '\n';

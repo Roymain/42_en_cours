@@ -154,6 +154,15 @@ namespace ft {
 
 			const_iterator begin() const { return const_iterator(find_min(_root), _comp);}
 
+			reverse_iterator rbegin(){return reverse_iterator(this->end());};
+
+			const_reverse_iterator rbegin() const {return const_reverse_iterator(this->end());};
+
+    		reverse_iterator rend(){return reverse_iterator(_last, _comp);};
+
+			const_reverse_iterator rend() const{return const_reverse_iterator(_last, _comp);};
+
+
 			iterator end() { return iterator(_last, _comp);}
 
 			const_iterator end() const { return const_iterator(_last, _comp);}
@@ -236,7 +245,7 @@ namespace ft {
 			void insert( InputIt first, InputIt last,
 		    typename ft::enable_if<!ft::is_integral<InputIt>::value >::type* = 0){
 				while(first != last){
-					insert(first.getNode()->content);
+					insert(first.getNodePtr()->content);
 					_size++;
 					++first;
 				}
@@ -268,7 +277,14 @@ namespace ft {
 				return 1;
 			};
 
- //   		void erase (iterator first, iterator last);
+    		void erase (iterator first, iterator last){
+				while (first != last){
+					iterator tmp(first);
+					++first;
+					erase(tmp);
+					first = tmp;
+				}
+			};
 
 // UTILS
 
@@ -511,14 +527,13 @@ namespace ft {
 			}
 
 			iterator lower_bound (const key_type& k){
-				iterator begin = this->begin();
-				iterator end = this->end();
-				while (begin != end){
-					if (begin.getNode()->content.first >= k)
-						return begin;
-					begin++;
-				}
-				return (NULL);
+				iterator it;
+			for (iterator it = begin(); it != end(); it++)
+			{
+				if (!_comp((*it).first, k))
+					return it;
+			}
+			return begin();
 			};
 
 			const_iterator lower_bound (const key_type& k) const{
@@ -526,14 +541,13 @@ namespace ft {
 			};
 
 			iterator upper_bound (const key_type& k){
-				iterator begin = this->begin();
-				iterator end = this->end();
-				while (begin != end){
-					if (begin.getNode()->content.first == k)
-						return ++begin;
-					begin++;
-				}
-				return (NULL);
+				iterator it;
+			for (it = begin(); it != end(); it++)
+			{
+				if (_comp(k, (*it).first))
+					return it;
+			}
+			return it;
 			};
 
 			const_iterator upper_bound (const key_type& k) const{

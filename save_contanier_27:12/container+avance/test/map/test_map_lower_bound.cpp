@@ -23,7 +23,8 @@ int main ()
   itlow=mymap.lower_bound ('b');  // itlow points to b
   itup=mymap.upper_bound ('d');   // itup points to e (not d!)
 
-  mymap.erase(itlow,itup);        // erases [itlow,itup)
+  std::cerr << "error\n";
+  //mymap.erase(itlow,itup);        // erases [itlow,itup)
 
   // print content:
   for (NAMESPACE::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)

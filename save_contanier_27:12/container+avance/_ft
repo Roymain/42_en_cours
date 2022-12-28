@@ -1,5 +1,0 @@
-The allocated array has a size of 40 bytes.
-leaks Report Version: 4.0, multi-line stacks
-Process 68972: 177 nodes malloced for 13 KB
-Process 68972: 0 leaks for 0 total leaked bytes.
-

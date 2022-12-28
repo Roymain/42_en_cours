@@ -178,7 +178,7 @@ namespace ft {
 				nodePtr origin = _nodePtr;
 				if ( _nodePtr == _nodePtr->last)
 				{
-					std::cout << "vserxvsare\n";
+					//std::cout << "vserxvsare\n";
 					_nodePtr = _nodePtr->last->left;
 					return (*this);
 				
