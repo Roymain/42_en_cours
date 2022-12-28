@@ -4,7 +4,29 @@
 #include <string>
 #include <string.h>
 
+#include <unistd.h>
 int main(){
+
+	  ft::map<char,int> mymap;
+  ft::map<char,int>::iterator it;
+
+  mymap['a']=50;
+  mymap['b']=100;
+  mymap['c']=150;
+  mymap['d']=200;
+  it = mymap.find('b');
+  if (it != mymap.end())
+    mymap.erase (it);
+	std::cout << "huu\n";
+
+  // print content:
+  std::cout << "elements in mymap:" << '\n';
+  std::cout << "a => " << mymap.find('b')->second << '\n';
+  std::cout << "c => " << mymap.find('c')->second << '\n';
+  std::cout << "d => " << mymap.find('d')->second << '\n';
+
+
+
 
 	// ft::map<int, std::string> test;
 
@@ -26,16 +48,37 @@ int main(){
 	// //VERIF
 	// //char* verif = strdup("roger");
 
-	// ft::map<int, std::string>::iterator it = test.begin();
-	// for (; it != test.end(); it++){
-	// 	std::cout << "=>" << it->first << std::endl;
-	// };
-	// for (; it != test.begin(); it--){
-	// 	std::cout << it->first << std::endl;
-	// };
+	// ft::map<int, std::string>::iterator it = test.find(201);
 
+ 	// if (it != test.end())
+   	// 	test.erase (it); std::cout << "haha\n";
+
+
+	// std::cout << test.find(-2)->second << std::endl;
+	// std::cout << test.find(199)->second << std::endl;
+	// std::cout << test.find(170)->second << std::endl;
+
+	// // for (; it != test.end(); ++it){
+	// 	std::cout << "=>" << it->first << std::endl;
+// 	// };
+
+
+
+// 	// for (; it != test.begin(); ++it){
+// 	// 	std::cout << it->first << std::endl;
+// 	// };
+
+// while (!test.empty())
+//   {
+//     std::cout << "crgwegwe\n" << test.begin()->first << " => " << '\n';
+//     test.erase(test.begin());
+// 	std::cout << "done" << test.empty() << "\n";
+	
+//   //  std::cout << "crgwegwe\n" << test.begin()->first << " => " << '\n';
+//   }
 
 	//test.erase(199);
+
 
 
 
@@ -147,23 +190,24 @@ int main(){
 	// it++;
 
 
-	std::map<int , std::string> test;
+// 	std::map<int , std::string> test;
 
-//	std::cout << test << std::endl;
+// //	std::cout << test << std::endl;
 
-	test.insert(std::pair<int, std::string> (152, "haha"));
-	test.insert(std::pair<int, std::string> (100, "haha"));
-	test.insert(std::pair<int, std::string> (128, "haha"));
-	test.insert(std::pair<int, std::string> (170, "haha"));
- 	//std::cout << test[33] << std::endl;
+// 	test.insert(std::pair<int, std::string> (152, "haha"));
+// 	test.insert(std::pair<int, std::string> (100, "haha"));
+// 	test.insert(std::pair<int, std::string> (128, "haha"));
+// 	test.insert(std::pair<int, std::string> (170, "haha"));
+//  	//std::cout << test[33] << std::endl;
 
-	std::map<int, std::string>::iterator it = test.begin();
-	for (; it != test.end(); it++){
-		std::cout << "=>" << it->first << std::endl;
-	};
-	for (; it != test.begin(); it--){
-		std::cout << it->first << std::endl;
-	};
+// 	std::map<int, std::string>::iterator it = test.begin();
+// 	for (; it != test.end(); it++){
+// 		std::cout << "=>" << it->first << std::endl;
+// 	};
+// 	it--;
+// 	for (; it != test.begin(); it--){
+// 		std::cout << it->first << std::endl;
+// 	};
 
 	// std::cout << (*it).first << std::endl;
 	// it--;

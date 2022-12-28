@@ -11,7 +11,7 @@
 #include "../IteratorTraits.hpp"
 #include "MapIterator.hpp"
 #include <algorithm>
-
+#include <unistd.h>
 namespace ft {
 	template< class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator< ft::pair<const Key, T> > > 
 	class map {
@@ -102,8 +102,12 @@ namespace ft {
 			};
 
 			~map(){
-				_root = find_root(_root);
-				__full_clear(_root);
+				if (_root != _last){
+					_root = find_root(_root);
+					__full_clear(_root);
+				}
+				_malloc.destroy(&_last->content);
+				_malloc.deallocate(&_last->content, 1);
 			};
 
 			allocator_type get_allocator() const { return _malloc;};
@@ -133,7 +137,8 @@ namespace ft {
 			}
 
 			bool empty() const {
-				if (!_root)
+				
+				if (!_size)
 					return true;
 				return
 					false;
@@ -143,7 +148,7 @@ namespace ft {
 
 			size_type max_size() const {return allocator_type().max_size();};
 
-			iterator begin() { return iterator(find_min(_root), _comp);}
+			iterator begin(){ _root = find_root(_last); return iterator(find_min(_root), _comp);}
 
 			const_iterator begin() const { return const_iterator(find_min(_root), _comp);}
 
@@ -169,6 +174,7 @@ namespace ft {
 				Node *res = search_key(_root, k);
 				if (!res)
 					return this->end();
+				//std::cout << res->content.first << std::endl;
 				return (iterator(res));
 			};
 			
@@ -199,7 +205,6 @@ namespace ft {
 					insert(val);
 				}
 				Node*	node = search_key(_root, k);
-			//	std::cout << node->content.first << std::endl;
 				return (node->content.second);
 			};
 
@@ -209,9 +214,10 @@ namespace ft {
 				_root = insertInTree(_root, value, NULL);
 
 				_last->left = find_max(_root);
+				_last->parent = find_max(_root);
 				_last->last = _last;
-				if (_last)
-					std::cout << "dhvyjtv\n" <<  _last->left->content.first << std::endl;
+				//if (_last)
+				//	std::cout << "dhvyjtv\n" <<  _last->left->content.first << std::endl;
 				_size++;
 			//	std::cout << _root->content.first << std::endl;
 				return (ft::make_pair<iterator, bool>(iterator(_root, _comp), true));
@@ -236,10 +242,19 @@ namespace ft {
 
 // ERASE
 			void erase (iterator position){
+				if (!_root){
+					sleep(1);
+					return;
+				}
 				Node *test = position.getNodePtr();
-				_root = remove(test->content, _root);
-			//	_root = find_root(_root);
-				_size--;
+				_root = find_root(_last);
+				_root = remove(test->content.first, _root);
+			//	std::cout << "haha\n";
+				
+				if (_size > 1)
+					_root = find_root(_last);
+				//std::cout << "_sized = " << _size << "\n";
+				--_size;
 			};
 
 			size_type erase (const key_type& k){
@@ -290,17 +305,24 @@ namespace ft {
     		        temp = find_min(node->right);
 					_malloc.destroy(&node->content);
 					//_malloc.deallocate(&node->content, 1);
+					//std::cout << _size << "\n";
+					
 					_malloc.construct(&node->content, temp->content);
 					if (node->parent)
 						node->parent = parent;
-						std::cout << "ici\n";
+					//	std::cout << "ici\n";
 					node->right = remove(node->content.first, node->right);
 					// if (!_root)
 					// 	_root = find_root(node);
 				}
     		    else
     		    {
+					//if  (node == find_max)
     		        temp = node;
+					if (node->parent && node->parent->content > node->content)
+						node->parent->left = NULL;
+					if (node->parent && node->parent->content < node->content)
+						node->parent->right = NULL;
     		        if(node->left == NULL){
 						if (node->right)
 							node->right->parent = node->parent;
@@ -317,7 +339,10 @@ namespace ft {
 
     		    }
     		    if(node == NULL){
-					std::cout << "ici: remove apre destoy\n";
+					if (_size == 1){
+						_root = NULL;
+						return _last;
+					}
     		        return node;
 				}
     		    node->level = std::max(_height(node->left), _height(node->right))+1;
@@ -471,6 +496,8 @@ namespace ft {
     		}
 
     		Node* __DRRotate(Node* &node){
+				if (!node->left)
+					return node;
     		   	node->left = __SLRotate(node->left);
     		    return (__SRRotate(node));
     		}

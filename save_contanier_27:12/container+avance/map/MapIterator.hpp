@@ -47,12 +47,6 @@ namespace ft {
 			};
 
 
-			MapIterator& operator=(const MapIterator& rhs){
-				if (this != rhs){
-					_nodePtr = rhs.getNodePtr();
-					_comp = rhs.getComp();
-				}
-			}
 
 			bool operator==(const MapIterator& it) const {
 				if (it._nodePtr == it._nodePtr->last)
@@ -62,6 +56,14 @@ namespace ft {
 
             bool operator!=(const MapIterator& it) const {
 				return (it._nodePtr != _nodePtr);
+			}
+	
+			MapIterator& operator=(const MapIterator& rhs){
+				if (this->getNodePtr() != rhs.getNodePtr()){
+					_nodePtr = rhs.getNodePtr();
+					_comp = rhs.getComp();
+				}
+				return (*this);
 			}
 
 			reference operator*() const {
@@ -80,7 +82,13 @@ namespace ft {
 				// 	_nodePtr = _nodePtr->right;
 				// 	return (*this);
 				// }
-				//std::cout << "gnmne\n";
+				if ( _nodePtr == _nodePtr->last)
+				{
+					_nodePtr = _nodePtr->right;
+					return (*this);
+				
+				}
+			//	std::cout << "gnmne\n";
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
 					while (_nodePtr->left)
@@ -103,8 +111,7 @@ namespace ft {
 						_nodePtr = _nodePtr->parent;
 					else
 					{
-						Node* nul = 0;
-						_nodePtr = nul;
+						_nodePtr = _nodePtr->last;
 						return (*this);
 					}
 					if (_comp(origin->content.first, _nodePtr->content.first)){
@@ -117,6 +124,13 @@ namespace ft {
 
 			MapIterator operator++(int){
 				MapIterator	copy(*this);
+				if ( _nodePtr == _nodePtr->last)
+				{
+					//std::cout << "vserxvsare\n";
+					_nodePtr = _nodePtr->last->left;
+					return (copy);
+				
+				}
 				// if (copy.getNodePtr()->right->isLast){
 				// 	_nodePtr = _nodePtr->right;
 				// 	return copy;
@@ -162,6 +176,13 @@ namespace ft {
 
 			MapIterator& operator--(){
 				nodePtr origin = _nodePtr;
+				if ( _nodePtr == _nodePtr->last)
+				{
+					std::cout << "vserxvsare\n";
+					_nodePtr = _nodePtr->last->left;
+					return (*this);
+				
+				}
 				if (origin->isLast)
 				{
 					_nodePtr = _nodePtr->parent;
@@ -200,7 +221,7 @@ namespace ft {
 				MapIterator	copy(*this);
 				if ( _nodePtr == _nodePtr->last)
 				{
-					std::cout << "vserxvsare\n";
+					//std::cout << "vserxvsare\n";
 					_nodePtr = _nodePtr->last->left;
 					return (copy);
 				

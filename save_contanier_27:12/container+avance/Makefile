@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
+#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 12:10:29 by aartiges          #+#    #+#              #
-#    Updated: 2022/11/28 01:13:05 by rcuminal         ###   ########.fr        #
+#    Updated: 2022/12/28 02:44:07 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,11 +48,11 @@ DIR_SRC_TEST	:=	./test
 #SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_size.cpp
 #SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_top.cpp
 
-SRCS_TEST		+=	$(DIR_SRC_TEST)/test_equal.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/test_is_integral.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/test_iterator_traits.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/test_lexicographical_compare.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/test_make_pair_and_pair.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_equal.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_is_integral.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_iterator_traits.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_lexicographical_compare.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_make_pair_and_pair.cpp
 
 #SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_general.cpp
 #SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_non_member_swap.cpp
@@ -83,14 +83,16 @@ SRCS_TEST		+=	$(DIR_SRC_TEST)/test_make_pair_and_pair.cpp
 #SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_vector.cpp
 
 #SRCS_TEST		:=	$(DIR_SRC_TEST)/map/test_map_general.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_begin.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_clear.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_count.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_empty.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_end.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_equal_range.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_erase.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_begin.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_clear.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_count.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_empty.cpp
+# SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_end.cpp
+
+
+
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_find.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_size.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_get_allocator.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_insert.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_key_comp.cpp
@@ -98,15 +100,16 @@ SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_lower_bound.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_map.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_max_size.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_operators.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_equal_range.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_swap.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator=.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator[].cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rbegin.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rend.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_size.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_swap.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_upper_bound.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_value_comp.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_erase.cpp
 
 TMP_TEST		:=	$(SRCS_TEST:.cpp=.cpp.xxx)
 
@@ -121,6 +124,8 @@ HEADERS				+=	$(INCLUDES)/Pair.hpp
 HEADERS				+=	$(INCLUDES)/ReverseIterator.hpp
 HEADERS				+=	$(INCLUDES)/Stack.hpp
 HEADERS				+=	$(INCLUDES)/vector/vector.hpp
+HEADERS				+=	$(INCLUDES)/map/map.hpp
+HEADERS				+=	$(INCLUDES)/map/MapIterator.hpp
 HEADERS				+=	$(INCLUDES)/vector/vectorIterator.hpp
 HEADERS				+=	$(INCLUDES)/TypeTraits.hpp
 
