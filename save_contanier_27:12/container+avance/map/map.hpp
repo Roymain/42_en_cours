@@ -102,12 +102,14 @@ namespace ft {
 			};
 
 			~map(){
-				if (_root != _last){
+				if (_root && _root != _last){
 					_root = find_root(_root);
 					__full_clear(_root);
 				}
-				_malloc.destroy(&_last->content);
-				_malloc.deallocate(&_last->content, 1);
+				if (_last){
+					_malloc.destroy(&_last->content);
+					_malloc.deallocate(&_last->content, 1);
+				}
 			};
 
 			allocator_type get_allocator() const { return _malloc;};

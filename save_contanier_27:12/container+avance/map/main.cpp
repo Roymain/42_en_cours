@@ -10,20 +10,21 @@ int main(){
 	  ft::map<char,int> mymap;
   ft::map<char,int>::iterator it;
 
-  mymap['a']=50;
-  mymap['b']=100;
-  mymap['c']=150;
-  mymap['d']=200;
+
   it = mymap.find('b');
   if (it != mymap.end())
     mymap.erase (it);
 	std::cout << "huu\n";
-
+  int psize;
+    ft::pair<const char,int>* p;
+p = mymap.get_allocator().allocate(6);
+ psize = sizeof(ft::map<char,int>::value_type)*5;
+ mymap.get_allocator().deallocate(p,5);
   // print content:
-  std::cout << "elements in mymap:" << '\n';
-  std::cout << "a => " << mymap.find('b')->second << '\n';
-  std::cout << "c => " << mymap.find('c')->second << '\n';
-  std::cout << "d => " << mymap.find('d')->second << '\n';
+   std::cout << "elements" << psize << "in mymap:" << p << '\n';
+//   std::cout << "a => " << mymap.find('b')->second << '\n';
+//   std::cout << "c => " << mymap.find('c')->second << '\n';
+//   std::cout << "d => " << mymap.find('d')->second << '\n';
 
 
 
