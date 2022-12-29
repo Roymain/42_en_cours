@@ -1,0 +1,12 @@
+a => 10
+c => 30
+d => 40
+e => 50
+f => 60
+gfrewqgGcrexwegw
+a => 10
+d => 40
+leaks Report Version: 4.0, multi-line stacks
+Process 92604: 177 nodes malloced for 13 KB
+Process 92604: 0 leaks for 0 total leaked bytes.
+

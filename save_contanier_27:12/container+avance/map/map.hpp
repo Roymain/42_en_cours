@@ -224,9 +224,9 @@ namespace ft {
 
 // INSERT
 			ft::pair<iterator, bool> insert( const value_type& value ){
-				
+			//	std::cout << "gsdtgsdf\n";
 				if (count(value.first))  // a verifier
-					return ft::make_pair<iterator, bool>(iterator(_root, _comp), true);
+					return ft::make_pair<iterator, bool>(iterator(search_key(_root, value.first), _comp), false);
 			//	_root = find_root(_root);
 				_root = insertInTree(_root, value, NULL);
 				_last->left = find_max(_root);
@@ -238,10 +238,11 @@ namespace ft {
 			};
 
 			iterator insert (iterator position, const value_type& val){
-				position = NULL;
-				iterator it(_root = insertInTree(_root, val));
+				//std::cout << position->first << std::endl;
+				iterator it(_root = insertInTree(_root, val, NULL));
+				position = it;
 				_size++;
-				return (it);
+				return (position);
 			}
 
 			template< class InputIt >
@@ -279,17 +280,32 @@ namespace ft {
 					i++;
 					it++;
 				};
-				iterator it = first;
-				for (int j = 0; j < i;){
-					Node test = *it.getNodePtr();
+				int j = 0;
+					// if (last == end()){
+					// 	j   -= 1;
+					// }
+				iterator it(first);
+				for (; j < i;){	
+					Node *test = first.getNodePtr();
+				//	iterator it = first;
+					// if (it == last && last == end()){
+					// 	i += 1;
+					// }
+					it++;
+					
 					if (_size > 2)
 						_root = find_root(_last);
-					_root = remove(test.content.first, _root);		
+					_root = remove(test->content.first, _root);		
 					--_size;
 					if (_size > 2)
 						_root = find_root(_last);
+					first = it;
 					j++;
 				}
+					// if (last == end()){
+					// 	_last->parent = find_max(_root);
+					// 	_last->left = find_max(_root);
+					// }
 
 
 
@@ -307,7 +323,6 @@ namespace ft {
 
 					//std::cout << "tmmmmmmmp = " << test.content.first << "\n";
 				//	_root = find_root(_last);
-					//std::cout << "tmp = " << tmp->first << "\n";
 				//	tmp++;
 				//	erase(it);
 				//	std::cout << "tmp = " << it->first << "\n";

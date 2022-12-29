@@ -18,19 +18,31 @@
 
 int main(){
   ft::map<char,int> mymap;
+  ft::map<char,int>::iterator it;
 
-  mymap['x']=1001;
-  mymap['y']=2002;
-  mymap['z']=3003;
+  // insert some values:
+  //mymap['z']=0;
+  mymap['a']=10;
+  mymap['b']=20;
+  mymap['c']=30;
+  mymap['d']=40;
+  mymap['e']=50;
+  mymap['f']=60;
 
+  it=mymap.find('b');
+  mymap.erase (it);                   // erasing by iterator
 
-  ft::pair<char,int> highest = *mymap.rend();          // last element
-  std::cout << "mymap contains:\n";
+for (it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << std::endl;
 
-  ft::map<char,int>::iterator it = mymap.begin();
-  do {
+  mymap.erase ('c');                  // erasing by key
+
+  it=mymap.find ('e');
+  mymap.erase ( it, mymap.end() );    // erasing by range
+std::cout << "gfrewqgGcrexwegw\n";
+  // show content:
+  for (it=mymap.begin(); it!=mymap.end(); ++it)
     std::cout << it->first << " => " << it->second << '\n';
-  } while ( mymap.value_comp()(*it++, highest) );
 
 return 0;
 }

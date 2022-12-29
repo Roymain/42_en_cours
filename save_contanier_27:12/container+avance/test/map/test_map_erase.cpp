@@ -32,7 +32,7 @@ for (it=mymap.begin(); it!=mymap.end(); ++it)
 
   it=mymap.find ('e');
   mymap.erase ( it, mymap.end() );    // erasing by range
-
+std::cout << "gfrewqgGcrexwegw\n";
   // show content:
   for (it=mymap.begin(); it!=mymap.end(); ++it)
     std::cout << it->first << " => " << it->second << '\n';
