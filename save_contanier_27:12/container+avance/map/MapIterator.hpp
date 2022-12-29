@@ -27,10 +27,16 @@ namespace ft {
 
 			MapIterator(nodePtr node = 0, const key_comp& comp = key_comp()): _nodePtr(node), _comp(comp){};
 
-			MapIterator(pointer node, const key_comp& comp = key_comp()): _comp(comp), _nodePtr(node){};
+			MapIterator(pointer node, const key_comp& comp = key_comp()): _comp(comp){
+				_nodePtr = node;
+			};
 
 			MapIterator(const MapIterator<const T, Compare, Node> &copy){
 				_nodePtr = copy.getNodePtr();
+				_nodePtr->right = copy.getNodePtr()->right;
+				_nodePtr->left = copy.getNodePtr()->left;
+				_nodePtr->parent = copy.getNodePtr()->parent;
+				_nodePtr->last = copy.getNodePtr()->last;
 				_comp = copy.getComp();
 			};
 
@@ -55,12 +61,17 @@ namespace ft {
 			}
 
             bool operator!=(const MapIterator& it) const {
+
 				return (it._nodePtr != _nodePtr);
 			}
 	
 			MapIterator& operator=(const MapIterator& rhs){
 				if (this->getNodePtr() != rhs.getNodePtr()){
 					_nodePtr = rhs.getNodePtr();
+					_nodePtr->right = rhs.getNodePtr()->right;
+				_nodePtr->left = rhs.getNodePtr()->left;
+				_nodePtr->parent = rhs.getNodePtr()->parent;
+				_nodePtr->last = rhs.getNodePtr()->last;
 					_comp = rhs.getComp();
 				}
 				return (*this);
@@ -82,26 +93,32 @@ namespace ft {
 				// 	_nodePtr = _nodePtr->right;
 				// 	return (*this);
 				// }
-				if ( _nodePtr == _nodePtr->last)
+				//std::cout << _nodePtr->isLast << "\n";
+				if (origin == origin->last)
 				{
-					_nodePtr = _nodePtr->right;
+					_nodePtr = _nodePtr->last;
+					//std::cout << "vserxvsare1\n";
 					return (*this);
 				
 				}
-			//	std::cout << "gnmne\n";
+				//std::cout << "vserxvsare\n";
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
 					while (_nodePtr->left)
 						_nodePtr = _nodePtr->left;
+					//std::cout << "vserxvsare2\n";
 					return (*this);
 				}
 				if (_nodePtr->parent){
 					_nodePtr = _nodePtr->parent;
 					if (_comp(origin->content.first, _nodePtr->content.first))
-						return (*this);
+					{//std::cout << "vserxvsare3\n";
+						return (*this);}
 				}
-				else
+				else{
+					_nodePtr = _nodePtr->last;
 					return (*this);
+				}
 				while (!_comp(origin->content.first, _nodePtr->content.first)){
 					if (_nodePtr->right && _comp(origin->content.first, _nodePtr->right->content.first) && _nodePtr->right != origin){
 						_nodePtr = _nodePtr->right;
@@ -118,33 +135,36 @@ namespace ft {
 						return (*this);
 					}
 				}
+				
 				return (*this);
 
 			};
 
 			MapIterator operator++(int){
 				MapIterator	copy(*this);
-				if ( _nodePtr == _nodePtr->last)
-				{
-					//std::cout << "vserxvsare\n";
-					_nodePtr = _nodePtr->last->left;
-					return (copy);
 				
-				}
 				// if (copy.getNodePtr()->right->isLast){
 				// 	_nodePtr = _nodePtr->right;
 				// 	return copy;
 				// }
 
+					////std::cout << "vserxvsare\n";
 				if (copy.getNodePtr() == NULL){
 					_nodePtr = _nodePtr->right;
 					return copy;
+				}
+				if ( _nodePtr == _nodePtr->last)
+				{
+					_nodePtr = _nodePtr->last->left;
+					return (copy);
+				
 				}
 
 				if (_nodePtr->right){
 					_nodePtr = _nodePtr->right;
 					while (_nodePtr->left)
 						_nodePtr = _nodePtr->left;
+			
 					return (copy);
 				}
 				if (_nodePtr->parent){
@@ -152,8 +172,10 @@ namespace ft {
 					if (_comp(copy._nodePtr->content.first, _nodePtr->content.first))
 						return copy;
 				}
-				else
+				else{
+					_nodePtr = _nodePtr->last;
 					return copy;
+				}
 				while (!_comp(copy._nodePtr->content.first, _nodePtr->content.first)){
 					if (_nodePtr->right && _comp(copy._nodePtr->content.first, _nodePtr->right->content.first) && _nodePtr->right != copy._nodePtr){
 						_nodePtr = _nodePtr->right;
@@ -163,7 +185,7 @@ namespace ft {
 						_nodePtr = _nodePtr->parent;
 					else
 					{
-						//std::cout << "gnas\n";
+						////std::cout << "gnas\n";
 						_nodePtr = _nodePtr->last;
 						return (copy);
 					}
@@ -178,7 +200,7 @@ namespace ft {
 				nodePtr origin = _nodePtr;
 				if ( _nodePtr == _nodePtr->last)
 				{
-					//std::cout << "vserxvsare\n";
+					////std::cout << "vserxvsare\n";
 					_nodePtr = _nodePtr->last->left;
 					return (*this);
 				
@@ -221,7 +243,7 @@ namespace ft {
 				MapIterator	copy(*this);
 				if ( _nodePtr == _nodePtr->last)
 				{
-					//std::cout << "vserxvsare\n";
+					////std::cout << "vserxvsare\n";
 					_nodePtr = _nodePtr->last->left;
 					return (copy);
 				

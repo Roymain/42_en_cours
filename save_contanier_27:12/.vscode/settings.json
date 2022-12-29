@@ -68,6 +68,11 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "filesystem": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "__functional_base": "cpp",
+        "bit": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "utility": "cpp"
     }
 }

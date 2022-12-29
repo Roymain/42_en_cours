@@ -25,6 +25,7 @@ int main ()
 
   mymap.erase(itlow,itup);        // erases [itlow,itup)
 
+  std::cout << "ici\n";
   // print content:
   for (NAMESPACE::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
     std::cout << it->first << " => " << it->second << '\n';
