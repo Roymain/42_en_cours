@@ -9,7 +9,7 @@
 namespace ft {
 
 	template <class T, class Compare, typename Node>
-		class MapIterator{
+		class ReverseMapIterator{
 			public:
     			typedef std::bidirectional_iterator_tag		iterator_category;
     			typedef T         		value_type;
@@ -25,22 +25,39 @@ namespace ft {
 
 			public:
 
-			MapIterator(const nodePtr node = 0, const key_comp& comp = key_comp()): _nodePtr(node), _comp(comp){};
+			ReverseMapIterator(const nodePtr node = 0, const key_comp& comp = key_comp()): _nodePtr(node), _comp(comp){};
 
-			MapIterator(pointer node, const key_comp& comp = key_comp()): _comp(comp){
+			ReverseMapIterator(pointer node, const key_comp& comp = key_comp()): _comp(comp){
 				_nodePtr = node;
 			};
 
 			template <class W, class Comp, typename Nod>
-			MapIterator(const MapIterator<W, Comp, Nod> &copy){
+			ReverseMapIterator(const ReverseMapIterator<W, Comp, Nod> &copy){
 				_nodePtr = (Node*)(copy.getNodePtr());
 				_comp = (Compare)(copy.getComp());
 			};
 
+			~ReverseMapIterator(){};
 
-			~MapIterator(){};
+			ReverseMapIterator find__min(){
+				nodePtr origin = _nodePtr;
+				while (origin->parent)
+					origin = origin->parent;
+				while (origin->left)
+					origin = origin->left;
+				return origin;
 
+			}
+			
+			ReverseMapIterator& find__min() const{
+				nodePtr origin = _nodePtr;
+				while (origin->parent)
+					origin = origin->parent;
+				while (origin->left)
+					origin = origin->left;
+				return origin;
 
+			}
 			
 			nodePtr getNodePtr() const {
 				return _nodePtr;
@@ -52,31 +69,35 @@ namespace ft {
 
 
 
-			bool operator==(const MapIterator& it) const {
-				if (it._nodePtr == it._nodePtr->last)
-					return true;
+			bool operator==(const ReverseMapIterator& it) {
+				// ReverseMapIterator test = find__min();
+				// if (test == it){
+				// 	std::cout << "miaou\n";
+				// 	return true;
+				// }
 				return (it._nodePtr == _nodePtr);
 			}
 
-            bool operator!=(const MapIterator& it) const {
+			bool operator==(const ReverseMapIterator& it) const {
+				if (find__min() == it){
+					std::cout << "miaou\n";
+					return true;
+				}
+				return (it._nodePtr == _nodePtr);
+			}
 
+            bool operator!=(const ReverseMapIterator& it) const {
+				if (it._nodePtr == _nodePtr)
+					return false;
 				return (it._nodePtr != _nodePtr);
 			}
 	
-
 			template <class W, class Comp, typename Nod>
-			MapIterator& operator=(const MapIterator<W, Comp, Nod>& rhs) {
-				
+			ReverseMapIterator& operator=(const ReverseMapIterator<W, Comp, Nod>& rhs) {		
 				_nodePtr = (Node*)(rhs.getNodePtr());
-			//	_nodePtr->content = (W)(rhs.getNodePtr()->content);
-				// _nodePtr->left = copy.getNodePtr()->left;
-				// _nodePtr->parent = copy.getNodePtr()->parent;
-				// _nodePtr->last = copy.getNodePtr()->last;
 				_comp = (Compare)(rhs.getComp());
 				return (*this);
 			}
-			
-	
 
 			reference operator*() const {
 				return _nodePtr->content;
@@ -86,7 +107,7 @@ namespace ft {
 				return (&_nodePtr->content);
 			}
 
-			MapIterator& operator++(){
+			ReverseMapIterator& operator--(){
 
 				
 				nodePtr origin = _nodePtr;
@@ -141,15 +162,15 @@ namespace ft {
 
 			};
 
-			MapIterator operator++(int){
-				MapIterator	copy(*this);
+			ReverseMapIterator operator--(int){
+				ReverseMapIterator	copy(*this);
 				
-				// if (copy.getNodePtr()->right->isLast){
-				// 	_nodePtr = _nodePtr->right;
-				// 	return copy;
-				// }
+				if (copy.getNodePtr()->content.first == '\0'){
+					//_nodePtr = _nodePtr->right;
+					std::cout << "vserxvsare\n";
+					return copy;
+				}
 
-					////std::cout << "vserxvsare\n";
 				if (copy.getNodePtr() == NULL){
 					_nodePtr = _nodePtr->right;
 					return copy;
@@ -197,27 +218,28 @@ namespace ft {
 				return (copy);
 			};
 
-			MapIterator& operator--(){
+			ReverseMapIterator& operator++(){
 				nodePtr origin = _nodePtr;
 				if ( _nodePtr == _nodePtr->last)
 				{
-					////std::cout << "vserxvsare\n";
-					_nodePtr = _nodePtr->last->left;
+					_nodePtr = _nodePtr->parent;
 					return (*this);
 				
 				}
-				if (origin->isLast)
-				{
-					_nodePtr = _nodePtr->parent;
+				if (origin == NULL)
 					return (*this);
+				if (!_nodePtr->right && !_nodePtr->left && !_comp(_nodePtr->content.first, _nodePtr->parent->content.first)){
+					_nodePtr = _nodePtr->parent;
+				
+				return (*this);
 				}
-				if (_nodePtr->left && _comp(_nodePtr->left->content.first, origin->content.first)){
+				if (_nodePtr->left && _nodePtr->content.first && _comp(_nodePtr->left->content.first, origin->content.first)){
 					_nodePtr = _nodePtr->left;
 					while (_nodePtr->right)
 						_nodePtr = _nodePtr->right;
 					return (*this);
 				}
-				if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, origin->content.first)){
+				if (_nodePtr->parent  && _comp(_nodePtr->parent->content.first, origin->content.first)){
 					_nodePtr = _nodePtr->parent;
 
 						return (*this);
@@ -236,46 +258,11 @@ namespace ft {
 				Node* nul = 0;
 				_nodePtr = nul;
 				return (*this);
-
-				return (*this);
 			};
 
-			MapIterator operator--(int){
-				MapIterator	copy(*this);
-				if ( _nodePtr == _nodePtr->last)
-				{
-					////std::cout << "vserxvsare\n";
-					_nodePtr = _nodePtr->last->left;
-					return (copy);
-				
-				}
-				if (copy.getNodePtr() == NULL)
-					return copy;
-
-				if (_nodePtr->left && _comp(_nodePtr->left->content.first, copy._nodePtr->content.first)){
-					_nodePtr = _nodePtr->left;
-					while (_nodePtr->right)
-						_nodePtr = _nodePtr->right;
-					return (copy);
-				}
-				if (_nodePtr->parent && _comp(_nodePtr->parent->content.first, copy._nodePtr->content.first)){
-					_nodePtr = _nodePtr->parent;
-
-						return (copy);
-				}
-				while (_nodePtr->parent){
-					_nodePtr = _nodePtr->parent;
-					if (_comp(_nodePtr->content.first, copy._nodePtr->content.first))
-						return (copy);
-					if (_comp(_nodePtr->content.first, copy._nodePtr->content.first) && _nodePtr->left){
-						_nodePtr = _nodePtr->left;
-						while (_nodePtr->right)
-							_nodePtr = _nodePtr->right;
-						return (copy);
-					}
-				}
-				Node* nul = 0;
-				_nodePtr = nul;
+			ReverseMapIterator operator++(int){
+				ReverseMapIterator	copy(*this);
+				operator++();
 				return (copy);
 			};
 

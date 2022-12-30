@@ -10,6 +10,7 @@
 #include "../ReverseIterator.hpp"
 #include "../IteratorTraits.hpp"
 #include "MapIterator.hpp"
+#include "ReverseMapIterator.hpp"
 #include <algorithm>
 #include <unistd.h>
 namespace ft {
@@ -23,6 +24,16 @@ namespace ft {
 				Node*							left;
 				Node*							right;
 				Node*							last;
+				long long int                   level;
+				bool							isLast;
+			};
+		
+			struct constNode {
+				const pair<const Key, T>				content;
+				constNode*                           parent;
+				constNode*							left;
+				constNode*							right;
+				constNode*							last;
 				long long int                   level;
 				bool							isLast;
 			};
@@ -45,9 +56,9 @@ namespace ft {
 		public:
 
 			typedef typename ft::MapIterator<value_type, Compare, Node>							iterator;
-			typedef typename ft::MapIterator<const value_type, Compare, Node>					const_iterator;
-			typedef	typename ft::reverse_iterator<iterator>											reverse_iterator;
-			typedef	typename ft::reverse_iterator<const_iterator>									const_reverse_iterator;
+			typedef typename ft::MapIterator<const value_type, Compare, constNode>					const_iterator;
+			typedef	typename ft::ReverseMapIterator<value_type, Compare, Node>											reverse_iterator;
+			typedef	typename ft::ReverseMapIterator<const value_type, Compare, constNode>									const_reverse_iterator;
 
 			class value_compare {
 				friend class map;
@@ -80,7 +91,7 @@ namespace ft {
 
 		public:
 
-			map (const map& x) : _size(0), _malloc(x._malloc), _comp(x._comp), _mallocNode(x._mallocNode){
+			map (const map& x) :  _malloc(x._malloc), _mallocNode(x._mallocNode), _size(0), _comp(x._comp){
 				_root = NULL;
 				_last = _mallocNode.allocate(1);
 				_malloc.construct(&x._last->content, value_type());
@@ -94,7 +105,7 @@ namespace ft {
 				};
 
 			template<class InputIt>
-			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : _size(0), _mallocNode(alloc), _comp(comp){
+			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : _mallocNode(alloc), _size(0), _comp(comp){
 					_root = NULL;
 					_last = _mallocNode.allocate(1);
 					_malloc.construct(&_last->content, value_type());
@@ -122,6 +133,15 @@ namespace ft {
 					return (node);
 				else
 				    return find_min(node->left);
+			}
+
+			constNode* find_miin(Node* node) const {
+				if (!node)
+					return (NULL);
+				else if (!node->left)
+					return ((constNode*)node);
+				else
+				    return find_miin(node->left);
 			}
 
 			Node* find_root(Node* node) const {
@@ -152,21 +172,27 @@ namespace ft {
 			size_type max_size() const {return allocator_type().max_size();};
 
 			iterator begin(){  return iterator(find_min(_root), _comp);}
-// retrait de find root
-			const_iterator begin() const { return const_iterator(find_min(_root), _comp);}
 
-			reverse_iterator rbegin(){return reverse_iterator(this->end());};
+			const_iterator begin() const { return const_iterator(find_miin(_root), _comp);}
 
-			const_reverse_iterator rbegin() const {return const_reverse_iterator(this->end());};
+			reverse_iterator rbegin(){return reverse_iterator(_last->parent, _comp);};
 
-    		reverse_iterator rend(){return reverse_iterator(this->begin());};
+			const_reverse_iterator rbegin() const {return const_reverse_iterator((constNode*)_last->parent, _comp);};
 
-			const_reverse_iterator rend() const{return const_reverse_iterator(this->begin());};
+    		reverse_iterator rend(){
+				Node* tmp = find_min(_root);
+				tmp->right = NULL;
+				return reverse_iterator(tmp->right, _comp);};
+
+			const_reverse_iterator rend() const{
+				Node* tmp = find_min(_root);
+				tmp->right = NULL;
+				return const_reverse_iterator((constNode*)tmp->right, _comp);};
 
 
 			iterator end() { return iterator(_last, _comp);}
 
-			const_iterator end() const { return const_iterator(_last, _comp);}
+			const_iterator end() const { return const_iterator((constNode*)_last, _comp);}
 
 			Node* getRoot(){return _root;}
 
@@ -207,8 +233,13 @@ namespace ft {
 			map& operator= (const map& x) {
 				if (&x == this)
 					return (*this);
-			//	clear();
-				insert(x.begin(), x.end());
+				
+				clear();
+				if (!x.empty()){
+					insert(x.begin(), x.end());
+					_size = x._size;
+				}
+
 				return(*this);
 			}
 
@@ -229,7 +260,7 @@ namespace ft {
 					return ft::make_pair<iterator, bool>(iterator(search_key(_root, value.first), _comp), false);
 			//	_root = find_root(_root);
 				_root = insertInTree(_root, value, NULL);
-				_last->left = find_max(_root);
+				//_last->left = find_max(_root);
 				_last->parent = find_max(_root);
 				_last->last = NULL;
 				_last->right = NULL;
@@ -250,7 +281,6 @@ namespace ft {
 		    typename ft::enable_if<!ft::is_integral<InputIt>::value >::type* = 0){
 				while(first != last){
 					insert(first.getNodePtr()->content);
-					_size++;
 					++first;
 				}
 			};
@@ -267,6 +297,8 @@ namespace ft {
 			};
 
 			size_type erase (const key_type& k){
+				if (!count(k))
+					return 0;
 				Node* res = remove(k, _root);
 				if (!res)
 					return 0;
@@ -276,32 +308,45 @@ namespace ft {
 
     		void erase (iterator first, iterator last){
 				int i = 0;
+				bool boool = false;
 				for (iterator it = first; it != last;){
 					i++;
 					it++;
 				};
+					if (last == end()){
+						boool = true;
+					}
 				int j = 0;
-					// if (last == end()){
-					// 	j   -= 1;
-					// }
+				
 				iterator it(first);
 				for (; j < i;){	
 					Node *test = first.getNodePtr();
+				
 				//	iterator it = first;
 					// if (it == last && last == end()){
 					// 	i += 1;
 					// }
-					it++;
+					if (boool)
+						++it;
+					// if (it == end())
+					// {
+					// 	return;
+					// }
 					
 					if (_size > 2)
 						_root = find_root(_last);
 					_root = remove(test->content.first, _root);		
-					--_size;
+					_size--;
 					if (_size > 2)
 						_root = find_root(_last);
-					first = it;
+					// if (last == end()){
+					// 	i   -= 1;
+					// }
 					j++;
+						first = it;
 				}
+
+				
 					// if (last == end()){
 					// 	_last->parent = find_max(_root);
 					// 	_last->left = find_max(_root);
@@ -310,8 +355,8 @@ namespace ft {
 
 
 
-				// for (;iterator it = first; it != last;){
-				// //	iterator tmp(it);
+				// for (iterator it = first; it != last;){
+				// 	iterator tmp(it);
 				// 	Node test = *it.getNodePtr();
 				// 	if (_size > 2)
 				// 		_root = find_root(_last);
@@ -321,13 +366,15 @@ namespace ft {
 				// 		_root = find_root(_last);
 
 
-					//std::cout << "tmmmmmmmp = " << test.content.first << "\n";
-				//	_root = find_root(_last);
-				//	tmp++;
-				//	erase(it);
-				//	std::cout << "tmp = " << it->first << "\n";
-				//	it;// = tmp;
-					
+				// 	//tmp++;
+				// 	std::cout << "tmmmmmmmp = " << test.content.first << "\n";
+				// 	std::cout << "tmp = " << tmp->first << "\n";
+				// 	//_root = find_root(_last);
+				// 	if (!last)
+				// 		return;
+				// 	it = tmp;
+			
+				// }
 				
 			};
 
@@ -591,12 +638,12 @@ namespace ft {
 
 			iterator upper_bound (const key_type& k){
 				iterator it;
-			for (it = begin(); it != end(); it++)
+			for (it = begin(); it != end(); ++it)
 			{
 				if (_comp(k, (*it).first))
 					return it;
 			}
-			return it;
+			return begin();
 			};
 
 			const_iterator upper_bound (const key_type& k) const{
@@ -610,6 +657,60 @@ namespace ft {
 			pair<iterator,iterator>             equal_range (const key_type& k){
 				return(ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
 			};
+
+			template<typename U>
+			void Tswap(U &a, U &b){
+				U tmp = a;
+				a = b;
+				b = tmp;
+			}		
+
+			void swap (map& x) {
+				Tswap(_root, x._root);
+				Tswap(_last, x._last);
+				Tswap(_size, x._size);
+				Tswap(_comp, x._comp);
+				Tswap(_malloc, x._malloc);
+				Tswap(_mallocNode, x._mallocNode);
+			}
+
+			friend bool operator== (const map& lhs, const map& rhs) {
+				if (lhs.size() != rhs.size())
+					return false;
+				iterator itl = lhs.find_min(lhs._root);
+				iterator itr = rhs.find_min(rhs._root);
+				size_type	i = 0;
+				while (i < lhs.size()) {
+					if (itl->first != itr->first)
+						return false;
+					++i;
+					itl++;
+					itr++;
+				}
+				return true;
+			}
+
+			friend bool operator!= (const map& lhs, const map& rhs) {
+				return (!(lhs == rhs));
+			}
+
+			friend bool operator<  (const map& lhs, const map& rhs) {
+				map	lhsCpy	= lhs;
+				map	rhsCpy	= rhs;
+				return ft::lexicographical_compare(lhsCpy.begin(), lhsCpy.end(), rhsCpy.begin(), rhsCpy.end());
+			}
+
+			friend bool operator<= (const map& lhs, const map& rhs) {
+				return !(rhs<lhs);
+			}
+
+			friend bool operator>  (const map& lhs, const map& rhs) {
+				return rhs < lhs;
+			}
+
+			friend bool operator>= (const map& lhs, const map& rhs) {
+				return !(lhs<rhs);
+			}
 
 	};
 }

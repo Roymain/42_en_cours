@@ -73,6 +73,7 @@
         "bit": "cpp",
         "functional": "cpp",
         "iterator": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "memory_resource": "cpp"
     }
 }

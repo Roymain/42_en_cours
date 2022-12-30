@@ -116,7 +116,7 @@ static void mapErase()
 	map1.erase('W');
 	std::cout << map1 << std::endl;
 
-	map1.erase('0');
+	map1.erase('8');
 	std::cout << map1 << std::endl;
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
+#    By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 12:10:29 by aartiges          #+#    #+#              #
-#    Updated: 2022/12/29 08:25:16 by Romain           ###   ########.fr        #
+#    Updated: 2022/12/30 05:28:50 by rcuminal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,63 +41,59 @@ MAIN_OBJ			:=	$(MAIN_SRC:.cpp=.o) main_std.o
 
 DIR_TESTING		:=	./bin
 DIR_SRC_TEST	:=	./test
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_compatible.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_empty.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_pop.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_push.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_size.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_top.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_compatible.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_empty.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_pop.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_push.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_size.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/stack/test_stack_top.cpp
 
-# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_equal.cpp
-# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_is_integral.cpp
-# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_iterator_traits.cpp
-# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_lexicographical_compare.cpp
-# SRCS_TEST		+=	$(DIR_SRC_TEST)/test_make_pair_and_pair.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/test_equal.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/test_is_integral.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/test_iterator_traits.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/test_lexicographical_compare.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/test_make_pair_and_pair.cpp
 
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_general.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_non_member_swap.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_insert.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_erase.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_assign.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_at.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_back.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_begin.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_capacity.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_clear.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_empty.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_end.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_front.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_get_allocator.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_max_size.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_operator=.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_operator[].cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_pop_back.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_push_back.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_non_member_operators.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_rbegin.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_rend.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_reserve.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_resize.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_size.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_swap.cpp
-#SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_vector.cpp
-
-#SRCS_TEST		:=	$(DIR_SRC_TEST)/map/test_map_general.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_general.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_non_member_swap.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_insert.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_erase.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_assign.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_at.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_back.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_begin.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_capacity.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_clear.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_empty.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_end.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_front.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_get_allocator.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_max_size.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_operator=.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_operator[].cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_pop_back.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_push_back.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_non_member_operators.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_rbegin.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_rend.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_reserve.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_resize.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_size.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_swap.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/vector/test_vector_vector.cpp
 
 
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_swap.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_operators.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_swap.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_map.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rbegin.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rend.cpp
+
+
+
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_key_comp.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_value_comp.cpp
-SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_upper_bound.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_operators.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_swap.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_non_member_swap.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator=.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_map.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_operator[].cpp
-
-
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_insert.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_begin.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_clear.cpp
@@ -110,7 +106,12 @@ SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_find.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_size.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_lower_bound.cpp
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_equal_range.cpp
+
 SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_erase.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rend.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_upper_bound.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_rbegin.cpp
+SRCS_TEST		+=	$(DIR_SRC_TEST)/map/test_map_general.cpp
 
 TMP_TEST		:=	$(SRCS_TEST:.cpp=.cpp.xxx)
 
@@ -127,6 +128,7 @@ HEADERS				+=	$(INCLUDES)/Stack.hpp
 HEADERS				+=	$(INCLUDES)/vector/vector.hpp
 HEADERS				+=	$(INCLUDES)/map/map.hpp
 HEADERS				+=	$(INCLUDES)/map/MapIterator.hpp
+HEADERS				+=	$(INCLUDES)/map/ReverseMapIterator.hpp
 HEADERS				+=	$(INCLUDES)/vector/vectorIterator.hpp
 HEADERS				+=	$(INCLUDES)/TypeTraits.hpp
 
