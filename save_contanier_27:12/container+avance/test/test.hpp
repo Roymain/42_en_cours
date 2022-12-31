@@ -6,7 +6,7 @@
 /*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 09:26:20 by aartiges          #+#    #+#             */
-/*   Updated: 2022/11/26 03:56:48 by rcuminal         ###   ########.fr       */
+/*   Updated: 2022/12/31 05:01:43 by rcuminal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ reverse_iterator
 /*
 stack
 */
-# define HEADER_STACK Stack.hpp
+# define HEADER_STACK stack.hpp
 
 /*
 vector
 */
-# define HEADER_VECTOR vector/Vector.hpp
+# define HEADER_VECTOR vector.hpp
 
 /*
 map
 */
-# define HEADER_MAP map/map.hpp
+# define HEADER_MAP map.hpp
 
 #endif

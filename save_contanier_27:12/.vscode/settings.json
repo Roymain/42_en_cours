@@ -74,6 +74,8 @@
         "functional": "cpp",
         "iterator": "cpp",
         "utility": "cpp",
-        "memory_resource": "cpp"
+        "memory_resource": "cpp",
+        "queue": "cpp",
+        "set": "cpp"
     }
 }

@@ -2,7 +2,8 @@
 
 #include <cstddef>
 
-#include "../IteratorTraits.hpp"
+#include "IteratorTraits.hpp"
+#include "MapIterator.hpp"
 
 
 
@@ -30,6 +31,10 @@ namespace ft {
 			ReverseMapIterator(pointer node, const key_comp& comp = key_comp()): _comp(comp){
 				_nodePtr = node;
 			};
+			
+			ReverseMapIterator(const MapIterator< T,  Compare, Node>& it): _comp(it.getComp()){
+				_nodePtr = it.getNodePtr();
+			};
 
 			template <class W, class Comp, typename Nod>
 			ReverseMapIterator(const ReverseMapIterator<W, Comp, Nod> &copy){
@@ -38,6 +43,10 @@ namespace ft {
 			};
 
 			~ReverseMapIterator(){};
+
+			MapIterator< T,  Compare, Node> base() {
+				return MapIterator< T,  Compare, Node>(_nodePtr, _comp);
+			}
 
 			ReverseMapIterator find__min(){
 				nodePtr origin = _nodePtr;
@@ -80,7 +89,7 @@ namespace ft {
 
 			bool operator==(const ReverseMapIterator& it) const {
 				if (find__min() == it){
-					std::cout << "miaou\n";
+					//std::cout << "miaou\n";
 					return true;
 				}
 				return (it._nodePtr == _nodePtr);
@@ -167,7 +176,7 @@ namespace ft {
 				
 				if (copy.getNodePtr()->content.first == '\0'){
 					//_nodePtr = _nodePtr->right;
-					std::cout << "vserxvsare\n";
+					//std::cout << "vserxvsare\n";
 					return copy;
 				}
 

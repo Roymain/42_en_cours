@@ -2,7 +2,6 @@
 #include <iostream>
 #include <map>
 #include "../test.hpp"
-#include "../../map/map.hpp"
 #define INC STR(../DIR_INCLUDES/HEADER_MAP)
 #include INC
 
