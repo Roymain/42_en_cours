@@ -1,16 +1,14 @@
 extern ___error
-global _read_asm
+global _ft_read
 
 
 
 section .text
-_read_asm:
+_ft_read:
     mov rax, 0x2000003
     syscall
     jc error_handle
     ret
-
-
 
 error_handle: 
     mov rdi, rax

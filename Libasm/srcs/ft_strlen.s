@@ -1,8 +1,8 @@
 extern ___error
-global _strlen_asm
+global _ft_strlen
 
 section .text
-_strlen_asm:
+_ft_strlen:
 	xor rax, rax
 	jmp boucle
 

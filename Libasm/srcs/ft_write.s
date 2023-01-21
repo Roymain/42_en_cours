@@ -1,10 +1,10 @@
 extern ___error
-global _write_asm
+global _ft_write
 
 
 
 section .text
-_write_asm:
+_ft_write:
     mov rax, 0x2000004
     syscall
     jc error_handle
