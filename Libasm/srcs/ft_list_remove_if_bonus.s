@@ -1,3 +1,4 @@
+extern _free
 
 global _ft_list_remove_if
 
@@ -13,99 +14,68 @@ _ft_list_remove_if:
 	je return
 	cmp rdx, 0 ; verif 
 	je return
-	mov r11, rdi 	; rdi ds r11
-	mov rdi, [r11] 	;actu
-	mov r12, 0 		;prev
+	mov r8, 0    ;old
+	push rdi
+	mov rdi, [rdi]
+	mov r15, rdi   ;save maillon
 	jmp boucle
 
 boucle:
 	cmp rdi, 0
 	je return
-
-	push rsp
-	push rdi
-	push rsi
-	push rdx
+	mov rdi, [rdi]
 	push rcx
-	push r11
-	push r12
-	push r14
-	push r15
 	call rdx
-	pop r15
-	pop r14
-	pop r12
-	pop r11
 	pop rcx
-	pop rdx
-	pop rsi
-	pop rdi
-	pop rsp
-
 	cmp rax, 0
 	je delete
-	mov r12, rdi
-	mov rdi, [rdi+8]
 
-	jmp boucle
+	mov r8, r15
+	mov rdi, [r15 + 8]
+	mov r15, rdi   ;save maillon
+
+ 	jmp boucle
 
 delete:
-	cmp r12, 0
-	je deletefirst
-
-	mov r15, [rdi+8]
-	mov [r12+8], r15
-	mov rdi, [rdi]
-
-	push rsp
+	;pop r14
+	;ret
+	cmp r8, 0
+	je return
+	push rcx ; aa
+	call rcx
+	pop rcx  ;aa
 	push rdi
 	push rsi
 	push rdx
-	push rcx
-	push r11
-	push r12
-	push r14
+	;push rcx
 	push r15
-	call rcx
-	pop r15
-	pop r14
-	pop r12
-	pop r11
-	pop rcx
-	pop rdx
-	pop rsi
-	pop rdi
-	pop rsp
-
-	mov rdi, [r12+8]
-	jmp boucle
-
-
-deletefirst:    ;r12 pre rdi actu
-	mov r14, [rdi+8]
-	mov rdi, [rdi]
+	push r8
 	push rsp
-	push rdi
-	push rsi
-	push rdx
-	push rcx
-	push r11
-	push r12
-	push r14
-	push r15
-	call rcx
+
+	mov rdi, r15
+	call _free
+
+	pop rsp
+	pop r8
 	pop r15
-	pop r14
-	pop r12
-	pop r11
-	pop rcx
+	;pop rcx
 	pop rdx
 	pop rsi
 	pop rdi
-	pop rsp
 
-	mov [r11], r14
-	mov rdi, r14
+
+	mov rdi, [r15 + 8]
+	mov r15, rdi
+	mov [r8 + 8], rdi
+
+
+
 	jmp boucle
+
+
+deletefirst:
+	pop r14
+	ret
 return:
+	pop r14
 	ret
