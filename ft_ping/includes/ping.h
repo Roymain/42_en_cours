@@ -15,11 +15,14 @@
 #include <errno.h>
 
 typedef struct s_ping {
+    double    timing_tab[7];
+    int         ttl;
+
+    int     sockfd;
     char* target;
     char ip[100];
     uint16_t seq;
-    int         ttl;
-    struct iphdr    *ip_header;
+
     struct icmp  *icmp_header;
     struct sockaddr_in dest_addr;
 

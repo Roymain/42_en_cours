@@ -58,6 +58,73 @@ int host_to_ip(t_ping *ping) {
     return 1;
 }
 
+void update_time_tab(t_ping *ping, double rtt){
+
+	ping->timing_tab[1] += rtt;      // not average , only cumul
+	if (rtt < ping->timing_tab[0]) //min
+		ping->timing_tab[0] = rtt;
+	if (rtt > ping->timing_tab[2]) // max
+		ping->timing_tab[2] = rtt;
+}
+
+
+
+
+
+
+
+
+int update(t_ping *ping){
+	struct timeval timeout;
+	timeout = (struct timeval){10, 0};   //10s
+	char buf[1024];
+	struct sockaddr_in from;
+	socklen_t fromlen = sizeof(from);
+	bzero(buf, 1024);
+	int ret = 0;
+	if (setsockopt(ping->sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+	    perror("setsockopt failed\n");
+	    exit(1);
+	}
+ 	if (setsockopt(ping->sockfd, IPPROTO_IP, IP_TTL, &ping->ttl, sizeof(ping->ttl)) == -1) {
+    	fprintf(stderr, "ft_ping: error set setsockopt ttl: %s\n", strerror(errno));
+    	return EXIT_FAILURE;
+  	}
+	struct timeval end_time;
+	
+	gettimeofday(&ping->lst, NULL);
+
+	sendto(ping->sockfd, ping->icmp_header, sizeof(ping->icmp_header), 0, (struct sockaddr*)&ping->dest_addr, sizeof(ping->dest_addr));
+
+	ret = recvfrom(ping->sockfd, &buf, sizeof(buf), 0, (struct sockaddr*)&from, &fromlen);
+	if (ret < 0) {
+	    printf("Timeout\n");
+	} else {
+	    printf("Reply from %s\n", inet_ntoa(from.sin_addr));
+	}
+	
+//TODO timne to live
+
+	gettimeofday(&end_time, NULL);
+	double rtt = (end_time.tv_sec - ping->lst.tv_sec) * 1000.0;
+	rtt += (end_time.tv_usec - ping->lst.tv_usec) / 1000.0;
+	printf("%d bytes received from %s (%s), seq: %d ; tt = %d ; Ping response time: %f ms\n", ret, ping->target, ping->ip, ping->seq, ping->ttl, rtt);
+	return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int main(int argc, char** argv){
 
@@ -70,25 +137,25 @@ int main(int argc, char** argv){
 		return 0;
 	bzero(ping, sizeof(t_ping));
  
-	sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP); 
-	if (sockfd == -1)
+	ping->sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP); 
+	if (ping->sockfd == -1)
 		exit(fprintf(stderr, "failed sockfd\n"));
 	ping->target = argv[1];
 	host_to_ip(ping);
 	ping->ttl = 64;
-	ping->seq = 1;
+	ping->seq = 0;
 // HEADER IP
-	struct iphdr ip_header;
-	memset(&ip_header, 0, sizeof(ip_header));
+	// struct iphdr ip_header;
+	// memset(&ip_header, 0, sizeof(ip_header));
 
-    ip_header.ihl = 5;
-    ip_header.version = 4;
-    ip_header.ttl = 64;
-    ip_header.protocol = IPPROTO_ICMP;
-    ip_header.daddr = inet_addr(ping->ip);
-    ip_header.id = htons(getpid() & 0xFFFF);
-    ip_header.tot_len = sizeof(struct iphdr) + sizeof(struct icmphdr);
-	ping->ip_header = &ip_header;
+    // ip_header.ihl = 5;
+    // ip_header.version = 4;
+    // ip_header.ttl = 64;
+    // ip_header.protocol = IPPROTO_ICMP;
+    // ip_header.daddr = inet_addr(ping->ip);
+    // ip_header.id = htons(getpid() & 0xFFFF);
+    // ip_header.tot_len = sizeof(struct iphdr) + sizeof(struct icmphdr);
+	// ping->ip_header = &ip_header;
 
 // HEADER ICMP
 	struct icmp icmp_header;
@@ -107,39 +174,48 @@ fprintf(stderr, "%s\n", ping->target);
 	ping->dest_addr.sin_family = AF_INET;
 	ping->dest_addr.sin_addr.s_addr = inet_addr(ping->ip);
 //envoie du paquet
-    
-	struct timeval timeout;
-	timeout = (struct timeval){10, 0};   //10s
-	char buf[1024];
-	struct sockaddr_in from;
-	socklen_t fromlen = sizeof(from);
-	bzero(buf, 1024);
-	int ret = 0;
-	if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
-	    perror("setsockopt failed\n");
-	    exit(1);
+
+	while(1){
+		update(ping);
+		usleep(1000000);
 	}
- 	if (setsockopt(sockfd, IPPROTO_IP, IP_TTL, &ping->ttl, sizeof(ping->ttl)) == -1) {
-    	fprintf(stderr, "ft_ping: error set setsockopt ttl: %s\n", strerror(errno));
-    	return EXIT_FAILURE;
-  	}
-	struct timeval end_time;
-	
-	gettimeofday(&ping->lst, NULL);
 
-	sendto(sockfd, ping->icmp_header, sizeof(ping->icmp_header), 0, (struct sockaddr*)&ping->dest_addr, sizeof(ping->dest_addr));
-
-	ret = recvfrom(sockfd, &buf, sizeof(buf), 0, (struct sockaddr*)&from, &fromlen);
-	if (ret < 0) {
-	    printf("Timeout\n");
-	} else {
-	    printf("Reply from %s\n", inet_ntoa(from.sin_addr));
-	}
-	
-//TODO timne to live
-
-	gettimeofday(&end_time, NULL);
-	double rtt = (end_time.tv_sec - ping->lst.tv_sec) * 1000.0;
-	rtt += (end_time.tv_usec - ping->lst.tv_usec) / 1000.0;
-	printf("%d bytes received from %s (%s), seq: %d ; tt = %d ; Ping response time: %f ms\n", ret, ping->target, ping->ip, ping->seq, ping->ttl, rtt);
 }
+// 	struct timeval timeout;
+// 	timeout = (struct timeval){10, 0};   //10s
+// 	char buf[1024];
+// 	struct sockaddr_in from;
+// 	socklen_t fromlen = sizeof(from);
+// 	bzero(buf, 1024);
+// 	int ret = 0;
+// 	if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+// 	    perror("setsockopt failed\n");
+// 	    exit(1);
+// 	}
+//  	if (setsockopt(sockfd, IPPROTO_IP, IP_TTL, &ping->ttl, sizeof(ping->ttl)) == -1) {
+//     	fprintf(stderr, "ft_ping: error set setsockopt ttl: %s\n", strerror(errno));
+//     	return EXIT_FAILURE;
+//   	}
+// 	struct timeval end_time;
+	
+// 	gettimeofday(&ping->lst, NULL);
+
+// 	sendto(sockfd, ping->icmp_header, sizeof(ping->icmp_header), 0, (struct sockaddr*)&ping->dest_addr, sizeof(ping->dest_addr));
+
+// 	ret = recvfrom(sockfd, &buf, sizeof(buf), 0, (struct sockaddr*)&from, &fromlen);
+// 	if (ret < 0) {
+// 	    printf("Timeout\n");
+// 	} else {
+// 	    printf("Reply from %s\n", inet_ntoa(from.sin_addr));
+// 	}
+	
+// //TODO timne to live
+
+// 	gettimeofday(&end_time, NULL);
+// 	double rtt = (end_time.tv_sec - ping->lst.tv_sec) * 1000.0;
+// 	rtt += (end_time.tv_usec - ping->lst.tv_usec) / 1000.0;
+// 	printf("%d bytes received from %s (%s), seq: %d ; tt = %d ; Ping response time: %f ms\n", ret, ping->target, ping->ip, ping->seq, ping->ttl, rtt);
+
+
+
+
