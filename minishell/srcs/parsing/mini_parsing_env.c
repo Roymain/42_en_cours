@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_parsing_env.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:01:02 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/01 23:58:06 by rcuminal         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:46:13 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_parsenv(t_list **list, char **ev, t_track **t)
 {

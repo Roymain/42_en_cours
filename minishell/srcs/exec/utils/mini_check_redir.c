@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_check_redir.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 09:01:04 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 09:01:15 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:45:38 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
+#include "../../../includes/mini_exec.h"
 
 int	ft_checkifredir(t_list **lst)
 {

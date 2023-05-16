@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_not_found.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 09:32:23 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 09:33:36 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:45:47 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
+#include "../../../includes/mini_exec.h"
 
 void	mini_not_found(t_cmd *cmd, t_env *env, char *path)
 {

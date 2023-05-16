@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:20 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/06/22 15:19:41 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:05:06 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 static void	mini_condition(char *line, t_mini *mini)
 {
@@ -26,7 +26,7 @@ static void	mini_condition(char *line, t_mini *mini)
 static void	mini_main_loop(t_mini *mini, char *line)
 {
 	mini_init_cmd(mini);
-	add_history(line);
+	//add_history(line);
 	mini_condition(line, mini);
 	ft_free_all(mini->track_cmd);
 	free(line);
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	status = mini.env->return_value;
 	ft_free_all(mini.track_env);
 	free(line);
-	rl_clear_history();
+	//rl_clear_history();
 	printf("exit\n");
 	exit (status);
 }

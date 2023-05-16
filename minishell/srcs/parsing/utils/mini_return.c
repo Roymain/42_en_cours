@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_return.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:57:43 by mathmart          #+#    #+#             */
-/*   Updated: 2022/05/30 22:21:35 by rcuminal         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:02:01 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 char	*mini_return(char *arg, t_env *env)
 {

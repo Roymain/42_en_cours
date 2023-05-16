@@ -1,139 +1,23 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mathmart <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/05 16:37:55 by mathmart          #+#    #+#              #
-#    Updated: 2022/06/22 16:44:57 by mathmart         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -L./libft  -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
+LDLIBS = -lft -lreadline
+SRC_DIR = ./srcs
+OBJ_DIR = ./objs
+SOURCES = $(shell find $(SRC_DIR) -type f -name '*.c')
+OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
+EXECUTABLE = minishell
 
--include ./Config/Sources.mk
--include ./Config/Header.mk
+all: $(EXECUTABLE)
 
-#################################################################################
-#									Colors										#
-#################################################################################
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
-GREY		= \033[4;34m
-RED			= \033[1;31m
-GREEN		= \033[3;32m
-YELLOW		= \033[2;49;33m
-BLUE		= \033[4;34m
-BLUEE		= \033[3;34m
-PURPLE		= \033[3;35m
-CYAN		= \033[3;36m
-RESET		= \033[0m
-ICONOK		= \033[1;32m
-ICONKO		= \033[1;31m
-CO_DELET	= \033[4;31m
-CO_A_OUT	= \033[96m
-WHITE		= \033[1;49;97m
-
-#################################################################################
-#									Variables									#
-#################################################################################
-
-NAME		= minishell
-MK_DIR		= Config
-OBJS		= $(SRCS:%.c=%.o)
-OBJ_DIR 	= Objects
-OBJ_PATH	= $(addprefix $(OBJ_DIR)/, $(OBJS))
-DEPENDES	= $(OBJ_PATH:%.o=%.d)
-CFLAGS		= -Wall -Werror -Wextra -glldb -O3 -Ofast -flto -march=native -ffast-math 
-LIBFT		= libft/libft.a
-TRACKER		= srcs/utils/tracker/libtracker.a
-DIR_TRACK	= srcs/utils/tracker
-INC_INC		= -I ~/.brew/opt/readline/include -I ./srcs/utils/tracker/include -I ./Includes
-INC_LIB		= -L ~/.brew/opt/readline/lib
-LIB			= -lreadline $(INC_LIB) $(INC_INC) -L $(DIR_TRACK) -ltracker -L ./libft/ -lft
-CONFIG		= $(shell find [0-9a-zA-Z]* -type d -name "Config")
-
-#################################################################################
-#									Compilation C								#
-#################################################################################
-
-$(NAME): $(OBJ_PATH)
-	@$(MAKE) -C ./libft/
-	@$(MAKE) -C ./srcs/utils/tracker/
-	@gcc $(LIB) $(CFLAGS) $(OBJ_PATH) -o $(NAME)
-	@printf "\033[2K\r$(BLUE)$(NAME)$(RESET)$(BLUEE): $(ICONOK)Compiled [√]$(RESET)\n"
-
-all: gmk $(LIBFT) $(TRACKER) $(NAME) $(HEADER)
-
-#################################################################################
-#									Compilation Objects							#
-#################################################################################
-
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	@gcc $(CFLAGS) $(INC_INC) \
-	-D READLINE_PATH=\"$(BREW_INCLUDES_PATH)/readline/readline.h\" \
-	-D HISTORY_PATH=\"$(BREW_INCLUDES_PATH)/readline/history.h\" \
-	-c $< -o $@
-	@printf "\033[2K\r$(PURPLE)$<: $(CYAN)loading..$(RESET)"
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(OBJ_DIR):
-	@printf "\033[1;32mCreate OBJS_DIR $(CO_DELET)\033[3;32m [√]\033[0m\n"
-
-#################################################################################
-#									Prerequis									#
-#################################################################################
-
-$(LIBFT):
-	@$(MAKE) -C ./libft/
-
-$(TRACKER):
-	@$(MAKE) -C ./srcs/utils/tracker/
-
-#################################################################################
-#									Clean										#
-#################################################################################
+.PHONY: clean
 
 clean:
-	@$(RM) $(OBJ_PATH)
-	@printf "\033[1;31mDelete OBJS $(CO_DELET)$(NAME)\033[3;32m [√]\033[0m\n"
-
-fclean:
-	@$(RM) $(OBJ_PATH)
-	@$(RM) $(NAME)
-	@$(RM) -rf $(NAME).dSYM a.out Objects
-	@printf "\033[1;31mDelete $(CO_DELET)$(NAME)\033[3;32m [√]\033[0m\n"
-
-#################################################################################
-#									Gen MK										#
-#################################################################################
-
-$(MK_DIR):
-ifneq ($(CONFIG), Config)
-	@mkdir Config
-endif
-
-gmk: $(MK_DIR)
-	@echo "SRCS += " > ./Config/Sources.mk
-	@find srcs -name '*.c' | sed 's/^/SRCS += /' >> ./Config/Sources.mk
-	@echo "HEADER += " > ./Config/Header.mk
-	@find Includes -name '*.h' | sed 's/^/HEADER += /' >> ./Config/Header.mk
-	@echo "`sed '/tracker/d' ./Config/Sources.mk`" > ./Config/Sources.mk
-
-#################################################################################
-#									Norminette									#
-#################################################################################
-
-norme:
-	@printf "\033[1;36m"
-	norminette -R CheckDefine ./includes/
-	@printf "\n\033[1;32m"
-	norminette -R CheckForbiddenSourceHeader ./srcs/
-
-#################################################################################
-#									Clena & Compilation							#
-#################################################################################
-
-re: fclean all
-
-.PHONY: re fclean clean all gmk norme
-
--include $(DEPENDES)
+	rm -rf $(OBJ_DIR)
+	rm -f $(EXECUTABLE)

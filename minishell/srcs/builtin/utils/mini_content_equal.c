@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_content_equal.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 09:58:46 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/17 09:59:17 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:44:36 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_builtin.h"
+#include "../../../includes/mini_builtin.h"
 
 int	mini_content_equal(char *str, char c)
 {

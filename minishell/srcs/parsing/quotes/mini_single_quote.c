@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_single_quote.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:28:29 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 11:01:38 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:00:34 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 static char	*mini_do_loop_simple(int *j, char *str, char *tmp)
 {

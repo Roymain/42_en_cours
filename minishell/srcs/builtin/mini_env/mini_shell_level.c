@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell_level.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 22:15:19 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/21 00:14:37 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:03:29 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
-#include "mini_parsing.h"
+#include "../../../includes/mini_exec.h"
+#include "../../../includes/mini_parsing.h"
 
 static void	mini_is_minishell(const char *str, t_env *env, int shellv)
 {

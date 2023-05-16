@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_display_redir_error.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathismartini <mathismartini@student.42.fr>+#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 20:06:26 by mathismartini     #+#    #+#             */
-/*   Updated: 2022/06/22 20:06:26 by mathismartini    ###   ########.fr       */
+/*   Created: 2022/06/22 20:06:26 by mathismarti       #+#    #+#             */
+/*   Updated: 2023/05/16 22:01:07 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_parsing.h"
+#include "../../../includes/mini_parsing.h"
 
 void	mini_display_redir_error(void)
 {

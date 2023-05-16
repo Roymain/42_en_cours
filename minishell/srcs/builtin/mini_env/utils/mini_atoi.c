@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_atoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 23:20:43 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/20 23:38:43 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:03:20 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
+#include "../../../../includes/mini_exec.h"
 
 uint64_t	mini_atoi(const char *str)
 {

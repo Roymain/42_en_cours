@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_modify_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 22:40:17 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/21 00:10:08 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:03:03 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
+#include "../../../../includes/mini_exec.h"
 
 static int	ft_strenvcmp(const char *s1, const char *s2)
 {

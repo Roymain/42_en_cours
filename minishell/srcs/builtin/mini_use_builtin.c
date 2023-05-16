@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_use_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:42:31 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/06/17 12:03:25 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:44:19 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static void	mini_display_exit(t_env *env, const char *str)
 {

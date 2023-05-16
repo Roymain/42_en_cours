@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_double_quote.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:39:41 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 23:55:28 by mathismartini    ###   ########.fr       */
+/*   Updated: 2023/05/16 22:00:47 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	mini_arg_loop(char *str, int *index[2], char *arg)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_redirection_second_part.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 20:37:19 by mathmart          #+#    #+#             */
-/*   Updated: 2022/05/31 21:56:42 by rcuminal         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:01:36 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	first_j_cut(int j, t_list *list, char **cmd, t_mini *mini)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_init_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:15:52 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 15:17:12 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:46:30 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	mini_init(t_mini *mini, int argc, char **argv)
 {

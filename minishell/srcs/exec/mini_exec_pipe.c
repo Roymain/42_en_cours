@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_exec_pipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 03:08:31 by rcuminal          #+#    #+#             */
-/*   Updated: 2022/06/22 09:30:41 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:45:22 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static void	ft_closepfd(int *pfd)
 {

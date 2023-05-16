@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 19:25:39 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 22:32:54 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:46:11 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_nextchar(char *str, int *retrn)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_parsing_quote.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:30:46 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 22:38:46 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:00:48 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	mini_condition(char **str, int i, t_mini *mini)
 {

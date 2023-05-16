@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_exec_redirection.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 09:02:32 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 09:05:27 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:45:25 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
+#include "../../includes/mini_exec.h"
 
 static char	*mini_no_back(char *str)
 {

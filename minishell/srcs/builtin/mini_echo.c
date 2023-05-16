@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:41:35 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/14 17:05:55 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:43:45 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_builtin.h"
+#include "../../includes/mini_builtin.h"
 
 static int	ft_optionecho(char *str)
 {

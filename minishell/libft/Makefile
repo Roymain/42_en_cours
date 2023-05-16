@@ -1,103 +1,90 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mathmart <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: Romain <Romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/01/03 19:44:56 by rcuminal          #+#    #+#              #
-#    Updated: 2022/05/07 21:52:39 by mathmart         ###   ########.fr        #
+#    Created: 2021/11/10 12:30:54 by rcuminal          #+#    #+#              #
+#    Updated: 2023/05/16 21:56:03 by Romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
--include Config/Sources.mk
--include Config/Header.mk
+NAME = libft.a
 
-#################################################################################
-#									Colors										#
-#################################################################################
+SRCS = 	srcs/ft_atoi.c \
+	   	srcs/ft_calloc.c \
+	   	srcs/ft_isalpha.c \
+	   	srcs/ft_isdigit.c \
+	   	srcs/ft_memchr.c \
+	   	srcs/ft_memcpy.c \
+	   	srcs/ft_memmove.c \
+	   	srcs/ft_strchr.c \
+	   	srcs/ft_strlcat.c \
+	   	srcs/ft_strlen.c \
+	   	srcs/ft_strnstr.c \
+	   	srcs/ft_bzero.c \
+	   	srcs/ft_isalnum.c \
+	   	srcs/ft_strrchr.c \
+	   	srcs/ft_isascii.c \
+	   	srcs/ft_isprint.c \
+	   	srcs/ft_memcmp.c \
+	   	srcs/ft_memset.c \
+	   	srcs/ft_strdup.c \
+	   	srcs/ft_strncmp.c \
+	   	srcs/ft_itoa.c \
+	   	srcs/ft_putchar_fd.c \
+	   	srcs/ft_putendl_fd.c \
+	   	srcs/ft_putnbr_fd.c \
+	   	srcs/ft_putstr_fd.c \
+	   	srcs/ft_striteri.c \
+	   	srcs/ft_strjoin.c \
+	   	srcs/ft_strmapi.c \
+	   	srcs/ft_strtrim.c \
+	   	srcs/ft_tolower.c \
+	   	srcs/ft_toupper.c \
+	   	srcs/ft_strlcpy.c \
+	   	srcs/ft_split.c \
+		srcs/ft_lstnew.c \
+		srcs/ft_lstadd_front.c \
+		srcs/ft_lstsize.c \
+		srcs/ft_lstlast.c \
+		srcs/ft_lstadd_back.c \
+		srcs/ft_lstdelone.c \
+		srcs/ft_lstclear.c \
+		srcs/ft_lstiter.c \
+		srcs/ft_freetab.c \
+		srcs/ft_memalloc.c \
+		srcs/ft_strichr.c \
+		srcs/ft_strndup.c \
+		srcs/ft_strnndup.c \
 
-GREY		= \033[4;34m
-RED			= \033[1;31m
-GREEN		= \033[3;32m
-YELLOW		= \033[2;49;33m
-BLUE		= \033[4;34m
-BLUEE		= \033[3;34m
-PURPLE		= \033[3;35m
-CYAN		= \033[3;36m
-RESET		= \033[0m
-ICONOK		= \033[1;32m
-ICONKO		= \033[1;31m
-CO_DELET	= \033[4;31m
-CO_A_OUT	= \033[96m
-WHITE		= \033[1;49;97m
+		
 
-#################################################################################
-#									Variables									#
-#################################################################################
+OBJS = ${SRCS:.c=.o}
 
-NAME		= libft.a
-OBJ_DIR		= objs
-OBJS		= $(SRCS:%.c=%.o)
-OBJ_PATH	= $(addprefix $(OBJ_DIR)/, $(OBJS))
-CFLAGS		= -Wall -Werror -Wextra -I ./includes
-CONFIG		= $(shell find [0-9a-zA-Z]* -type d -name "Config")
-MK_DIR		= Config 
 
-#################################################################################
-#									Compilation C								#
-#################################################################################
+CC = gcc
+RM = rm -f
 
-all: gmk $(NAME)
+FLAGS = -Wall -Werror -Wextra
 
-$(NAME): $(OBJ_PATH)
-	@ar rcs $(NAME) $(OBJ_PATH) $(NAME)
-	@printf "\033[2K\r$(BLUE)$(NAME)$(RESET)$(BLUEE): $(ICONOK)Compiled [√]$(RESET)\n"
+%.o : %.c libft.h
+	${CC} ${FLAGS} -I includes -c $< -o $@
 
-#################################################################################
-#									Compilation Objects							#
-#################################################################################
+$(NAME): ${OBJS}
+	ar rcs ${NAME} ${OBJS}
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@mkdir -p $(@D)
-	@gcc $(CFLAGS) -c $< -o $@
-	@printf "\033[2K\r$(PURPLE)$<: $(CYAN)loading..$(RESET)"
 
-$(OBJ_DIR):
-	@printf "\033[1;32mCreate OBJS_DIR $(CO_DELET)\033[3;32m [√]\033[0m\n"
 
-#################################################################################
-#									Clean										#
-#################################################################################
+all: ${NAME}
 
 clean:
-	@-/bin/rm -rf $(OBJ_PATH)
-	@printf "\033[1;31mDelete OBJS $(CO_DELET)$(NAME)\033[3;32m [√]\033[0m\n"
+	${RM} ${OBJS} 
 
-fclean: clean
-	@-/bin/rm -rf $(OBJ_DIR) $(NAME) $(CONFIG)
-	@printf "\033[1;31mDelete $(CO_DELET)$(NAME)\033[3;32m [√]\033[0m\n"
+fclean:	clean
+	${RM} ${NAME}
 
-#################################################################################
-#									Gen MK										#
-#################################################################################
-
-$(MK_DIR):
-ifneq ($(CONFIG), Config)
-	@mkdir Config
-endif
-
-gmk: $(MK_DIR)
-	@echo "SRCS += " > ./Config/Sources.mk
-	@find srcs -name '*.c' | sed 's/^/SRCS += /' >> ./Config/Sources.mk
-	@echo "HEADER += " > ./Config/Header.mk
-	@find Includes -name '*.h' | sed 's/^/HEADER += /' >> ./Config/Header.mk
-
-#################################################################################
-#									Clena & Compilation							#
-#################################################################################
-
-re: fclean all
-
-.PHONY: all clean fclean gmk re
+re:	fclean all
+         
+.PHONY: all clean fclean re

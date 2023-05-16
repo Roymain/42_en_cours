@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_redirection_first_part.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 20:37:38 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 20:09:14 by mathismartini    ###   ########.fr       */
+/*   Updated: 2023/05/16 22:01:10 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	mini_cut_condition(char **cmd, int *i, t_list *tmp, t_mini *mini)
 {

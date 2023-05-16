@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_str_add.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 22:46:06 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 16:43:33 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:03:14 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
+#include "../../../../includes/mini_exec.h"
 #include <limits.h>
 
 static int	mini_check_level(uint64_t shellv)

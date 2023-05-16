@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_check_builtin.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:55:00 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/17 11:07:01 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:44:34 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_builtin.h"
+#include "../../../includes/mini_builtin.h"
 
 static void	mini_init_list(char *list[10])
 {

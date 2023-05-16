@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_join_arg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 10:44:55 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 22:20:58 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:00:56 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../../includes/minishell.h"
 
 static void	mini_condition_arg(char **tmp, t_mini *mini, char *arg)
 {

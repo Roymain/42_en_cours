@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 19:45:39 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 20:04:18 by mathismartini    ###   ########.fr       */
+/*   Updated: 2023/05/16 22:01:48 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	mini_init_redir(
 	t_list **tmp,

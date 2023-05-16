@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:39:54 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 21:59:05 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:44:00 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_builtin.h"
+#include "../../includes/mini_builtin.h"
 
 void	mini_free_pwd(char **pwd, char **old)
 {

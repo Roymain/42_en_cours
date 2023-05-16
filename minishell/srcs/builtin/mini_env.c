@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <mathmart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:42:34 by mathmart          #+#    #+#             */
-/*   Updated: 2022/05/30 17:42:34 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:43:53 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_builtin.h"
+#include "../../includes/mini_builtin.h"
 
 void	builtin_env(t_env *env)
 {

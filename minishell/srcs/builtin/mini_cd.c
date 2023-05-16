@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:38:34 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 21:57:24 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:43:28 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_builtin.h"
+#include "../../includes/mini_builtin.h"
 
 static int	ft_strcmp_expert(const char *s1, const char *s2)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_strjoin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcuminal <rcuminal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:55:01 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/02 03:27:54 by rcuminal         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:02:04 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../includes/minishell.h"
 
 static size_t	ft_size(const char *s1, const char *s2)
 {

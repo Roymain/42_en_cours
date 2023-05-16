@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_scotch.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Romain <Romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 09:12:16 by mathmart          #+#    #+#             */
-/*   Updated: 2022/06/22 09:30:24 by mathmart         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:45:50 by Romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_exec.h"
+#include "../../../includes/mini_exec.h"
 
 static void	mini_close_fd(int *pfd)
 {
