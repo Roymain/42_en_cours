@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -10,7 +11,13 @@
            do { perror(msg); exit(EXIT_FAILURE); } while (0)
 
 int main(int argc, char **argv){
-    unsigned char *addr;
+
+
+    Elf32_Sym *symtab;
+    char *strtab;
+    int count;
+
+    void *addr;
     int fd;
     struct stat sb;
     off_t offset, pa_offset;
@@ -69,8 +76,30 @@ int main(int argc, char **argv){
     int i = 0;
     char *exec = NULL;
 
-    hdr = (Elf32_Ehdr *) adrr;
+    hdr = (Elf32_Ehdr *) addr;
+    shdr = (Elf32_Shdr *) (addr + hdr->e_shoff);
 
+    symtab = NULL;
+    strtab = NULL;
+    for (i = 0; i < hdr->e_shnum; i++) {
+        if (shdr[i].sh_type == SHT_SYMTAB) {
+            symtab = (Elf32_Sym *) (addr + shdr[i].sh_offset);
+            count = shdr[i].sh_size / sizeof(Elf32_Sym);
+        } else if (shdr[i].sh_type == SHT_STRTAB && strcmp(".strtab", (char *) (addr + shdr[i].sh_name)) == 0) {
+            strtab = (char *) (addr + shdr[i].sh_offset);
+        }
+    }
+
+    if (symtab == NULL || strtab == NULL) {
+        fprintf(stderr, "Failed to find symbol table or string table\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (i = 0; i < count; i++) {
+        printf("%08x %08x %s\n", symtab[i].st_value, symtab[i].st_size, strtab + symtab[i].st_name);
+    }
+
+    munmap(addr, lseek(fd, 0, SEEK_END));
 
     return 0;
 }
