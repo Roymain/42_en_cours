@@ -10,8 +10,7 @@ dataset = df.to_numpy()
 print(df.columns)
 
 
-#faire check valeurs numeriques
-#creer le tableau de sortie => vide
+
 
 def std(dataset, MEAN, col_name):
 	i = 0
@@ -32,7 +31,7 @@ for col_name in df.columns:
 	tmax = - np.inf
 	tmin = np.inf
 	for value in df[col_name]:
-		if type(value) == str:
+		if type(value) is str:
 			break
 		if np.isnan(value):
 			continue
@@ -48,10 +47,14 @@ for col_name in df.columns:
 	else:
 		MEAN = total / nb
 		STD = std(df, MEAN, col_name)
-		print(col_name, " = >  ", STD)
+		print(col_name, ": STD = ", STD, ", MEAN= ", MEAN,  ", Min= ", tmin, ", Max= ", tmax)
+		print(np.std(df[col_name]))
 
 
-
+# TODO foutre ca dans un tableau, et executable comme dans le sujet
+# + autres script :
+		# histogram => celui avec le plus petit ecart type
+		# 
 
 # import pandas as pd
 
